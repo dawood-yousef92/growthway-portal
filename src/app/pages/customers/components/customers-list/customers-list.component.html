@@ -1,0 +1,13 @@
+<div class="card card-custom example-preview">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">{{ "MENU.CUSTOMERS_LIST" | translate }}</h3>
+      </div>
+      <div *ngIf="actions.includes('create')" class="d-flex align-items-center">
+        <a routerLink="add-user" class="btn btn-primary">{{ "MENU.ADD_USER" | translate }} <i class="flaticon2-plus icon-sm ml-2"></i></a>
+      </div>
+    </div>
+    <div class="card-body">
+      <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"></app-dynamic-table>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="card card-custom example-preview">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 *ngIf="!rolId" class="card-label">{{ "MENU.ADD_ROLE" | translate }}</h3>
+        <h3 *ngIf="rolId" class="card-label">{{ "MENU.EDIT_ROLE" | translate }}</h3>
+      </div>
+    </div>
+    <div class="card-body">
+        <div class="row" *ngIf="addRol">
+            <div class="col-12">
+                <form class="form" [formGroup]="addRol" novalidate="novalidate" (ngSubmit)="submit()">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="text" matInput placeholder="Name" formControlName="name"/>    
+                                </mat-form-field>
+                            </div>
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <mat-select class="py-1" placeholder="permessions" formControlName="permessions" multiple>
+                                      <mat-optgroup class="custom-multiple-group-select" *ngFor="let permession of permessions">
+                                        <mat-checkbox [checked]="checkIfSelectedAll(permession.id)" class="font-weight-bolder text-dark" (change)="selectAll($event, permession.id)">{{permession.name}}</mat-checkbox>  
+                                        <mat-option *ngFor="let item of permession.permissions" [value]="item.id">
+                                           {{ item.name }}
+                                        </mat-option>
+                                      </mat-optgroup>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="mb-5">
+                                <mat-checkbox formControlName="isDefault">Is default</mat-checkbox>  
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" [disabled]="addRol.invalid">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+      <div class="fv-plugins-message-container">
+        <div class="fv-help-block">
+          {{ message }}
+        </div>
+      </div>
+    </mat-error>
+</ng-template>
+  

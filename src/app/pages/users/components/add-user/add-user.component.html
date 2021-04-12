@@ -1,0 +1,144 @@
+<div class="card card-custom example-preview">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 *ngIf="!userId" class="card-label">{{ "MENU.ADD_USER" | translate }}</h3>
+        <h3 *ngIf="userId && !isPermissions" class="card-label">{{ "MENU.EDIT_USER" | translate }}</h3>
+        <h3 *ngIf="userId && isPermissions" class="card-label">Edit user {{userData?.name}} permissions</h3>
+      </div>
+    </div>
+    <div class="card-body">
+        <div class="row" *ngIf="addUser">
+            <div class="col-12">
+                <form class="form" [formGroup]="addUser" novalidate="novalidate" (ngSubmit)="submit()">
+                    <mat-tab-group *ngIf="!isPermissions">
+                        <mat-tab label="User Information">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" mb-md-5 mb-3 d-flex align-items-center flex-wrap">
+                                        <div class="my-profile-img" style="background-image: url('{{selectedImageUrl || defaultImage}}');"></div>
+                                        <div>
+                                            <button type="button" (click)="changePhoto()" class="btn btn-default mx-sm-4 mx-3 c-white border-white d-block mb-3">Change Photo</button>
+                                            <button *ngIf="selectedImageUrl" type="button" (click)="removePhoto()" class="btn btn-default mx-sm-4 mx-3 c-white border-white">Remove Photo</button>
+                                        </div>
+                                        <input id="photoInput" type="file" accept=".PNG,.JPEG,.jpg" (change)="readURL($event)" class="d-none" placeholder="Enter photo">
+                                        <p *ngIf="errorImageSize" class="c-red mb-0">Please select photo whith size less than 2M</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-4">
+                                        <mat-form-field class="w-100">
+                                            <input class="py-1" type="text" matInput placeholder="Name" formControlName="name"/>    
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="mb-4">
+                                        <mat-form-field class="w-100">
+                                            <input class="py-1" type="text" matInput placeholder="Surname" formControlName="surname"/>    
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="mb-4">
+                                        <mat-form-field class="w-100">
+                                            <input class="py-1" type="text" matInput placeholder="Email" formControlName="email"/>
+                                        </mat-form-field>
+                                        <mat-error
+                                            [ngTemplateOutlet]="formError"
+                                            [ngTemplateOutletContext]="{
+                                            validation: 'email',
+                                            message: 'Email is invalid',
+                                            control: addUser.controls['email']
+                                            }"
+                                        ></mat-error>
+                                    </div>
+                                    <div class="mb-4">
+                                        <mat-form-field class="w-100">
+                                            <input class="py-1" type="text" matInput placeholder="Phone Number" formControlName="phoneNumber"/>
+                                            <mat-error
+                                                [ngTemplateOutlet]="formError"
+                                                [ngTemplateOutletContext]="{
+                                                validation: 'pattern',
+                                                message: 'Phone is invalid',
+                                                control: addUser.controls['phoneNumber']
+                                                }"
+                                            ></mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div *ngIf="!userId" class="mb-5">
+                                        <mat-checkbox formControlName="setRandomPassword">Set Random Password</mat-checkbox>  
+                                    </div>
+                                    <div *ngIf="!addUser.controls.setRandomPassword.value && !userId" class="mb-4">
+                                        <mat-form-field class="w-100">
+                                            <input class="py-1" type="password" matInput placeholder="Password" formControlName="password"/>    
+                                        </mat-form-field>
+                                    </div>
+                                    <div *ngIf="!addUser.controls.setRandomPassword.value && !userId" class="mb-4">
+                                        <mat-form-field class="w-100">
+                                            <input class="py-1" type="password" matInput placeholder="New password confirmation" formControlName="cPassword"/>
+                                            <mat-error
+                                                [ngTemplateOutlet]="formError"
+                                                [ngTemplateOutletContext]="{
+                                                validation: 'ConfirmPassword',
+                                                message: 'New passsword and Confirm Password didn\'t match.',
+                                                control: addUser.controls['cPassword']
+                                                }"
+                                            ></mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div *ngIf="!userId" class="mb-5">
+                                        <mat-checkbox formControlName="mustSendActivationEmail">Send activation email</mat-checkbox>  
+                                    </div>
+                                    <div class="mb-5">
+                                        <mat-checkbox formControlName="isActive">Is Active</mat-checkbox>  
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                        <mat-tab [label]="'MENU.ROLS' | translate ">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-4">
+                                        <mat-form-field class="w-100">
+                                            <mat-select class="py-1" placeholder="Select Groups" formControlName="assignedRolesIds" multiple>
+                                            <mat-option *ngFor="let rol of rols" [value]="rol.id">{{rol.name}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                    <div *ngIf="isPermissions" class="row">
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <mat-select placeholder="permissions" formControlName="permissions" multiple>
+                                      <mat-optgroup class="custom-multiple-group-select" *ngFor="let permission of permissions">
+                                        <mat-checkbox [checked]="checkIfSelectedAll(permission.id)" class="font-weight-bolder text-dark" (change)="selectAll($event, permission.id)">{{permission.name}}</mat-checkbox>  
+                                        <mat-option *ngFor="let item of permission.permissions" [value]="item.id">
+                                           {{ item.name }}
+                                        </mat-option>
+                                      </mat-optgroup>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" [disabled]="addUser.invalid">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+      <div class="fv-plugins-message-container">
+        <div class="fv-help-block">
+          {{ message }}
+        </div>
+      </div>
+    </mat-error>
+</ng-template>
+  

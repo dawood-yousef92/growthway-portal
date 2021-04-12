@@ -1,0 +1,55 @@
+<div class="card card-custom example example-compact gutter-b">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <form class="form" [formGroup]="updateEmail" novalidate="novalidate" (ngSubmit)="submit()">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-6">
+                                <mat-form-field class="w-100">
+                                    <input class="py-2" matInput placeholder="Email Address" [value]="userData.email" disabled>
+                                </mat-form-field>
+                            </div>
+                            <div class="mb-6">
+                                <mat-form-field class="w-100">
+                                    <input class="py-2" matInput placeholder="Enter your new email" formControlName="newEmail"/>    
+                                    <mat-error
+                                        [ngTemplateOutlet]="formError"
+                                        [ngTemplateOutletContext]="{
+                                        validation: 'email',
+                                        message: 'Email is invalid',
+                                        control: updateEmail.controls['newEmail']
+                                        }"
+                                    ></mat-error>
+                                    <mat-error
+                                        [ngTemplateOutlet]="formError"
+                                        [ngTemplateOutletContext]="{
+                                        validation: 'required',
+                                        message: 'Email is required',
+                                        control: updateEmail.controls['newEmail']
+                                        }"
+                                    ></mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" [disabled]="updateEmail.invalid">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        {{ message }}
+      </div>
+    </div>
+  </mat-error>
+</ng-template>

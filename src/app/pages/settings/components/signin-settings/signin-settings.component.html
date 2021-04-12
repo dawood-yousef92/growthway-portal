@@ -1,0 +1,16 @@
+<div>
+    <form class="form" [formGroup]="signinSettings" novalidate="novalidate" (ngSubmit)="submit()">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="mb-4">
+                    <mat-checkbox formControlName="confirmedAccount">Require confirmed account</mat-checkbox>  
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary" [disabled]="signinSettings.invalid">
+                Save
+            </button>
+        </div>
+    </form>
+</div>

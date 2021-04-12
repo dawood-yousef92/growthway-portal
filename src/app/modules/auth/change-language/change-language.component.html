@@ -1,0 +1,19 @@
+  <ul class="navi navi-hover py-4">
+    <ng-container *ngFor="let language of languages">
+      <li class="lang-item navi-item" [ngClass]="{ active: language.active }">
+        <a
+          href="javascript:;"
+          (click)="setLanguageWithRefresh(language.lang)"
+          [ngClass]="{ active: language.active }"
+          class="navi-link"
+        >
+          <span class="symbol symbol-20 mr-3">
+            <img src="{{ language.flag }}" />
+          </span>
+          <span class="navi-text">{{ language.name }}</span>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+  <!--end::Languages-->
+  

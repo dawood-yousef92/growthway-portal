@@ -1,0 +1,33 @@
+<div class="card card-custom example-preview">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">Add Classification</h3>
+      </div>
+    </div>
+    <div class="card-body">
+        <form class="form" [formGroup]="classificationForm" novalidate="novalidate" (ngSubmit)="submit()">
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-2" type="text" matInput placeholder="Name" formControlName="name"/>    
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-2" type="text" matInput placeholder="Description" formControlName="description"/>    
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" [disabled]="classificationForm.invalid">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

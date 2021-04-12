@@ -1,0 +1,35 @@
+<mat-form-field>
+    <input matInput (keyup)="applyFilter7($event.target.value)" placeholder="Filter"/>
+</mat-form-field>
+<div class="example-container mat-elevation-z8 mat-table-container">
+    <mat-table #sort7="matSort" [dataSource]="dataSource" (matSortChange)="sort($event)" matSort>
+      <ng-container *ngFor="let col of displayedColumns">
+        <ng-container *ngIf="col !== 'actions'" matColumnDef="{{col}}">
+          <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isDisabledSort(col)">
+            {{col | uppercase}}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" [innerHTML]="row[col]"></mat-cell>
+        </ng-container>
+        <ng-container *ngIf="customActions && col === 'actions' " matColumnDef="{{col}}">
+          <mat-header-cell *matHeaderCellDef>
+            {{col | uppercase}}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button *ngFor="let customAction of customActions" (click)="action(customAction.name, row.id)" class="btn btn-icon btn-light btn-hover-primary btn-sm ml-3">
+              <i [class]="customAction.icon"></i>
+            </button>
+          </mat-cell>
+        </ng-container>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator 
+            #matPaginator
+            [length]="pagingData.length"
+            (page)="changePagination($event)"
+            [pageSize]="pagingData.pageSize || '10'"
+            [pageIndex]="pagingData.pageIndex"
+            [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+</div>

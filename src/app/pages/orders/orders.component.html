@@ -1,0 +1,22 @@
+<div class="card card-custom example example-compact gutter-b">
+    <div class="card-body">
+        <mat-tab-group>
+            <mat-tab label="New">
+                <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+            </mat-tab>
+            <mat-tab label="Sent">
+                <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+            </mat-tab>
+            <mat-tab label="Rejected">
+                Rejected
+            </mat-tab>
+            <mat-tab label="Delivered">
+                Delivered
+            </mat-tab>
+            <mat-tab label="All">
+                All
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+  

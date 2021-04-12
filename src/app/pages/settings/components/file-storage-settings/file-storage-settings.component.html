@@ -1,0 +1,23 @@
+<div>
+    <form class="form" [formGroup]="fileStorage" novalidate="novalidate" (ngSubmit)="submit()">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="mb-4">
+                    <mat-radio-group class="example-radio-group" formControlName="storageType">
+                        <mat-radio-button class="example-radio-button" [value]="1">
+                            In-App file storage
+                        </mat-radio-button>
+                        <mat-radio-button class="example-radio-button" [value]="2">
+                            Azure file storage
+                        </mat-radio-button>
+                      </mat-radio-group>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary" [disabled]="fileStorage.invalid">
+                Save
+            </button>
+        </div>
+    </form>
+</div>

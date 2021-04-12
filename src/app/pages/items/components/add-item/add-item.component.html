@@ -1,0 +1,358 @@
+<div class="card card-custom example-preview">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 *ngIf="!productId" class="card-label">{{ "MENU.ADD_ITEM" | translate }}</h3>
+        <h3 *ngIf="productId" class="card-label">Edit Item</h3>
+      </div>
+    </div>
+    <div class="card-body">
+        <form class="form" [formGroup]="itemForm" novalidate="novalidate" (ngSubmit)="submit()">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="Code" formControlName="code"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- <div class="col-md-6 mb-4">
+                    <button type="button" class="btn btn-primary" (click)="openModal(catModal)">Select Category</button>
+                    <span class="mx-2 label label-xl label-light-primary label-inline" *ngIf="itemForm.controls.categoryId.value">
+                        {{selectedCatName}}
+                    </span>
+                </div> -->
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="categoryId" placeholder="Category" required>
+                                <div class="p-2 filter">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <input matInput (keyup)="search($event.target.value,'categories')" (keydown)="$event.stopPropagation()" class="w-100">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <mat-option *ngFor="let cat of categories" [value]="cat.id" [ngClass]="{'d-none': !cat?.name?.toLowerCase().includes(categoriesFilter?.toLowerCase())}">
+                                    <div class="d-flex align-items-center">
+                                        {{cat.name}}
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                [ngTemplateOutlet]="formError"
+                                [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                message: 'This field is required',
+                                control: itemForm.controls['categoryId']
+                                }"
+                            ></mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> 
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="text" matInput placeholder="Name" formControlName="nameEn" required/>
+                                    <mat-error
+                                        [ngTemplateOutlet]="formError"
+                                        [ngTemplateOutletContext]="{
+                                        validation: 'required',
+                                        message: 'This field is required',
+                                        control: itemForm.controls['nameEn']
+                                        }"
+                                    ></mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="text" matInput placeholder="Arabic Name" formControlName="nameAr" required/>
+                                    <mat-error
+                                        [ngTemplateOutlet]="formError"
+                                        [ngTemplateOutletContext]="{
+                                        validation: 'required',
+                                        message: 'This field is required',
+                                        control: itemForm.controls['nameAr']
+                                        }"
+                                    ></mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="originCountryId" placeholder="Original Country" required>
+                                <div class="p-2 filter">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <input matInput (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()" class="w-100">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <mat-option *ngFor="let country of countries" [value]="country.id" [ngClass]="{'d-none': !country?.name?.toLowerCase().includes(countriesFilter?.toLowerCase())}">
+                                    <div class="d-flex align-items-center">
+                                        <span class="symbol symbol-20 mr-3"><img [src]="country.flag"></span>{{country.name}}
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                [ngTemplateOutlet]="formError"
+                                [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                message: 'This field is required',
+                                control: itemForm.controls['originCountryId']
+                                }"
+                            ></mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> 
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="Description" formControlName="descriptionEn"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="Arabic Description" formControlName="descriptionAr"/> 
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="number" matInput placeholder="Price" formControlName="unitPrice" required/>
+                                    <span matSuffix class="ml-3">SAR</span>
+                                    <mat-error
+                                        [ngTemplateOutlet]="formError"
+                                        [ngTemplateOutletContext]="{
+                                        validation: 'required',
+                                        message: 'This field is required',
+                                        control: itemForm.controls['unitPrice']
+                                        }"
+                                    ></mat-error>
+                                </mat-form-field>
+                                <mat-error *ngIf="checkPrice()" role="alert" class="mat-error ng-tns-c180-2 ng-star-inserted">
+                                    <div class="fv-plugins-message-container">
+                                        <div class="fv-help-block">unit price must be less than offer price</div>
+                                    </div>
+                                </mat-error>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <span matSuffix class="ml-3">SAR</span>
+                                    <input class="py-1" type="number" matInput placeholder="Offer Price" formControlName="offerPrice"/>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <mat-select class="py-1" placeholder="Shelf Life Types" formControlName="shelfLifeType">
+                                        <mat-option [value]="null">Select Shelf Life Types</mat-option>
+                                        <mat-option *ngFor="let item of shelfLifeTypes" [value]="item.id">
+                                            {{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="number" matInput placeholder="Shelf Life Duration" formControlName="shelfLifeDuration"/>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <mat-select class="py-1" placeholder="Unit Of Measurements" formControlName="unitOfMeasurementId">
+                                        <mat-option [value]="null">Select Unit Of Measurements</mat-option>
+                                        <mat-option *ngFor="let item of unitOfMeasurements" [value]="item.id">
+                                            {{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="number" matInput placeholder="Minimum Order Quantity" formControlName="minimumOrderQuantity"/>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" placeholder="Packaging Types" formControlName="packagingTypeId">
+                                <mat-option [value]="null">Select Packaging Types</mat-option>
+                                <mat-option *ngFor="let item of packagingTypes" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <div class="d-flex align-items-start">
+                            <mat-form-field class="w-100">
+                                <input id="tagInput" class="py-1" type="text" matInput placeholder="Tags"/>
+                            </mat-form-field>
+                            <button type="button" class="btn btn-primary px-3 py-2" (click)="addTag()"><h2 class="mb-0">+</h2></button>  
+                        </div>
+                        <div class="d-flex flex-wrap">
+                            <span class="mr-2 mb-2 label label-lg label-light-primary label-inline" *ngFor="let tag of tags">
+                                {{tag}}
+                                <button type="button" class="ml-2 label label-lg label-light-primary label-inline border-0 p-1 text-bold" (click)="removeTag(tag)">
+                                    <i class="c-primary flaticon-circle"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-4">
+                    <div class="row">    
+                        <div class="col-12 mb-3">
+                            <input id="select-file" class="d-none" type="file" (change)="fileChangeEvent($event)" onclick="this.value = null"
+                                accept="image/png, image/jpeg, image/jpg" />
+                            <button [disabled]="itemImages.length > 3" (click)="selectFile()" type="button" class="btn btn-primary">Add Item Images<i class="flaticon-upload-1 text-white ml-2"></i></button>
+                        </div>
+                        <div class="col-md-4 mb-3" *ngFor="let img of itemImages; let i = index">
+                            <div class="position-relative">
+                                <button type="button" class="make-primary" (click)="itemForm.get('defaultImageIndex').setValue(i)">
+                                    <i *ngIf="i !== itemForm.controls.defaultImageIndex.value" class="far fa-star"></i>
+                                    <i *ngIf="i === itemForm.controls.defaultImageIndex.value" class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="delete-item" (click)="deleteImg(img)"><i class="flaticon-circle"></i></button>
+                                <img [src]="img.base64.imagePath || img.base64" class="w-100 cursor-pointer" (click)="itemForm.get('defaultImageIndex').setValue(i)"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-checkbox formControlName="isActive">Is Active</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" [disabled]="itemForm.invalid || checkPrice()">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ng-template #cropModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Crop Item Image</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="4 / 3"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded($event)"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addCroppedImage(croppedImage)">Crop Image</button>
+        <div class="fv-plugins-message-container ng-star-inserted w-100 text-center" *ngIf="errorImg">
+            <div class="fv-help-block">Image size larget than 2MB</div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #subCat let-categories="categories">
+    <ng-container *ngIf="categories?.length > 0">
+        <ng-container *ngFor="let cat of categories">
+            <mat-expansion-panel *ngIf="cat.categories?.length > 0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{cat?.name}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
+                </div>
+            </mat-expansion-panel>
+            <mat-panel-title *ngIf="cat.categories?.length === 0" class="mat-expansion-panel-header-title noSub">
+                <mat-radio-button [checked]="itemForm.controls.categoryId.value === cat?.id" (change)="selectCat($event)" [value]="cat?.id">{{cat?.name}}</mat-radio-button>
+            </mat-panel-title>
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #catModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title mb-0">Select Categories</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span class="d-block c-black" aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body categories-modal-body">
+        <mat-radio-group>
+            <mat-accordion class="custom-tree">
+                <ng-container *ngFor="let cat of categories">
+                    <mat-expansion-panel *ngIf="cat.categories?.length > 0">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{cat.name}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div *ngIf="cat.categories?.length > 0" [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-panel-title *ngIf="cat.categories?.length === 0" class="mat-expansion-panel-header-title noSub">
+                        <mat-radio-button (change)="selectCat($event)" [value]="cat?.id">{{cat?.name}}</mat-radio-button>
+                    </mat-panel-title>
+                </ng-container>
+            </mat-accordion>    
+        </mat-radio-group>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Done</button>
+    </div>
+</ng-template>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+      <div class="fv-plugins-message-container">
+        <div class="fv-help-block">
+          {{ message }}
+        </div>
+      </div>
+    </mat-error>
+</ng-template>
+  

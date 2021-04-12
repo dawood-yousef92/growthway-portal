@@ -1,0 +1,45 @@
+<div *ngIf="!isDelete">
+    <h3>Delete My Company</h3>
+    <p>Your company contains personal data that you have given us. This page allows you to delete that data.</p>
+    <h5 class="mb-6">Deleting this data will permanently remove your company data, and this cannot be recovered.</h5>
+    <!-- <button class="btn btn-primary" (click)="downloadPersonalData()">Download</button> -->
+    <button class="btn btn-danger mx-2" (click)="deleteUser()">Delete</button>
+</div>
+
+<div *ngIf="isDelete">
+    <h4 class="mat-error mb-5">Deleting this data will permanently remove your company data, and this cannot be recovered.</h4>
+    <form class="form" [formGroup]="deleteAccount" novalidate="novalidate" (ngSubmit)="submit()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mb-4">
+                    <mat-form-field class="w-100">
+                        <input class="py-2" type="password" matInput placeholder="Password" formControlName="password"/>    
+                        <mat-error
+                            [ngTemplateOutlet]="formError"
+                            [ngTemplateOutletContext]="{
+                            validation: 'required',
+                            message: 'password is required',
+                            control: deleteAccount.controls['password']
+                            }"
+                        ></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary" [disabled]="deleteAccount.invalid">
+                Delete Company
+            </button>
+        </div>
+    </form>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+      <div class="fv-plugins-message-container">
+        <div class="fv-help-block">
+          {{ message }}
+        </div>
+      </div>
+    </mat-error>
+  </ng-template>

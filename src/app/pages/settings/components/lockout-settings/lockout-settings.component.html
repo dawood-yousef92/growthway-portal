@@ -1,0 +1,26 @@
+<div>
+    <form class="form" [formGroup]="lockoutSettings" novalidate="novalidate" (ngSubmit)="submit()">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="mb-6">
+                    <mat-checkbox formControlName="alloweNewUser">Allowed for new users</mat-checkbox>  
+                </div>
+                <div class="mb-4">
+                    <mat-form-field class="w-100">
+                        <input class="py-1" type="number" matInput placeholder="Maximum failed access attempts" formControlName="maximumFieldAccessAttempts"/>    
+                    </mat-form-field>
+                </div>
+                <div class="mb-4">
+                    <mat-form-field class="w-100">
+                        <input class="py-1" type="number" matInput placeholder="Default lockout time span" formControlName="lockoutTimeSpan"/>    
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary" [disabled]="lockoutSettings.invalid">
+                Save
+            </button>
+        </div>
+    </form>
+</div>
