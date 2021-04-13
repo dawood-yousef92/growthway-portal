@@ -51,7 +51,7 @@ export class AddItemComponent implements OnInit {
         this.product?.code || ''
       ],
       minimumOrderQuantity: [
-        this.product?.minimumOrderQuantity || null
+        this.product?.minimumOrderQuantity || 1
       ],
       nameEn: [
         this.product?.nameEn || '',
@@ -105,7 +105,7 @@ export class AddItemComponent implements OnInit {
         this.product?.categoryId || ''
       ],
       isActive: [
-        this.product?.isActive || false
+        this.product?.isActive || true
       ],
     });
   }
@@ -352,7 +352,8 @@ export class AddItemComponent implements OnInit {
       this.itemsService.createProduct(formData).subscribe((data) => {
         this.toaster.success(data.result.successMessage);
         this.loderService.setIsLoading = false;
-        this.router.navigate(['/items']);
+        // this.router.navigate(['/items']);
+        location.reload();
       }, (error) => {
         this.loderService.setIsLoading = false;
       });

@@ -13,6 +13,7 @@ import { RoleGuardService as RoleGuard } from 'src/app/modules/auth/_services/ro
 import { BranchesComponent } from './branches.component';
 import { BranchesListComponent } from './components/branches-list/branches-list.component';
 import { AddBranchComponent } from './components/add-branch/add-branch.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { AddBranchComponent } from './components/add-branch/add-branch.component
     MatFormFieldModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatIconModule,
     GeneralModule,
 
   ],

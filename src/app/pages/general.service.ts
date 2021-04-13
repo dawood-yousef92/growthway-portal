@@ -15,6 +15,10 @@ export class GeneralService {
         return this.http.post<any>('Lookups/GetCountries', {});
     }
     
+    getCitiesByCountryId(id): Observable<any> {
+        return this.http.post<any>('Lookups/GetCitiesByCountryId', {countryId: id});
+    }
+    
     getUnitOfMeasurements(): Observable<any> {
         return this.http.post<any>('Lookups/GetUnitOfMeasurements', {});
     }

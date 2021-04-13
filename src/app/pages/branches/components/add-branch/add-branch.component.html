@@ -1,1 +1,108 @@
-<p>add-branch works!</p>
+<div class="card card-custom example-preview">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 *ngIf="!branchtId" class="card-label">{{ "MENU.ADD_BRANCH" | translate }}</h3>
+        <h3 *ngIf="branchtId" class="card-label">Edit Branch</h3>
+      </div>
+    </div>
+    <div class="card-body">
+        <form class="form" [formGroup]="branchForm" novalidate="novalidate" (ngSubmit)="submit()">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="Code" formControlName="code"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="Arabic Name" formControlName="nameEn" required/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="English Name" formControlName="nameAr" required/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="Arabic Address" formControlName="addressEn"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="English Address" formControlName="addressAr"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="countryId" placeholder="Country" (selectionChange)="getCities($event)"  required>
+                                <div class="p-2 filter">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <input matInput (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()" class="w-100">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <mat-option *ngFor="let country of countries" [value]="country.id" [ngClass]="{'d-none': !country?.name?.toLowerCase().includes(countriesFilter?.toLowerCase())}">
+                                    <div class="d-flex align-items-center">
+                                        <span class="symbol symbol-20 mr-3"><img [src]="country.flag"></span>{{country.name}}
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                [ngTemplateOutlet]="formError"
+                                [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                message: 'This field is required',
+                                control: branchForm.controls['countryId']
+                                }"
+                            ></mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="cityId" placeholder="City" required>
+                                <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-checkbox formControlName="isActive">Is Active</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" [disabled]="branchForm.invalid">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+      <div class="fv-plugins-message-container">
+        <div class="fv-help-block">
+          {{ message }}
+        </div>
+      </div>
+    </mat-error>
+</ng-template>
+  
