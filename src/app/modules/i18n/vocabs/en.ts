@@ -122,6 +122,39 @@ export const locale = {
           ADD_MESSAGE: 'Customer has been created'
         }
       }
-    }
+    },
+    TABLE: {
+      USERNAME: "User Name ",
+      EMAIL: "Email",
+      ISACTIVE: "is active",
+      CREATEDON: "create on",
+      VERIFIED: "Verified",
+      FILTER: "Filter",
+      ACTIONS: 'Actions',
+      ISDEFAULT: 'is default',
+      IMAGEPATH: 'image path',
+      NAMEAR: 'name Ar',
+      NAMEEN: 'name EN',
+      CATEGORY: 'category',
+      UNITPRICE: 'unit price',
+      OFFERPRICE: 'offer price',
+      ORIGINCOUNTRY: 'origin country',
+    },
+    INPUT: {
+      EMAIL: 'email',
+      FULLNAME: 'full name',
+      PASSWORD: 'password',
+      CONFIRM_PASSWORD: 'confirm password',
+      USERNAME: 'user name',
+      DESCRIPTION: 'description',
+      SAVE: 'save',
+      ENTERPHOTO: 'enter photo',
+      PHONENUMBER: 'phone number',
+      ISACTIVE: "is active ",
+      RANDAMPASS: 'random pass',
+      ACTIVECODE: 'active code',
+      CHANGEPHOTO: 'change photo',
+      REMOVEPHOTO: 'remove photo',
+    },
   }
 };
