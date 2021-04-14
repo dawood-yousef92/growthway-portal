@@ -158,6 +158,7 @@ export const locale = {
       REMOVEPHOTO: 'إزالة الصورة',
       ISDEF: 'Is default',
       PERMISSIONS: 'أذونات',
+      PERMISSIONS2: 'أذونات',
     },
 
   }
