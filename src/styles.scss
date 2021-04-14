@@ -335,3 +335,6 @@ mat-table.mat-table {
 .mat-placeholder-required {
   color: red;
 }
+.mat-select-search-input::placeholder {
+  color: transparent;
+}

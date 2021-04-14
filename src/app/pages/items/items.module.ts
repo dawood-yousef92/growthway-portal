@@ -18,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     GeneralModule,
     MatIconModule,
     MatExpansionModule,
+    NgxMatSelectSearchModule,
 
   ],
   exports: [RouterModule],

@@ -16,4 +16,15 @@ export class BranchesService {
         return this.http.delete<any>(`Branches/DeleteBranch?id=${id}`);
     }
 
+    createBranch(formData): Observable<any> {
+        return this.http.post<any>('Branches/CreateBranch', formData);
+    }
+
+    getBranch(id): Observable<any> {
+        return this.http.post<any>('Branches/GetBranch', {id:id});
+    }
+
+    updateBranch(formData): Observable<any> {
+        return this.http.put<any>('Branches/UpdateBranch', formData);
+    }
 }

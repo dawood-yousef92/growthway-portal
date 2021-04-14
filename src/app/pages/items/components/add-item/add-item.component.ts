@@ -105,11 +105,20 @@ export class AddItemComponent implements OnInit {
         this.product?.categoryId || ''
       ],
       isActive: [
-        this.product?.isActive || true
+        this.getStatus(this.product?.isActive),
       ],
     });
   }
 
+  getStatus(status) {
+    if(status === false) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  
   checkPrice() {
     if(Number(this.itemForm && this.itemForm?.get('unitPrice').value) < Number(this.itemForm?.get('offerPrice').value)) {
       return true;

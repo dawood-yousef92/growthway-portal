@@ -18,7 +18,8 @@ export class AddBranchComponent implements OnInit {
   countriesFilter:string = '';
   countries:any[] = [];
   cities:any[] = [];
-  
+  branch:any;
+
   constructor(
     private generalService:GeneralService,
     private branchesService:BranchesService,
@@ -32,42 +33,51 @@ export class AddBranchComponent implements OnInit {
     this.branchForm = this.fb.group(
     {
       code: [
-        '',
+        this.branch?.code || '',
       ],
       nameEn: [
-        '',
+        this.branch?.nameEn || '',
         Validators.compose([
           Validators.required,
         ]),
       ],
       nameAr: [
-        '',
+        this.branch?.nameAr || '',
         Validators.compose([
           Validators.required,
         ]),
       ],
       countryId: [
-        null,
+        this.branch?.countryId || null,
         Validators.compose([
           Validators.required,
         ]),
       ],
       cityId: [
-        null,
+        this.branch?.cityId || null,
         Validators.compose([
           Validators.required,
         ]),
       ],
       addressEn: [
-        ''
+        this.branch?.addressEn || '',
       ],
       addressAr: [
-        ''
+        this.branch?.addressAr || '',
       ],
       isActive: [
-        false
+        this.getStatus(this.branch?.isActive),
       ],
     });
+  }
+
+  getStatus(status) {
+    if(status === false) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
   getCountries() {
@@ -93,13 +103,58 @@ export class AddBranchComponent implements OnInit {
     }
   }
 
+  getBranch() {
+    this.loderService.setIsLoading = true;
+    this.branchesService.getBranch(this.branchtId).subscribe((data) => {
+      this.branch = data.result.brancheForEdit;
+      this.getCities({value:this.branch?.countryId});
+      this.initForm();
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
+    })
+  }
+
   submit() {
-    alert('submit');
+    this.loderService.setIsLoading = true;
+    var formData: FormData = new FormData();
+    formData.append('code',this.branchForm.controls.code.value);
+    formData.append('nameEn',this.branchForm.controls.nameEn.value);
+    formData.append('nameAr',this.branchForm.controls.nameAr.value);
+    formData.append('addressEn',this.branchForm.controls.addressEn.value);
+    formData.append('addressAr',this.branchForm.controls.addressAr.value);
+    formData.append('countryId',this.branchForm.controls.countryId.value);
+    formData.append('cityId',this.branchForm.controls.cityId.value);
+    if(!this.branchtId) {
+      this.branchesService.createBranch(formData).subscribe((data) => {
+        this.toaster.success(data.result.successMessage);
+        this.loderService.setIsLoading = false;
+        this.router.navigate(['/branches']);
+      }, (error) => {
+        this.loderService.setIsLoading = false;
+      });
+    }
+    else {
+      formData.append('id',this.branchtId);
+      this.branchesService.updateBranch(formData).subscribe((data) => {
+        this.toaster.success(data.result);
+        this.loderService.setIsLoading = false;
+        this.router.navigate(['/branches']);
+      }, (error) => {
+        this.loderService.setIsLoading = false;
+      });
+    }
   }
 
   ngOnInit(): void {
     this.getCountries();
     this.initForm();
+    this.route.params.subscribe((data) => {
+      this.branchtId = data.id;
+      if(this.branchtId) {
+        this.getBranch();
+      }
+    });
   }
 
 }

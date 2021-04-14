@@ -48,13 +48,10 @@
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <mat-select class="py-1" formControlName="countryId" placeholder="Country" (selectionChange)="getCities($event)"  required>
-                                <div class="p-2 filter">
-                                    <mat-form-field appearance="outline" class="w-100">
-                                        <input matInput (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()" class="w-100">
-                                        <mat-icon matSuffix>search</mat-icon>
-                                    </mat-form-field>
-                                </div>
+                            <mat-select class="py-1" formControlName="countryId" placeholder="Country" (selectionChange)="getCities($event); countriesFilter = ''"  required>
+                                <mat-option>
+                                    <ngx-mat-select-search (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
+                                </mat-option>
                                 <mat-option *ngFor="let country of countries" [value]="country.id" [ngClass]="{'d-none': !country?.name?.toLowerCase().includes(countriesFilter?.toLowerCase())}">
                                     <div class="d-flex align-items-center">
                                         <span class="symbol symbol-20 mr-3"><img [src]="country.flag"></span>{{country.name}}

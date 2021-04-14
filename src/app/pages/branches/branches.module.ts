@@ -14,6 +14,7 @@ import { BranchesComponent } from './branches.component';
 import { BranchesListComponent } from './components/branches-list/branches-list.component';
 import { AddBranchComponent } from './components/add-branch/add-branch.component';
 import { MatIconModule } from '@angular/material/icon';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -44,14 +45,14 @@ import { MatIconModule } from '@angular/material/icon';
                   expectedRole: 'Branches.CreateBranches'
                 }
             },
-            // {
-            //     path: 'edit-item/:id',
-            //     component: AddItemComponent,
-            //     canActivate: [RoleGuard], 
-            //     data: { 
-            //       expectedRole: 'Products.UpdateProduct'
-            //     }
-            // },
+            {
+                path: 'edit-branch/:id',
+                component: AddBranchComponent,
+                canActivate: [RoleGuard], 
+                data: { 
+                  expectedRole: 'Branches.UpdateProduct'
+                }
+            },
         ]
       },
     ]),
@@ -62,6 +63,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     MatIconModule,
     GeneralModule,
+    NgxMatSelectSearchModule
 
   ],
   exports: [RouterModule],

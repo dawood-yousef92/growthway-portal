@@ -50,8 +50,6 @@ export class BranchesListComponent implements OnInit {
         this.gridData = [];
       }
 
-      console.log(data);
-      // this.gridData = data.result.branches.items;
       this.loderService.setIsLoading = false;
     },(error) => {
       this.loderService.setIsLoading = false;
@@ -73,8 +71,7 @@ export class BranchesListComponent implements OnInit {
   actionsEvent(event) {
     this.selectedBranchId = event.rowId;
     if(event.type === 'edit') {
-      alert('edit');
-      // this.router.navigate([`/items/edit-item/${this.selectedBranchId}`]);
+      this.router.navigate([`/branches/edit-branch/${this.selectedBranchId}`]);
     }
     else if(event.type === 'delete') {
       this.openCentred(this.deleteModal);
