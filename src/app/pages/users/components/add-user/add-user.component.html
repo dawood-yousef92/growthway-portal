@@ -11,7 +11,7 @@
             <div class="col-12">
                 <form class="form" [formGroup]="addUser" novalidate="novalidate" (ngSubmit)="submit()">
                     <mat-tab-group *ngIf="!isPermissions">
-                        <mat-tab label="User Information">
+                        <mat-tab label="{{'MENU.USERINFO' | translate}}">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class=" mb-md-5 mb-3 d-flex align-items-center flex-wrap">

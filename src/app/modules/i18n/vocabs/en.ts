@@ -155,6 +155,8 @@ export const locale = {
       ACTIVECODE: 'active code',
       CHANGEPHOTO: 'change photo',
       REMOVEPHOTO: 'remove photo',
+      ISDEF: 'Is default',
+      PERMISSIONS: 'permissions',
     },
   }
 };

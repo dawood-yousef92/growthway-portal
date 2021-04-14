@@ -33,7 +33,7 @@ export const locale = {
       ADD_BRANCH: 'اضافة فرع',
       EDIT_BRANCH: 'تعديل الفرع',
       BRANCHES_LIST: 'الفروع',
-
+      USERINFO: 'معلومات المستخدم',
     },
     AUTH: {
       GENERAL: {
@@ -156,6 +156,8 @@ export const locale = {
       ACTIVECODE: 'إرسال بريد إلكتروني للتفعيل',
       CHANGEPHOTO: 'تغيير الصور',
       REMOVEPHOTO: 'إزالة الصورة',
+      ISDEF: 'Is default',
+      PERMISSIONS: 'أذونات',
     },
 
   }
