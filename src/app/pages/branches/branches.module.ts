@@ -34,7 +34,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
                 component: BranchesListComponent,
                 canActivate: [RoleGuard], 
                 data: { 
-                  expectedRole: 'Branches.GetBranche'
+                  expectedRole: 'Branches.GetBranches'
                 }     
             },
             {
@@ -42,7 +42,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
                 component: AddBranchComponent,
                 canActivate: [RoleGuard], 
                 data: { 
-                  expectedRole: 'Branches.CreateBranches'
+                  expectedRole: 'Branches.CreateBranch'
                 }
             },
             {
@@ -50,7 +50,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
                 component: AddBranchComponent,
                 canActivate: [RoleGuard], 
                 data: { 
-                  expectedRole: 'Branches.UpdateProduct'
+                  expectedRole: 'Branches.UpdateBranch'
                 }
             },
         ]

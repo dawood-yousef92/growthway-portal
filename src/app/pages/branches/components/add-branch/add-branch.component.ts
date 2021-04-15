@@ -82,7 +82,8 @@ export class AddBranchComponent implements OnInit {
 
   getCountries() {
     this.generalService.getCountries().subscribe((data) => {
-      this.countries = data.result.countries;
+      // this.countries = data.result.countries;
+      this.countries.push(data.result.countries.find(item => item.id === '7f4c2c35-feb9-4f6c-9159-9d9280bd047c'));
     });
   }
 
@@ -125,6 +126,7 @@ export class AddBranchComponent implements OnInit {
     formData.append('addressAr',this.branchForm.controls.addressAr.value);
     formData.append('countryId',this.branchForm.controls.countryId.value);
     formData.append('cityId',this.branchForm.controls.cityId.value);
+    formData.append('isActive',this.branchForm.controls.isActive.value);
     if(!this.branchtId) {
       this.branchesService.createBranch(formData).subscribe((data) => {
         this.toaster.success(data.result.successMessage);
