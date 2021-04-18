@@ -3,23 +3,24 @@
         <div class="row mb-4">
             <div class="col-md-4">
                 <div class="mb-6">
-                    <mat-checkbox formControlName="alloweNewUser">Allowed for new users</mat-checkbox>  
+                    <mat-checkbox formControlName="alloweNewUser">{{'TITLE.Allowedusers' | translate }}
+                    </mat-checkbox>
                 </div>
                 <div class="mb-4">
                     <mat-form-field class="w-100">
-                        <input class="py-1" type="number" matInput placeholder="Maximum failed access attempts" formControlName="maximumFieldAccessAttempts"/>    
+                        <input class="py-1" type="number" matInput placeholder="{{'INPUT.Maximumfailed' | translate }}" formControlName="maximumFieldAccessAttempts" />
                     </mat-form-field>
                 </div>
                 <div class="mb-4">
                     <mat-form-field class="w-100">
-                        <input class="py-1" type="number" matInput placeholder="Default lockout time span" formControlName="lockoutTimeSpan"/>    
+                        <input class="py-1" type="number" matInput placeholder="{{'INPUT.Defaultlockout' | translate }}" formControlName="lockoutTimeSpan" />
                     </mat-form-field>
                 </div>
             </div>
         </div>
         <div>
             <button type="submit" class="btn btn-primary" [disabled]="lockoutSettings.invalid">
-                Save
+                {{'INPUT.SAVE' | translate }}
             </button>
         </div>
     </form>

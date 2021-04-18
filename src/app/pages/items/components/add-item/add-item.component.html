@@ -1,9 +1,9 @@
 <div class="card card-custom example-preview">
     <div class="card-header">
-      <div class="card-title">
-        <h3 *ngIf="!productId" class="card-label">{{ "MENU.ADD_ITEM" | translate }}</h3>
-        <h3 *ngIf="productId" class="card-label">Edit Item</h3>
-      </div>
+        <div class="card-title">
+            <h3 *ngIf="!productId" class="card-label">{{ "MENU.ADD_ITEM" | translate }}</h3>
+            <h3 *ngIf="productId" class="card-label">Edit Item {{ "MENU.ADD_ITEM" | translate }}</h3>
+        </div>
     </div>
     <div class="card-body">
         <form class="form" [formGroup]="itemForm" novalidate="novalidate" (ngSubmit)="submit()">
@@ -11,7 +11,7 @@
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <input class="py-1" type="text" matInput placeholder="Code" formControlName="code"/>
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.CODE' | translate }}" formControlName="code" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -40,46 +40,37 @@
                                     </div>
                                 </mat-option>
                             </mat-select>
-                            <mat-error
-                                [ngTemplateOutlet]="formError"
-                                [ngTemplateOutletContext]="{
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                 validation: 'required',
                                 message: 'This field is required',
                                 control: itemForm.controls['categoryId']
-                                }"
-                            ></mat-error>
+                                }"></mat-error>
                         </mat-form-field>
                     </div>
-                </div> 
+                </div>
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input class="py-1" type="text" matInput placeholder="Name" formControlName="nameEn" required/>
-                                    <mat-error
-                                        [ngTemplateOutlet]="formError"
-                                        [ngTemplateOutletContext]="{
+                                    <input class="py-1" type="text" matInput placeholder="{{'INPUT.USERNAME' | translate }}" formControlName="nameEn" required />
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
                                         message: 'This field is required',
                                         control: itemForm.controls['nameEn']
-                                        }"
-                                    ></mat-error>
+                                        }"></mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input class="py-1" type="text" matInput placeholder="Arabic Name" formControlName="nameAr" required/>
-                                    <mat-error
-                                        [ngTemplateOutlet]="formError"
-                                        [ngTemplateOutletContext]="{
+                                    <input class="py-1" type="text" matInput placeholder="{{'INPUT.NAMEAR' | translate }}" formControlName="nameAr" required />
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
                                         message: 'This field is required',
                                         control: itemForm.controls['nameAr']
-                                        }"
-                                    ></mat-error>
+                                        }"></mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -100,32 +91,30 @@
                                 </div> -->
                                 <mat-option *ngFor="let country of countries" [value]="country.id" [ngClass]="{'d-none': !country?.name?.toLowerCase().includes(countriesFilter?.toLowerCase())}">
                                     <div class="d-flex align-items-center">
-                                        <span class="symbol symbol-20 mr-3"><img [src]="country.flag"></span>{{country.name}}
+                                        <span class="symbol symbol-20 mr-3"><img
+                                                [src]="country.flag"></span>{{country.name}}
                                     </div>
                                 </mat-option>
                             </mat-select>
-                            <mat-error
-                                [ngTemplateOutlet]="formError"
-                                [ngTemplateOutletContext]="{
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                 validation: 'required',
                                 message: 'This field is required',
                                 control: itemForm.controls['originCountryId']
-                                }"
-                            ></mat-error>
-                        </mat-form-field>
-                    </div>
-                </div> 
-                <div class="col-md-6">
-                    <div class="mb-4">
-                        <mat-form-field class="w-100">
-                            <input class="py-1" type="text" matInput placeholder="Description" formControlName="descriptionEn"/>
+                                }"></mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <input class="py-1" type="text" matInput placeholder="Arabic Description" formControlName="descriptionAr"/> 
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.DESCRIPTION' | translate }}" formControlName="descriptionEn" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.DESCRIPTIONAR' | translate }}" formControlName="descriptionAr" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -134,16 +123,13 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input class="py-1" type="number" matInput placeholder="Price" formControlName="unitPrice" required/>
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.PRICE' | translate }}" formControlName="unitPrice" required />
                                     <span matSuffix class="ml-3">SAR</span>
-                                    <mat-error
-                                        [ngTemplateOutlet]="formError"
-                                        [ngTemplateOutletContext]="{
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
                                         message: 'This field is required',
                                         control: itemForm.controls['unitPrice']
-                                        }"
-                                    ></mat-error>
+                                        }"></mat-error>
                                 </mat-form-field>
                                 <mat-error *ngIf="checkPrice()" role="alert" class="mat-error ng-tns-c180-2 ng-star-inserted">
                                     <div class="fv-plugins-message-container">
@@ -156,7 +142,7 @@
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
                                     <span matSuffix class="ml-3">SAR</span>
-                                    <input class="py-1" type="number" matInput placeholder="Offer Price" formControlName="offerPrice"/>
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.OFFPRICE' | translate }}" formControlName="offerPrice" />
                                 </mat-form-field>
                             </div>
                         </div>
@@ -167,7 +153,7 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <mat-select class="py-1" placeholder="Shelf Life Types" formControlName="shelfLifeType">
+                                    <mat-select class="py-1" placeholder="{{'INPUT.ShLifeTypes' | translate }}" formControlName="shelfLifeType">
                                         <mat-option [value]="null">Select Shelf Life Types</mat-option>
                                         <mat-option *ngFor="let item of shelfLifeTypes" [value]="item.id">
                                             {{item.name}}
@@ -179,7 +165,7 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input class="py-1" type="number" matInput placeholder="Shelf Life Duration" formControlName="shelfLifeDuration"/>
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.ShLifeDUR' | translate }} " formControlName="shelfLifeDuration" />
                                 </mat-form-field>
                             </div>
                         </div>
@@ -190,7 +176,7 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <mat-select class="py-1" placeholder="Unit Of Measurements" formControlName="unitOfMeasurementId">
+                                    <mat-select class="py-1" placeholder="{{'INPUT.UnitOfMeasur' | translate }}" formControlName="unitOfMeasurementId">
                                         <mat-option [value]="null">Select Unit Of Measurements</mat-option>
                                         <mat-option *ngFor="let item of unitOfMeasurements" [value]="item.id">
                                             {{item.name}}
@@ -202,7 +188,7 @@
                         <div class="col-md-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input class="py-1" type="number" matInput placeholder="Minimum Order Quantity" formControlName="minimumOrderQuantity"/>
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.MinOrderQua' | translate }}" formControlName="minimumOrderQuantity" />
                                 </mat-form-field>
                             </div>
                         </div>
@@ -211,7 +197,7 @@
                 <div class="col-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <mat-select class="py-1" placeholder="Packaging Types" formControlName="packagingTypeId">
+                            <mat-select class="py-1" placeholder="{{'INPUT.PackTypes' | translate }}" formControlName="packagingTypeId">
                                 <mat-option [value]="null">Select Packaging Types</mat-option>
                                 <mat-option *ngFor="let item of packagingTypes" [value]="item.id">
                                     {{item.name}}
@@ -224,14 +210,18 @@
                     <div class="mb-4">
                         <div class="d-flex align-items-start">
                             <mat-form-field class="w-100">
-                                <input id="tagInput" class="py-1" type="text" matInput placeholder="Tags"/>
+                                <input id="tagInput" class="py-1" type="text" matInput placeholder="{{'INPUT.TAGS' | translate }}" />
                             </mat-form-field>
-                            <button type="button" class="btn btn-primary px-3 py-2" (click)="addTag()"><h2 class="mb-0">+</h2></button>  
+                            <button type="button" class="btn btn-primary px-3 py-2" (click)="addTag()">
+                                <h2 class="mb-0">+</h2>
+                            </button>
                         </div>
                         <div class="d-flex flex-wrap">
                             <span class="mr-2 mb-2 label label-lg label-light-primary label-inline" *ngFor="let tag of tags">
                                 {{tag}}
-                                <button type="button" class="ml-2 label label-lg label-light-primary label-inline border-0 p-1 text-bold" (click)="removeTag(tag)">
+                                <button type="button"
+                                    class="ml-2 label label-lg label-light-primary label-inline border-0 p-1 text-bold"
+                                    (click)="removeTag(tag)">
                                     <i class="c-primary flaticon-circle"></i>
                                 </button>
                             </span>
@@ -239,11 +229,11 @@
                     </div>
                 </div>
                 <div class="col-6 mb-4">
-                    <div class="row">    
+                    <div class="row">
                         <div class="col-12 mb-3">
-                            <input id="select-file" class="d-none" type="file" (change)="fileChangeEvent($event)" onclick="this.value = null"
-                                accept="image/png, image/jpeg, image/jpg" />
-                            <button [disabled]="itemImages.length > 3" (click)="selectFile()" type="button" class="btn btn-primary">Add Item Images<i class="flaticon-upload-1 text-white ml-2"></i></button>
+                            <input id="select-file" class="d-none" type="file" (change)="fileChangeEvent($event)" onclick="this.value = null" accept="image/png, image/jpeg, image/jpg" />
+                            <button [disabled]="itemImages.length > 3" (click)="selectFile()" type="button" class="btn btn-primary">{{'INPUT.ADDPHOTO' | translate }}<i
+                                    class="flaticon-upload-1 text-white ml-2"></i></button>
                         </div>
                         <div class="col-md-4 mb-3" *ngFor="let img of itemImages; let i = index">
                             <div class="position-relative">
@@ -251,21 +241,22 @@
                                     <i *ngIf="i !== itemForm.controls.defaultImageIndex.value" class="far fa-star"></i>
                                     <i *ngIf="i === itemForm.controls.defaultImageIndex.value" class="fas fa-star"></i>
                                 </button>
-                                <button type="button" class="delete-item" (click)="deleteImg(img)"><i class="flaticon-circle"></i></button>
-                                <img [src]="img.base64.imagePath || img.base64" class="w-100 cursor-pointer" (click)="itemForm.get('defaultImageIndex').setValue(i)"/>
+                                <button type="button" class="delete-item" (click)="deleteImg(img)"><i
+                                        class="flaticon-circle"></i></button>
+                                <img [src]="img.base64.imagePath || img.base64" class="w-100 cursor-pointer" (click)="itemForm.get('defaultImageIndex').setValue(i)" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
-                        <mat-checkbox formControlName="isActive">Is Active</mat-checkbox>
+                        <mat-checkbox formControlName="isActive">{{'INPUT.ISACTIVE' | translate }}</mat-checkbox>
                     </div>
                 </div>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary" [disabled]="itemForm.invalid || checkPrice()">
-                    Save
+                    {{'INPUT.SAVE' | translate }}
                 </button>
             </div>
         </form>
@@ -274,10 +265,10 @@
 
 <ng-template #cropModal let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title">Crop Item Image</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <h4 class="modal-title">{{'TITLE.CROPITEMIMG' | translate }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <image-cropper
@@ -292,10 +283,13 @@
         ></image-cropper>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-        <button type="button" class="btn btn-primary" (click)="addCroppedImage(croppedImage)">Crop Image</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">
+            {{'INPUT.CLOSE' | translate }}</button>
+        <button type="button" class="btn btn-primary" (click)="addCroppedImage(croppedImage)">
+            {{'INPUT.CropImage' | translate }}
+        </button>
         <div class="fv-plugins-message-container ng-star-inserted w-100 text-center" *ngIf="errorImg">
-            <div class="fv-help-block">Image size larget than 2MB</div>
+            <div class="fv-help-block">Image size large than 2MB</div>
         </div>
     </div>
 </ng-template>
@@ -341,24 +335,25 @@
                         </div>
                     </mat-expansion-panel>
                     <mat-panel-title *ngIf="cat.categories?.length === 0" class="mat-expansion-panel-header-title noSub">
-                        <mat-radio-button (change)="selectCat($event)" [value]="cat?.id">{{cat?.name}}</mat-radio-button>
+                        <mat-radio-button (change)="selectCat($event)" [value]="cat?.id">{{cat?.name}}
+                        </mat-radio-button>
                     </mat-panel-title>
                 </ng-container>
-            </mat-accordion>    
+            </mat-accordion>
         </mat-radio-group>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Done</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">
+            {{'INPUT.DONE' | translate }}</button>
     </div>
 </ng-template>
 
 <ng-template #formError let-control="control" let-message="message" let-validation="validation">
     <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
-      <div class="fv-plugins-message-container">
-        <div class="fv-help-block">
-          {{ message }}
+        <div class="fv-plugins-message-container">
+            <div class="fv-help-block">
+                {{ message }}
+            </div>
         </div>
-      </div>
     </mat-error>
 </ng-template>
-  

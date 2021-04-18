@@ -1,8 +1,8 @@
 <div class="card card-custom example-preview">
     <div class="card-header">
-      <div class="card-title">
-        <h3 class="card-label">Add Classification</h3>
-      </div>
+        <div class="card-title">
+            <h3 class="card-label">Add Classification</h3>
+        </div>
     </div>
     <div class="card-body">
         <form class="form" [formGroup]="classificationForm" novalidate="novalidate" (ngSubmit)="submit()">
@@ -10,24 +10,21 @@
                 <div class="col-md-4">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <input class="py-2" type="text" matInput placeholder="Name" formControlName="name"/>    
+                            <input class="py-2" type="text" matInput placeholder="{{'INPUT.FULLNAME' | translate}}" 34m 49s 4m 1s formControlName="name" />
                         </mat-form-field>
                     </div>
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <input class="py-2" type="text" matInput placeholder="Description" formControlName="description"/>    
+                            <input class="py-2" type="text" matInput placeholder="{{'INPUT.DESCRIPTION' | translate}}" formControlName="description" />
                         </mat-form-field>
                     </div>
                 </div>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary" [disabled]="classificationForm.invalid">
-                    Save
+                    {{'INPUT.Save' | translate}}
                 </button>
             </div>
         </form>
     </div>
 </div>
-
-
-

@@ -16,19 +16,19 @@ import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [DynamicTableComponent, OfflineTableComponent],
   imports: [
-      CommonModule,
-      MatTableModule,
-      MatPaginatorModule,
-      MatSortModule,
-      MatInputModule,
-      MatFormFieldModule,
-      MatCheckboxModule,
-      MatSelectModule,
-      MatTabsModule,
-      FormsModule,
-      ReactiveFormsModule,
-      TranslateModule,
-    ],
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatTabsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
   exports: [DynamicTableComponent, OfflineTableComponent],
 })
-export class GeneralModule {}
+export class GeneralModule { }
