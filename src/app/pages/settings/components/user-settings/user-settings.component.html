@@ -4,17 +4,18 @@
             <div class="col-md-4">
                 <div class="mb-4">
                     <mat-form-field class="w-100">
-                        <input class="py-1" type="text" matInput placeholder="Allowed username characters" formControlName="allowedCharacters"/>    
+                        <input class="py-1" type="text" matInput placeholder="{{'INPUT.Allowedusernamecharacters' | translate }}" formControlName="allowedCharacters" />
                     </mat-form-field>
                 </div>
                 <div class="mb-4">
-                    <mat-checkbox formControlName="setActive">New registered users are active by default</mat-checkbox>  
+                    <mat-checkbox formControlName="setActive">
+                        {{'INPUT.Newregisteredusers' | translate }}</mat-checkbox>
                 </div>
             </div>
         </div>
         <div>
             <button type="submit" class="btn btn-primary" [disabled]="userSettings.invalid">
-                Save
+                {{'INPUT.SAVE' | translate }}
             </button>
         </div>
     </form>
