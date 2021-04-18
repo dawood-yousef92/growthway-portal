@@ -16,10 +16,8 @@
                 <app-lockout-settings [settings]="lockoutSettings" (emmitSettings)="saveSettings($event)">
                 </app-lockout-settings>
             </mat-tab>
-            <mat-tab *ngIf="permissions.includes('AppSettings.GetFileStorageSettings')" label="{{'TITLE.TokenSettings' | translate }}">
-                <app-file-storage-settings></app-file-storage-settings>
-            </mat-tab>
-            <mat-tab *ngIf="permissions.includes('AppSettings.GetTokenSettings')" label="Token Settings">
+
+            <mat-tab *ngIf="permissions.includes('AppSettings.GetTokenSettings')" label="{{'TITLE.TokenSettings' | translate }}">
                 <app-token-settings></app-token-settings>
             </mat-tab>
         </mat-tab-group>
