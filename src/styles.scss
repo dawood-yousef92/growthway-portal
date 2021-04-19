@@ -342,3 +342,13 @@ mat-table.mat-table {
   font-size: 18px;
   line-height: 22px;
 }
+.mat-cell, .mat-header-cell {
+  min-width: 100px;
+  padding-left: 10px;
+}
+.mat-cell, .mat-header-cell {
+  padding-left: 10px;
+}
+.cdk-column-emailAddress {
+  min-width: 250px;
+}
