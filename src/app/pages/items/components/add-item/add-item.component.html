@@ -24,7 +24,8 @@
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <mat-select class="py-1" formControlName="categoryId" placeholder="Category" (selectionChange)="categoriesFilter = ''" required>
+                            <mat-select class="py-1" formControlName="categoryId" placeholder="{{'INPUT.CATEGORY' | translate }}" (selectionChange)="categoriesFilter =
+                                ''" required>
                                 <mat-option>
                                     <ngx-mat-select-search (keyup)="search($event.target.value,'categories')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
                                 </mat-option>
@@ -42,7 +43,7 @@
                             </mat-select>
                             <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                 validation: 'required',
-                                message: 'This field is required',
+                                message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
                                 control: itemForm.controls['categoryId']
                                 }"></mat-error>
                         </mat-form-field>
@@ -53,10 +54,10 @@
                         <div class="col-md-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input class="py-1" type="text" matInput placeholder="{{'INPUT.USERNAME' | translate }}" formControlName="nameEn" required />
+                                    <input class="py-1" type="text" matInput placeholder="{{'INPUT.NAMEEN' | translate }}" formControlName="nameEn" required />
                                     <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
-                                        message: 'This field is required',
+                                        message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
                                         control: itemForm.controls['nameEn']
                                         }"></mat-error>
                                 </mat-form-field>
@@ -68,7 +69,7 @@
                                     <input class="py-1" type="text" matInput placeholder="{{'INPUT.NAMEAR' | translate }}" formControlName="nameAr" required />
                                     <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
-                                        message: 'This field is required',
+                                        message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
                                         control: itemForm.controls['nameAr']
                                         }"></mat-error>
                                 </mat-form-field>
@@ -79,7 +80,7 @@
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <mat-select class="py-1" formControlName="originCountryId" placeholder="Original Country" (selectionChange)="countriesFilter = ''" required>
+                            <mat-select class="py-1" formControlName="originCountryId" placeholder="{{'INPUT.ORIGN_COUNTRY' | translate }}" (selectionChange)="countriesFilter = ''" required>
                                 <mat-option>
                                     <ngx-mat-select-search (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
                                 </mat-option>
@@ -98,7 +99,7 @@
                             </mat-select>
                             <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                 validation: 'required',
-                                message: 'This field is required',
+                                message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
                                 control: itemForm.controls['originCountryId']
                                 }"></mat-error>
                         </mat-form-field>
@@ -124,16 +125,16 @@
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
                                     <input class="py-1" type="number" matInput placeholder="{{'INPUT.PRICE' | translate }}" formControlName="unitPrice" required />
-                                    <span matSuffix class="ml-3">SAR</span>
+                                    <span matSuffix class="ml-3">{{'INPUT.SAR' | translate }}</span>
                                     <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
-                                        message: 'This field is required',
+                                        message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
                                         control: itemForm.controls['unitPrice']
                                         }"></mat-error>
                                 </mat-form-field>
                                 <mat-error *ngIf="checkPrice()" role="alert" class="mat-error ng-tns-c180-2 ng-star-inserted">
                                     <div class="fv-plugins-message-container">
-                                        <div class="fv-help-block">unit price must be less than offer price</div>
+                                        <div class="fv-help-block">{{'AUTH.VALIDATION.PRICE_FIELD' | translate }}</div>
                                     </div>
                                 </mat-error>
                             </div>
@@ -141,8 +142,8 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <span matSuffix class="ml-3">SAR</span>
-                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.OFFPRICE' | translate }}" formControlName="offerPrice" />
+                                    <span matSuffix class="ml-3">{{'INPUT.SAR' | translate }}</span>
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.OFF_PRICE' | translate }}" formControlName="offerPrice" />
                                 </mat-form-field>
                             </div>
                         </div>
@@ -153,8 +154,8 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <mat-select class="py-1" placeholder="{{'INPUT.ShLifeTypes' | translate }}" formControlName="shelfLifeType">
-                                        <mat-option [value]="null">Select Shelf Life Types</mat-option>
+                                    <mat-select class="py-1" placeholder="{{'INPUT.SH_LIFE_TYPES' | translate }}" formControlName="shelfLifeType">
+                                        <mat-option [value]="null">{{'INPUT.SH_LIFE_TYPES' | translate }}</mat-option>
                                         <mat-option *ngFor="let item of shelfLifeTypes" [value]="item.id">
                                             {{item.name}}
                                         </mat-option>
@@ -165,7 +166,7 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.ShLifeDUR' | translate }} " formControlName="shelfLifeDuration" />
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.SH_LIFE_DUR' | translate }} " formControlName="shelfLifeDuration" />
                                 </mat-form-field>
                             </div>
                         </div>
@@ -176,8 +177,8 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <mat-select class="py-1" placeholder="{{'INPUT.UnitOfMeasur' | translate }}" formControlName="unitOfMeasurementId">
-                                        <mat-option [value]="null">Select Unit Of Measurements</mat-option>
+                                    <mat-select class="py-1" placeholder="{{'INPUT.UNIT_OF_MEASUR' | translate }}" formControlName="unitOfMeasurementId">
+                                        <mat-option [value]="null">{{'INPUT.UNIT_OF_MEASUR' | translate }}</mat-option>
                                         <mat-option *ngFor="let item of unitOfMeasurements" [value]="item.id">
                                             {{item.name}}
                                         </mat-option>
@@ -188,7 +189,7 @@
                         <div class="col-md-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.MinOrderQua' | translate }}" formControlName="minimumOrderQuantity" />
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.MIN_ORDER_QUA' | translate }}" formControlName="minimumOrderQuantity" />
                                 </mat-form-field>
                             </div>
                         </div>
@@ -197,8 +198,8 @@
                 <div class="col-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <mat-select class="py-1" placeholder="{{'INPUT.PackTypes' | translate }}" formControlName="packagingTypeId">
-                                <mat-option [value]="null">Select Packaging Types</mat-option>
+                            <mat-select class="py-1" placeholder="{{'INPUT.PACK_TYPES' | translate }}" formControlName="packagingTypeId">
+                                <mat-option [value]="null">{{'INPUT.PACK_TYPES' | translate }}</mat-option>
                                 <mat-option *ngFor="let item of packagingTypes" [value]="item.id">
                                     {{item.name}}
                                 </mat-option>
@@ -232,7 +233,7 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <input id="select-file" class="d-none" type="file" (change)="fileChangeEvent($event)" onclick="this.value = null" accept="image/png, image/jpeg, image/jpg" />
-                            <button [disabled]="itemImages.length > 3" (click)="selectFile()" type="button" class="btn btn-primary">{{'INPUT.ADDPHOTO' | translate }}<i
+                            <button [disabled]="itemImages.length > 3" (click)="selectFile()" type="button" class="btn btn-primary">{{'INPUT.ADD_PHOTO' | translate }}<i
                                     class="flaticon-upload-1 text-white ml-2"></i></button>
                         </div>
                         <div class="col-md-4 mb-3" *ngFor="let img of itemImages; let i = index">
@@ -265,31 +266,22 @@
 
 <ng-template #cropModal let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">{{'TITLE.CROPITEMIMG' | translate }}</h4>
+        <h4 class="modal-title">{{'TITLE.CROP_ITEM_IMG' | translate }}</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <image-cropper
-            [imageChangedEvent]="imageChangedEvent"
-            [maintainAspectRatio]="false"
-            [aspectRatio]="4 / 3"
-            format="png"
-            (imageCropped)="imageCropped($event)"
-            (imageLoaded)="imageLoaded($event)"
-            (cropperReady)="cropperReady()"
-            (loadImageFailed)="loadImageFailed()"
-        ></image-cropper>
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">
             {{'INPUT.CLOSE' | translate }}</button>
         <button type="button" class="btn btn-primary" (click)="addCroppedImage(croppedImage)">
-            {{'INPUT.CropImage' | translate }}
+            {{'INPUT.CROP_IMAGE' | translate }}
         </button>
         <div class="fv-plugins-message-container ng-star-inserted w-100 text-center" *ngIf="errorImg">
-            <div class="fv-help-block">Image size large than 2MB</div>
+            <div class="fv-help-block">{{'AUTH.VALIDATION.IMG_SIZE' | translate }}</div>
         </div>
     </div>
 </ng-template>
@@ -316,7 +308,7 @@
 
 <ng-template #catModal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title mb-0">Select Categories</h4>
+        <h4 class="modal-title mb-0">{{'INPUT.SELECT_CAT' | translate }}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span class="d-block c-black" aria-hidden="true">&times;</span>
         </button>

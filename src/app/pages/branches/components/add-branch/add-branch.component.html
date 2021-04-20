@@ -1,9 +1,9 @@
 <div class="card card-custom example-preview">
     <div class="card-header">
-      <div class="card-title">
-        <h3 *ngIf="!branchtId" class="card-label">{{ "MENU.ADD_BRANCH" | translate }}</h3>
-        <h3 *ngIf="branchtId" class="card-label">Edit Branch</h3>
-      </div>
+        <div class="card-title">
+            <h3 *ngIf="!branchtId" class="card-label">{{ "MENU.ADD_BRANCH" | translate }}</h3>
+            <h3 *ngIf="branchtId" class="card-label">Edit Branch</h3>
+        </div>
     </div>
     <div class="card-body">
         <form class="form" [formGroup]="branchForm" novalidate="novalidate" (ngSubmit)="submit()">
@@ -11,7 +11,7 @@
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <input class="py-1" type="text" matInput placeholder="Code" formControlName="code"/>
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.CODE1' | translate }}" formControlName="code" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -20,73 +20,86 @@
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <input class="py-1" type="text" matInput placeholder="English Name" formControlName="nameEn" required/>
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.NAMEEN' | translate }}" formControlName="nameEn" required />
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                 message:'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                control: branchForm.controls['nameEn']
+                                }"></mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <input class="py-1" type="text" matInput placeholder="Arabic Name" formControlName="nameAr" required/>
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.NAMEAR' | translate }}" formControlName="nameAr" required />
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                 message:'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                control: branchForm.controls['nameAr']
+                                }"></mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <input class="py-1" type="text" matInput placeholder="English Address" formControlName="addressEn"/>
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.ADDRESSEN' | translate }}" formControlName="addressEn" />
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <input class="py-1" type="text" matInput placeholder="Arabic Address" formControlName="addressAr"/>
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.ADDRESSAR' | translate }}" formControlName="addressAr" />
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <mat-select class="py-1" formControlName="countryId" placeholder="Country" (selectionChange)="getCities($event); countriesFilter = ''"  required>
+                            <mat-select class="py-1" formControlName="countryId" placeholder="{{'INPUT.COUNTRYNA' | translate }}" (selectionChange)="getCities($event); countriesFilter = ''" required>
                                 <mat-option>
                                     <ngx-mat-select-search (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
                                 </mat-option>
                                 <mat-option *ngFor="let country of countries" [value]="country.id" [ngClass]="{'d-none': !country?.name?.toLowerCase().includes(countriesFilter?.toLowerCase())}">
                                     <div class="d-flex align-items-center">
-                                        <span class="symbol symbol-20 mr-3"><img [src]="country.flag"></span>{{country.name}}
+                                        <span class="symbol symbol-20 mr-3"><img
+                                                [src]="country.flag"></span>{{country.name}}
                                     </div>
                                 </mat-option>
                             </mat-select>
-                            <mat-error
-                                [ngTemplateOutlet]="formError"
-                                [ngTemplateOutletContext]="{
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                 validation: 'required',
-                                message: 'This field is required',
+                                 message:'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
                                 control: branchForm.controls['countryId']
-                                }"
-                            ></mat-error>
+                                }"></mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
-                            <mat-select class="py-1" formControlName="cityId" placeholder="City" required>
+                            <mat-select class="py-1" formControlName="cityId" placeholder="{{'INPUT.CITYNA' | translate }}" required>
                                 <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
                             </mat-select>
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                 message:'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                control: branchForm.controls['cityId']
+                                }"></mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
-                        <mat-checkbox formControlName="isActive">Is Active</mat-checkbox>
+                        <mat-checkbox formControlName="isActive">{{'INPUT.ISACTIVE' | translate }}</mat-checkbox>
                     </div>
                 </div>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary" [disabled]="branchForm.invalid">
-                    Save
+                    {{'INPUT.SAVE' | translate }}
                 </button>
             </div>
         </form>
@@ -95,11 +108,10 @@
 
 <ng-template #formError let-control="control" let-message="message" let-validation="validation">
     <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
-      <div class="fv-plugins-message-container">
-        <div class="fv-help-block">
-          {{ message }}
+        <div class="fv-plugins-message-container">
+            <div class="fv-help-block">
+                {{ message }}
+            </div>
         </div>
-      </div>
     </mat-error>
 </ng-template>
-  

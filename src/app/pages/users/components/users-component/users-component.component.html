@@ -1,33 +1,34 @@
 <div class="card card-custom example-preview">
-  <div class="card-header">
-    <div class="card-title">
-      <h3 class="card-label">{{ "MENU.USERS_LIST" | translate }}</h3>
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">{{ "MENU.USERS_LIST" | translate }}</h3>
+        </div>
+        <div *ngIf="permissions.includes('Users.CreateUser')" class="d-flex align-items-center">
+            <a routerLink="add-user" class="btn btn-primary">{{ "MENU.ADD_USER" | translate }} <i
+                    class="flaticon2-plus icon-sm ml-2"></i></a>
+        </div>
     </div>
-    <div *ngIf="permissions.includes('Users.CreateUser')" class="d-flex align-items-center">
-      <a routerLink="add-user" class="btn btn-primary">{{ "MENU.ADD_USER" | translate }} <i class="flaticon2-plus icon-sm ml-2"></i></a>
-    </div>
-  </div>
-  <div class="card-body">
-    <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
-    <!-- <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"
+    <div class="card-body">
+        <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+        <!-- <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"
     (actionsEvent)="actionsEvent($event)" (changePagingEvent)="changePagingEvent($event)" (filterEvent)="filterEvent($event)" (sortEvent)="sortEvent($event)"></app-dynamic-table> -->
-  </div>
+    </div>
 </div>
 
 <ng-template #deleteModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Warning</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>
-      Deleting this data will permanently remove this user, and this cannot be recovered..
-    </p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-    <button type="button" class="btn btn-primary" (click)="confirmDeleteUser()">Delete User</button>
-  </div>
+    <div class="modal-header">
+        <h4 class="modal-title"> {{"TITLE.WARNING_TITLE" | translate }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            {{"TITLE.WARING" | translate}}
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="confirmDeleteUser()">{{"INPUT.DELETE_USER" | translate}}</button>
+    </div>
 </ng-template>
