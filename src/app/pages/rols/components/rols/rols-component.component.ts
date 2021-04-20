@@ -4,6 +4,7 @@ import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { RolsService } from '../../rols.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class RolsListComponent implements OnInit {
 
   @ViewChild('deleteModal', { static: false }) deleteModal: ElementRef;
 
-  constructor(private rolsService:RolsService, private toaster: ToastrService, private router: Router,
+  constructor(private translate: TranslateService, private rolsService:RolsService, private toaster: ToastrService, private router: Router,
               private loderService: LoaderService, private modalService: NgbModal) {}
 
   getRols() {
@@ -39,10 +40,10 @@ export class RolsListComponent implements OnInit {
       if(data.result.roles.items) {
         this.gridData = data.result.roles.items.map((item) => {
           if(item.isDefault) {
-            item.isDefault = '<span class="label label-lg label-light-success label-inline">Defalt</span>';
+            item.isDefault = '<span class="label label-lg label-light-success label-inline">' + this.translate.instant('TABLE.DEFAULT') + '</span>';
           }
           else {
-            item.isDefault = '<span class="label label-lg label-light-danger label-inline">Not defalt</span>';
+            item.isDefault = '<span class="label label-lg label-light-danger label-inline">' + this.translate.instant('TABLE.NOT_DEFAULT') + '</span>';
           }
           item.createdOn = this.getDateFormat(item.createdOn);
           return item;

@@ -153,6 +153,10 @@ export const locale = {
       ORIGINCOUNTRY: 'origin country',
       ADDRESSAR: 'Address Arabic',
       ADDRESSEN: 'Address English',
+      ACTIVE: 'Active',
+      NOT_ACTIVE: 'Not Active',
+      DEFAULT: 'Default',
+      NOT_DEFAULT: 'Not Default',
     },
     INPUT: {
       EMAIL: 'email',

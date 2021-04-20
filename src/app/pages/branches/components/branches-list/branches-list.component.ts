@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { BranchesService } from '../../branches.service';
@@ -28,7 +29,7 @@ export class BranchesListComponent implements OnInit {
   gridData:any[] = [];
   @ViewChild('deleteModal', { static: false }) deleteModal: ElementRef;
 
-  constructor(private branchesService:BranchesService, private toaster: ToastrService, private router: Router,
+  constructor(private translate: TranslateService, private branchesService:BranchesService, private toaster: ToastrService, private router: Router,
     private loderService: LoaderService, private modalService: NgbModal) { }
 
   getBranches() {
@@ -37,10 +38,10 @@ export class BranchesListComponent implements OnInit {
       if(data.result.branches.items) {
         data.result.branches.items.map((item) => {
           if(item.isActive) {
-            item.isActive = '<span class="label label-lg label-light-success label-inline">Active</span>';
+            item.isActive = '<span class="label label-lg label-light-success label-inline">' + this.translate.instant('TABLE.ACTIVE') + '</span>';
           }
           else {
-            item.isActive = '<span class="label label-lg label-light-danger label-inline">Not Active</span>';
+            item.isActive = '<span class="label label-lg label-light-danger label-inline">' + this.translate.instant('TABLE.NOT_ACTIVE') + '</span>';
           }
           return item;
         })

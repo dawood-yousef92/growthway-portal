@@ -4,6 +4,7 @@ import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { UsersService } from '../../users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class UsersListComponent implements OnInit {
 
   @ViewChild('deleteModal', { static: false }) deleteModal: ElementRef;
 
-  constructor(private usersService: UsersService, private toaster: ToastrService, private router: Router,
+  constructor(private translate: TranslateService, private usersService: UsersService, private toaster: ToastrService, private router: Router,
     private loderService: LoaderService, private modalService: NgbModal) { }
 
   getUsers() {
@@ -40,10 +41,10 @@ export class UsersListComponent implements OnInit {
       if (data.result.users.items) {
         this.gridData = data.result.users.items.map((item) => {
           if (item.isActive) {
-            item.isActive = '<span class="label label-lg label-light-success label-inline">Active</span>';
+            item.isActive = '<span class="label label-lg label-light-success label-inline">' + this.translate.instant('TABLE.ACTIVE') + '</span>';
           }
           else {
-            item.isActive = '<span class="label label-lg label-light-danger label-inline">' + item.isActive + '</span>';
+            item.isActive = '<span class="label label-lg label-light-danger label-inline">' + this.translate.instant('TABLE.NOT_ACTIVE') + '</span>';
           }
           item.createdOn = this.getDateFormat(item.createdOn);
           return item;
