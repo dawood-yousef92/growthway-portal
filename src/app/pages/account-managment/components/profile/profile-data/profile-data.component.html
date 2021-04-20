@@ -51,16 +51,13 @@
                 </div> -->
                 <div class="col-md-6 mb-6">
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Phone" formControlName="phone"/>
+                        <input matInput placeholder="{{ 'INPUT.PHONE_NUMBER' | translate }}" formControlName="phone" />
                         <!-- <span matPrefix class="mr-4">+962</span>   -->
-                        <mat-error
-                            [ngTemplateOutlet]="formError"
-                            [ngTemplateOutletContext]="{
+                        <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                             validation: 'pattern',
                             message: 'Phone is invalid',
                             control: userForm.controls['phone']
-                            }"
-                        ></mat-error>
+                            }"></mat-error>
                     </mat-form-field>
                 </div>
                 <!-- <div class="col-md-6 mb-6">
@@ -99,18 +96,18 @@
             </div>
             <div>
                 <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
-                    Save
+                    {{ 'INPUT.SAVE' | translate }}
                 </button>
             </div>
         </form>
     </div>
 </div>
 <ng-template #formError let-control="control" let-message="message" let-validation="validation">
-  <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
-    <div class="fv-plugins-message-container">
-      <div class="fv-help-block">
-        {{ message }}
-      </div>
-    </div>
-  </mat-error>
+    <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+        <div class="fv-plugins-message-container">
+            <div class="fv-help-block">
+                {{ message }}
+            </div>
+        </div>
+    </mat-error>
 </ng-template>

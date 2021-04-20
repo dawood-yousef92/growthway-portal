@@ -1,23 +1,23 @@
 <div class="card card-custom example example-compact gutter-b">
     <div class="card-body">
         <mat-tab-group>
-            <mat-tab *ngIf="permissions.includes('AppSettings.GetIdentitySettings')" label=" {{'TITLE.SignSettings' | translate }}">
+            <mat-tab *ngIf="permissions.includes('AppSettings.GetIdentitySettings')" label=" {{'TITLE.SIGN_SETTING' | translate }}">
                 <app-user-settings [settings]="userSettings" (emmitSettings)="saveSettings($event)"></app-user-settings>
             </mat-tab>
-            <mat-tab *ngIf="permissions.includes('AppSettings.GetIdentitySettings')" label="{{'TITLE.PassSettings' | translate }}">
+            <mat-tab *ngIf="permissions.includes('AppSettings.GetIdentitySettings')" label="{{'TITLE.PASS_SETTING' | translate }}">
                 <app-signin-settings [settings]="signinSettings" (emmitSettings)="saveSettings($event)">
                 </app-signin-settings>
             </mat-tab>
-            <mat-tab *ngIf="permissions.includes('AppSettings.GetIdentitySettings')" label="{{'TITLE.LockSettings' | translate }}">
+            <mat-tab *ngIf="permissions.includes('AppSettings.GetIdentitySettings')" label="{{'TITLE.LOCK_SETTING' | translate }}">
                 <app-password-settings [settings]="passwordSettings" (emmitSettings)="saveSettings($event)">
                 </app-password-settings>
             </mat-tab>
-            <mat-tab *ngIf="permissions.includes('AppSettings.GetIdentitySettings')" label="{{'TITLE.FileSettings' | translate }}">
+            <mat-tab *ngIf="permissions.includes('AppSettings.GetIdentitySettings')" label="{{'TITLE.FILE_SETTING' | translate }}">
                 <app-lockout-settings [settings]="lockoutSettings" (emmitSettings)="saveSettings($event)">
                 </app-lockout-settings>
             </mat-tab>
 
-            <mat-tab *ngIf="permissions.includes('AppSettings.GetTokenSettings')" label="{{'TITLE.TokenSettings' | translate }}">
+            <mat-tab *ngIf="permissions.includes('AppSettings.GetTokenSettings')" label="{{'TITLE.TOKEN_SETTING' | translate }}">
                 <app-token-settings></app-token-settings>
             </mat-tab>
         </mat-tab-group>

@@ -7,35 +7,29 @@
                         <div class="col-md-4">
                             <div class="mb-6">
                                 <mat-form-field class="w-100">
-                                    <input class="py-2" matInput placeholder="Email Address" [value]="userData.email" disabled>
+                                    <input class="py-2" matInput placeholder="{{ 'INPUT.EMAIL' | translate }}" [value]="userData.email" disabled>
                                 </mat-form-field>
                             </div>
                             <div class="mb-6">
                                 <mat-form-field class="w-100">
-                                    <input class="py-2" matInput placeholder="Enter your new email" formControlName="newEmail"/>    
-                                    <mat-error
-                                        [ngTemplateOutlet]="formError"
-                                        [ngTemplateOutletContext]="{
+                                    <input class="py-2" matInput placeholder="{{ 'INPUT.CONFIRM_EMAIL' | translate }}" formControlName="newEmail" />
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'email',
-                                        message: 'Email is invalid',
+                                       message:'AUTH.VALIDATION.INVALID_FIELD' | translate,
                                         control: updateEmail.controls['newEmail']
-                                        }"
-                                    ></mat-error>
-                                    <mat-error
-                                        [ngTemplateOutlet]="formError"
-                                        [ngTemplateOutletContext]="{
+                                        }"></mat-error>
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
-                                        message: 'Email is required',
+                                         message:'AUTH.VALIDATION.EMAIL_MSG' | translate,
                                         control: updateEmail.controls['newEmail']
-                                        }"
-                                    ></mat-error>
+                                        }"></mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                     </div>
                     <div>
                         <button type="submit" class="btn btn-primary" [disabled]="updateEmail.invalid">
-                            Save
+                            {{ 'INPUT.SAVE' | translate }}
                         </button>
                     </div>
                 </form>
@@ -45,11 +39,11 @@
 </div>
 
 <ng-template #formError let-control="control" let-message="message" let-validation="validation">
-  <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
-    <div class="fv-plugins-message-container">
-      <div class="fv-help-block">
-        {{ message }}
-      </div>
-    </div>
-  </mat-error>
+    <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+        <div class="fv-plugins-message-container">
+            <div class="fv-help-block">
+                {{ message }}
+            </div>
+        </div>
+    </mat-error>
 </ng-template>
