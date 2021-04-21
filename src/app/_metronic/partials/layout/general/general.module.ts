@@ -12,9 +12,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OfflineTableComponent } from './offline-table/offline-table.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MapComponent } from './map/map.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
-  declarations: [DynamicTableComponent, OfflineTableComponent],
+  declarations: [DynamicTableComponent, OfflineTableComponent, MapComponent],
   imports: [
     CommonModule,
     MatTableModule,
@@ -28,7 +30,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
+    GoogleMapsModule
   ],
-  exports: [DynamicTableComponent, OfflineTableComponent],
+  exports: [DynamicTableComponent, OfflineTableComponent, MapComponent],
 })
 export class GeneralModule { }

@@ -139,12 +139,12 @@ export const locale = {
       NAME: "اسم المستخدم",
       EMAIL: "البريد الالكتروني",
       ISACTIVE: "الحالة",
-      CREATEDON: "تا ريح الانشاء",
+      CREATEDON: "تاريخ الانشاء",
       VERIFIED: "تم التحقق",
       FILTER: "فلتر",
-      ACTIONS: 'أجراءات',
+      ACTIONS: 'الخيارات',
       ISDEFAULT: 'الحالة الافتراضية',
-      IMAGEPATH: 'مسار الصورة',
+      IMAGEPATH: 'الصورة',
       NAMEAR: 'الاسم بالعربي',
       NAMEEN: 'الاسم بالإنجليزية',
       CATEGORY: 'الفئة',
@@ -224,7 +224,9 @@ export const locale = {
       DELETE_ITEM: 'مسح الصنف',
       ADD_CLASSIFICATION: 'أضف التصنيف',
       ROLES_DELETE: 'حذف الأدوار',
-
+      SEARCH_LOCATION: 'ابحث عن منطقة',
+      SELECT_LOCATION: 'اختر الموقع',
+      SELECT_BRANCH_LOCATION: 'اختر موقع الفرع',
     },
 
     TITLE: {
@@ -252,6 +254,10 @@ export const locale = {
       SELECT_CAT: 'حدد الفئات ',
       SIGNOUT: 'خروج',
       EDIT_USER_PERMISON: 'تحرير إذن المستخدم',
+      MAP: 'الخريطة',
     },
+    VALIDATION: {
+      ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',
+    }
   }
 };

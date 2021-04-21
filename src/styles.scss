@@ -352,3 +352,9 @@ mat-table.mat-table {
 .cdk-column-emailAddress {
   min-width: 250px;
 }
+.map-container {
+  height: 400px;
+}
+.pac-container {
+  z-index: 10000;
+}

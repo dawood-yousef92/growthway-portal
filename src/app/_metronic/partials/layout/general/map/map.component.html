@@ -1,0 +1,12 @@
+<div *ngIf="!isDisplayLocation()" class="mb-2">
+    <input matInput id="pac-input" (blur)="checkIchanged($event)" [value]="selectedLocationName || null" class="w-100" type="text" placeholder="{{'INPUT.SEARCH_LOCATION' | translate}}">
+</div>
+<div #mapContainer id="map" class="mb-3 map-container"></div>
+<div *ngIf="!isDisplayLocation()" class=""> 
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <button type="button" (click)="emmitLocation()" class="btn btn-primary px-2">{{'INPUT.SELECT_LOCATION' | translate}}</button>
+        </div>
+    </div>  
+</div>
+<p class="c-red map-allow-permession-error" *ngIf="showErrorPermession">{{'VALIDATION.ALLOW_LOCATION_PERMESSION' | translate}}</p>

@@ -222,9 +222,11 @@ export const locale = {
       WARNING_TITLE: 'Delete item',
       ADD_CLASSIFICATION: 'add classification',
       ROLES_DELETE: 'Delete Roles',
-
+      SEARCH_LOCATION: 'Search Location',
       MAX_FAILED: 'Maximum failed access attempts',
       Default_lockout: ' Default lockout time span',
+      SELECT_LOCATION: 'Select Location',
+      SELECT_BRANCH_LOCATION: 'Select Branch Location',
 
     },
     TITLE: {
@@ -252,6 +254,10 @@ export const locale = {
       SELECT_CAT: 'Select Categories ',
       SIGNOUT: 'sign out',
       EDIT_USER_PERMISON: 'Edit user permission',
+      MAP: 'Map',
     },
+    VALIDATION: {
+      ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',
+    }
   }
 };

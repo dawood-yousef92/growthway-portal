@@ -93,6 +93,11 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
+                        <button type="button" class="btn btn-primary" (click)="openCentred(mapModal)">{{'INPUT.SELECT_BRANCH_LOCATION' | translate}}</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
                         <mat-checkbox formControlName="isActive">{{'INPUT.ISACTIVE' | translate }}</mat-checkbox>
                     </div>
                 </div>
@@ -114,4 +119,16 @@
             </div>
         </div>
     </mat-error>
+</ng-template>
+
+<ng-template #mapModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{"TITLE.MAP" | translate}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true" class="d-block">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-map [pastLocation]="pastLocation" (change)="getLatLng($event)"></app-map>
+    </div>
 </ng-template>

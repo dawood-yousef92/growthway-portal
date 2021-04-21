@@ -19,6 +19,7 @@ export class AddBranchComponent implements OnInit {
   countries:any[] = [];
   cities:any[] = [];
   branch:any;
+  pastLocation:any;
 
   constructor(
     private generalService:GeneralService,
@@ -110,10 +111,18 @@ export class AddBranchComponent implements OnInit {
       this.branch = data.result.brancheForEdit;
       this.getCities({value:this.branch?.countryId});
       this.initForm();
+      this.pastLocation = {lat: this.branch.latitude, lng: this.branch.longitude};
       this.loderService.setIsLoading = false;
     }, (error) => {
       this.loderService.setIsLoading = false;
     })
+  }
+
+  getLatLng(e) {
+    if(e.lat){
+      this.pastLocation = {lat: e.lat, lng: e.lng};
+      this.modalService.dismissAll();
+    }
   }
 
   submit() {
@@ -126,6 +135,8 @@ export class AddBranchComponent implements OnInit {
     formData.append('addressAr',this.branchForm.controls.addressAr.value);
     formData.append('countryId',this.branchForm.controls.countryId.value);
     formData.append('cityId',this.branchForm.controls.cityId.value);
+    formData.append('latitude',this.pastLocation.lat);
+    formData.append('longitude',this.pastLocation.lng);
     formData.append('isActive',this.branchForm.controls.isActive.value);
     if(!this.branchtId) {
       this.branchesService.createBranch(formData).subscribe((data) => {
@@ -146,6 +157,10 @@ export class AddBranchComponent implements OnInit {
         this.loderService.setIsLoading = false;
       });
     }
+  }
+
+  openCentred(content) {
+    this.modalService.open(content, { centered: true } );
   }
 
   ngOnInit(): void {

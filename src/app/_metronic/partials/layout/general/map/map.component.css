@@ -1,0 +1,14 @@
+.map-allow-permession-error {
+    position: absolute;
+    top: 50%;
+    z-index: 0;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+#map {
+    position: relative;
+    z-index: 1;
+}
