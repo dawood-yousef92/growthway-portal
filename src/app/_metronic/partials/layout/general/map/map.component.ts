@@ -33,14 +33,16 @@ export class MapComponent implements AfterViewInit  {
       document.getElementById('pac-input').focus();
       if (navigator && !this.isDisplayLocation())
       {
-      navigator.geolocation.getCurrentPosition( pos => {
+      // navigator.geolocation.getCurrentPosition( pos => {
           if(this.pastLocation && Number(this.pastLocation.lng)) {
             this.lng = this.pastLocation.lng;
             this.lat = this.pastLocation.lat;
           }
           else {
-            this.lng = +pos.coords.longitude;
-            this.lat = +pos.coords.latitude;
+            // this.lng = +pos.coords.longitude;
+            // this.lat = +pos.coords.latitude;
+            this.lng = 46.67941718933105;
+            this.lat = 24.72789379205524;
           }
           if(this.lat && this.lng) {
             this.mapInitializer();
@@ -50,7 +52,7 @@ export class MapComponent implements AfterViewInit  {
             this.lng = 35.9366656;
             this.mapInitializer();
           }
-        });
+        // });
       }
       else {
         this.lat = this.myLocation.lat;
@@ -73,7 +75,7 @@ export class MapComponent implements AfterViewInit  {
 
       let mapOptions: google.maps.MapOptions = {
        center: coordinates,
-       zoom: 14
+       zoom: 12
       };
   
       let marker = new google.maps.Marker({
