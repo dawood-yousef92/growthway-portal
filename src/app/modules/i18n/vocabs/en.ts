@@ -227,7 +227,7 @@ export const locale = {
       Default_lockout: ' Default lockout time span',
       SELECT_LOCATION: 'Select Location',
       SELECT_BRANCH_LOCATION: 'Select Branch Location',
-
+      DELETE_ITEM: 'Delete Item',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',

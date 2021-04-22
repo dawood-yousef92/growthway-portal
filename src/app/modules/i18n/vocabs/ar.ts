@@ -221,12 +221,12 @@ export const locale = {
       CATEGORY: 'التصنيف',
       ORIGN_COUNTRY: 'بلد المنشأ',
       DELETE_USER: 'مسح المستخدم',
-      DELETE_ITEM: 'مسح الصنف',
       ADD_CLASSIFICATION: 'أضف التصنيف',
       ROLES_DELETE: 'حذف الأدوار',
       SEARCH_LOCATION: 'ابحث عن منطقة',
       SELECT_LOCATION: 'اختر الموقع',
       SELECT_BRANCH_LOCATION: 'اختر موقع الفرع',
+      DELETE_ITEM: 'مسح بطاقة الصنف',
     },
 
     TITLE: {
