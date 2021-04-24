@@ -1,0 +1,35 @@
+<app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+
+<ng-template #changeStatusModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{"TITLE.WARNING_TITLE" | translate}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            {{"TITLE.WARING" | translate}}
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="changeStatus()">{{"INPUT."+eventStatus | translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #orderDetailsModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{"TITLE.ORDER_DETAILS" | translate}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
+        <!-- <button type="button" class="btn btn-primary" (click)="changeStatus()">{{"INPUT."+eventStatus | translate}}</button> -->
+    </div>
+</ng-template>

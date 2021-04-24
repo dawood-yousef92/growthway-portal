@@ -17,9 +17,9 @@
                     {{"TABLE."+(col | uppercase) | translate}}
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <button *ngFor="let customAction of customActions" (click)="action(customAction.name, row.id)" class="btn btn-icon btn-light btn-hover-primary btn-sm ml-3">
-            <i [class]="customAction.icon"></i>
-          </button>
+                    <button *ngFor="let customAction of customActions" (click)="action(customAction.name, row.id)"  data-toggle="tooltip" [title]="customAction.name"  class="btn btn-icon btn-light btn-hover-primary btn-sm ml-3">
+                        <i [class]="customAction.icon"></i>
+                    </button>
                 </mat-cell>
             </ng-container>
         </ng-container>

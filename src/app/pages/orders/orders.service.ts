@@ -8,5 +8,8 @@ import { Observable } from 'rxjs';
 export class OrdersService {
     constructor(private http: HttpClient){}
 
-
+    getOrders(dataSettings): Observable<any> {
+        return this.http.post<any>('Orders/GetOrders', dataSettings);
+    }
+    
 }

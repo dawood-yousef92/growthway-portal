@@ -157,6 +157,11 @@ export const locale = {
       NOT_ACTIVE: 'Not Active',
       DEFAULT: 'Default',
       NOT_DEFAULT: 'Not Default',
+      STATUS: 'Status',
+      ORDERNUMBER: 'Order Number',
+      CUSTOMERNAME: 'Customer Name',
+      BRANCHNAME: 'Branch Name',
+      TOTALDUEAMOUNT: 'Total Due Amount',
     },
     INPUT: {
       EMAIL: 'email',
@@ -228,6 +233,9 @@ export const locale = {
       SELECT_LOCATION: 'Select Location',
       SELECT_BRANCH_LOCATION: 'Select Branch Location',
       DELETE_ITEM: 'Delete Item',
+      ACCEPT: 'Accept',
+      REJECT: 'Reject',
+      SELECT_BRANCH: 'Select Branch',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -255,6 +263,7 @@ export const locale = {
       SIGNOUT: 'sign out',
       EDIT_USER_PERMISON: 'Edit user permission',
       MAP: 'Map',
+      ORDER_DETAILS: 'Order Details',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',

@@ -14,10 +14,11 @@ import { RoleGuardService as RoleGuard } from 'src/app/modules/auth/_services/ro
 import { OrdersComponent } from './orders.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
+import { OrdersStatusesComponent } from './components/orders-statuses/orders-statuses.component';
 
 
 @NgModule({
-  declarations: [OrdersComponent],
+  declarations: [OrdersComponent, OrdersStatusesComponent],
   imports: [
     CommonModule,
     TranslationModule,

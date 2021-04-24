@@ -1,20 +1,34 @@
 <div class="card card-custom example example-compact gutter-b">
     <div class="card-body">
-        <mat-tab-group>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <mat-form-field class="w-100">
+                        <mat-select class="py-1" (selectionChange)="changeBranch($event)" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}">
+                            <mat-option [value]="''">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
+                            <mat-option *ngFor="let branch of branches" [value]="branch.id">
+                                {{branch.nameEn}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <mat-tab-group (selectedTabChange)="changeActiveTab($event)">
             <mat-tab label="New">
-                <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+                <app-orders-statuses *ngIf="activeTab === 0" [statusId]="'bd0a4950-4559-40ce-a6fe-4d081aa7a880'" [branchId]="branchId"></app-orders-statuses>
             </mat-tab>
             <mat-tab label="Sent">
-                <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+                <app-orders-statuses *ngIf="activeTab === 1" [statusId]="'8ce0ae9c-511b-4992-84a0-b05fa61d1e78'" [branchId]="branchId"></app-orders-statuses>
             </mat-tab>
             <mat-tab label="Rejected">
-                Rejected
+                <app-orders-statuses *ngIf="activeTab === 2" [statusId]="'f18a701e-55a7-476a-bcaa-c7c894041a29'" [branchId]="branchId"></app-orders-statuses>
             </mat-tab>
             <mat-tab label="Delivered">
-                Delivered
+                <app-orders-statuses *ngIf="activeTab === 3" [statusId]="'0d014e78-7887-4f53-ab63-94f9fad40193'" [branchId]="branchId"></app-orders-statuses>
             </mat-tab>
             <mat-tab label="All">
-                All
+                <app-orders-statuses *ngIf="activeTab === 4" [statusId]="''" [branchId]="branchId"></app-orders-statuses>
             </mat-tab>
         </mat-tab-group>
     </div>
