@@ -28,6 +28,10 @@ import { OrdersStatusesComponent } from './components/orders-statuses/orders-sta
       {
         path: '',
         component: OrdersComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRole: 'Orders.GetOrders'
+        },
         children: [
             // {
             //     path: '',

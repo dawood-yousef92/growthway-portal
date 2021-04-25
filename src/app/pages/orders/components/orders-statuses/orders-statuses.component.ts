@@ -63,18 +63,18 @@ export class OrdersStatusesComponent implements OnInit {
   }
 
 	checkPermissions() {
-    // if(this.permissions.includes('Products.DeleteProduct')) {
-		this.customActions.push({name: 'View', icon:'flaticon-eye text-warning'})
-		// }
+    if(this.permissions.includes('Orders.GetOrder')) {
+		  this.customActions.push({name: 'View', icon:'flaticon-eye text-warning'})
+		}
 		// if(this.permissions.includes('Products.UpdateProduct')) {
 		// this.customActions.push({name: 'Accept', icon:'flaticon2-check-mark text-success'})
 		// }
 		// if(this.permissions.includes('Products.DeleteProduct')) {
 		// this.customActions.push({name: 'Reject', icon:'flaticon2-cancel-music text-danger'})
 		// }
-		// if(this.customActions.length > 0) {
-		this.displayedColumns.push('actions');
-		// }
+		if(this.customActions.length > 0) {
+		  this.displayedColumns.push('actions');
+		}
 	}
 
 	getOrders() {
