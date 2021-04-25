@@ -11,5 +11,9 @@ export class OrdersService {
     getOrders(dataSettings): Observable<any> {
         return this.http.post<any>('Orders/GetOrders', dataSettings);
     }
-    
+
+    getOrder(id): Observable<any> {
+        return this.http.post<any>('Orders/GetOrder', {id:id});
+    }
+
 }

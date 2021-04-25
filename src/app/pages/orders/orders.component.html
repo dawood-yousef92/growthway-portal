@@ -1,6 +1,6 @@
 <div class="card card-custom example example-compact gutter-b">
     <div class="card-body">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-4">
                 <div class="mb-3">
                     <mat-form-field class="w-100">
@@ -13,7 +13,7 @@
                     </mat-form-field>
                 </div>
             </div>
-        </div>
+        </div> -->
         <mat-tab-group (selectedTabChange)="changeActiveTab($event)">
             <mat-tab label="New">
                 <app-orders-statuses *ngIf="activeTab === 0" [statusId]="'bd0a4950-4559-40ce-a6fe-4d081aa7a880'" [branchId]="branchId"></app-orders-statuses>
