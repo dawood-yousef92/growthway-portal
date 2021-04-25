@@ -26,7 +26,40 @@
         </button>
     </div>
     <div class="modal-body">
-
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <h6><span class="font-weight-boldest">Order Number</span>: {{orderDetails?.orderNumber || '----'}}</h6>
+            </div>
+            <div class="col-md-6 mb-3">
+                <h6><span class="font-weight-boldest">Customer Name:</span> {{orderDetails?.customerName || '----'}}</h6>
+            </div>
+            <div class="col-md-6 mb-3">
+                <h6><span class="font-weight-boldest">Sub Total Price:</span> {{orderDetails?.subTotalPrice || '----'}}</h6>
+            </div>
+            <div class="col-md-6 mb-3">
+                <h6><span class="font-weight-boldest">Tax:</span> {{orderDetails?.tax || '----'}}</h6>
+            </div>
+            <div class="col-md-6 mb-3">
+                <h6><span class="font-weight-boldest">Total Due Amount:</span> {{orderDetails?.totalDueAmount || '----'}}</h6>
+            </div>
+            <div class="col-12 mb-2" *ngFor="let item of orderDetails?.orderDetailItems">
+                <hr>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h6><span class="font-weight-boldest">Product Name:</span> {{item.productName || '----'}}</h6>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6><span class="font-weight-boldest">Quantity:</span> {{item.orderQuantity}}</h6>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6><span class="font-weight-boldest">Line Total:</span> {{item.lineTotal || '----'}}</h6>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6><span class="font-weight-boldest">Unit Price Discount:</span> {{item.unitPriceDiscount || '----'}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>

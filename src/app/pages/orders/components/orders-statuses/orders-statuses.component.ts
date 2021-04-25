@@ -15,12 +15,13 @@ export class OrdersStatusesComponent implements OnInit {
   @Input() branchId:string;
 	permissions = localStorage.getItem('permissions');
 	customActions:any[] = [];
-	displayedColumns: string[] = ['orderNumber', 'customerName', 'branchName', 'status', 'totalDueAmount'];
+	displayedColumns: string[] = ['orderNumber', 'customerName', 'status', 'totalDueAmount'];
 	actions:any = [];
 	gridData:any[] = [];
 	orderId:string;
 	eventStatus:string;
-	
+	orderDetails:any;
+
 	constructor(private OrdersService:OrdersService,private loderService: LoaderService, private modalService: NgbModal) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -40,6 +41,7 @@ export class OrdersStatusesComponent implements OnInit {
 			// this.openCentred(this.changeStatusModal);
 		// }
 		if(event.type === 'View') {
+      this.getOrder();
 			this.openCentred(this.orderDetailsModal);
 		}
 	}
@@ -52,6 +54,13 @@ export class OrdersStatusesComponent implements OnInit {
 	changeStatus() {
 		alert(this.eventStatus);
 	}
+
+  getOrder() {
+    this.OrdersService.getOrder(this.orderId).subscribe((data) => {
+      console.log(data);
+      this.orderDetails = data.result.orderItemForEdit;
+    });
+  }
 
 	checkPermissions() {
     // if(this.permissions.includes('Products.DeleteProduct')) {
