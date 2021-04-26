@@ -135,8 +135,10 @@ export class AddBranchComponent implements OnInit {
     formData.append('addressAr',this.branchForm.controls.addressAr.value);
     formData.append('countryId',this.branchForm.controls.countryId.value);
     formData.append('cityId',this.branchForm.controls.cityId.value);
-    formData.append('latitude',this.pastLocation.lat);
-    formData.append('longitude',this.pastLocation.lng);
+    if(this.pastLocation?.lat && this.pastLocation?.lng) {
+      formData.append('latitude',this.pastLocation.lat);
+      formData.append('longitude',this.pastLocation.lng);
+    }
     formData.append('isActive',this.branchForm.controls.isActive.value);
     if(!this.branchtId) {
       this.branchesService.createBranch(formData).subscribe((data) => {

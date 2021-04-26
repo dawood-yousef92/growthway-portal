@@ -264,6 +264,13 @@ export const locale = {
       EDIT_USER_PERMISON: 'Edit user permission',
       MAP: 'Map',
       ORDER_DETAILS: 'Order Details',
+      HI: 'Hi',
+      NEW_ORDERS: 'New Orders',
+      ACCEPTED_ORDERS: 'Accepted Orders',
+      SENT_ORDERS: 'Sent Orders',
+      REJECTED_ORDERS: 'Rejected Orders',
+      DELIVERED_ORDERS: 'Delivered Orders',
+      ALL_ORDERS: 'All Orders',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',

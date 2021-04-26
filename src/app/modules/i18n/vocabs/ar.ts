@@ -264,6 +264,13 @@ export const locale = {
       EDIT_USER_PERMISON: 'تحرير إذن المستخدم',
       MAP: 'الخريطة',
       ORDER_DETAILS: 'تفاصيل الطلب',
+      HI: 'اهلا',
+      NEW_ORDERS: 'الطلبات الجديدة',
+      ACCEPTED_ORDERS: 'الطلبات المقبولة',
+      SENT_ORDERS: 'الطلبات المرسلة',
+      REJECTED_ORDERS: 'الطلبات المرفوضة',
+      DELIVERED_ORDERS: 'الطلبات الموصلة',
+      ALL_ORDERS: 'جميع الطلبات',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',
