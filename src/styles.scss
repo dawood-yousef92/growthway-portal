@@ -358,3 +358,6 @@ mat-table.mat-table {
 .pac-container {
   z-index: 10000;
 }
+.modal.fade.show, .modal-backdrop.fade.show {
+  z-index: 100!important;
+}

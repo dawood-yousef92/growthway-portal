@@ -15,6 +15,9 @@ import { OrdersComponent } from './orders.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import { OrdersStatusesComponent } from './components/orders-statuses/orders-statuses.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 
 @NgModule({
@@ -69,6 +72,8 @@ import { OrdersStatusesComponent } from './components/orders-statuses/orders-sta
     MatTabsModule,
     GeneralModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
   ],
   exports: [RouterModule],

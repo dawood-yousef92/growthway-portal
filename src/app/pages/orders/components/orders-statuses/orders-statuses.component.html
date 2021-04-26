@@ -2,19 +2,54 @@
 
 <ng-template #changeStatusModal let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">{{"TITLE.WARNING_TITLE" | translate}}</h4>
+        <h4 class="modal-title">{{"TITLE."+eventStatus+"_ORDER" | translate}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <p>
-            {{"TITLE.WARING" | translate}}
-        </p>
+        <form *ngIf="eventStatus === 'ACCEPT' || eventStatus === 'SEND'" class="form" [formGroup]="acceptOrderForm" novalidate="novalidate" (ngSubmit)="acceptOrder()">
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="branchId" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}">
+                                <mat-option [value]="''">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
+                                <mat-option *ngFor="let branch of branches" [value]="branch.id">
+                                    {{branch.nameEn}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="mb-3">
+                        <mat-form-field class="w-100" appearance="fill">
+                            <mat-label>{{'INPUT.CHOOSE_ESTIMATED_DELIVERY_DATE' | translate}}</mat-label>
+                            <input matInput formControlName="expectedDeliveryDate" [matDatepicker]="dp3" disabled>
+                            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form *ngIf="eventStatus === 'REJECT'" class="form" [formGroup]="rejectOrderForm" novalidate="novalidate" (ngSubmit)="rejectOrder()">
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.REASON_OF_REJECT' | translate}}" formControlName="notes" />
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
-        <button type="button" class="btn btn-primary" (click)="changeStatus()">{{"INPUT."+eventStatus | translate}}</button>
+        <button type="button" *ngIf="eventStatus === 'ACCEPT' || eventStatus === 'SEND'" class="btn btn-primary" (click)="acceptOrder()">{{"INPUT."+eventStatus | translate}}</button>
+        <button type="button" *ngIf="eventStatus === 'REJECT'"  class="btn btn-primary" (click)="rejectOrder()">{{"INPUT."+eventStatus | translate}}</button>
     </div>
 </ng-template>
 
@@ -27,35 +62,41 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-md-6 mb-3">
-                <h6><span class="font-weight-boldest">Order Number</span>: {{orderDetails?.orderNumber || '----'}}</h6>
+            <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ORDER_NUMBER' | translate}}</span>: {{orderDetails?.orderNumber || '----'}}</p>
             </div>
-            <div class="col-md-6 mb-3">
-                <h6><span class="font-weight-boldest">Customer Name:</span> {{orderDetails?.customerName || '----'}}</h6>
+            <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_NAME' | translate}}:</span> {{orderDetails?.customerName || '----'}}</p>
             </div>
-            <div class="col-md-6 mb-3">
-                <h6><span class="font-weight-boldest">Sub Total Price:</span> {{orderDetails?.subTotalPrice || '----'}}</h6>
+            <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.SUB_TOTAL_PRICE' | translate}}:</span> {{orderDetails?.subTotalPrice || '----'}}</p>
             </div>
-            <div class="col-md-6 mb-3">
-                <h6><span class="font-weight-boldest">Tax:</span> {{orderDetails?.tax || '----'}}</h6>
+            <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TAX' | translate}}:</span> {{orderDetails?.tax || '----'}}</p>
             </div>
-            <div class="col-md-6 mb-3">
-                <h6><span class="font-weight-boldest">Total Due Amount:</span> {{orderDetails?.totalDueAmount || '----'}}</h6>
+            <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}:</span> {{orderDetails?.totalDueAmount || '----'}}</p>
+            </div>
+            <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CHOOSE_ESTIMATED_DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.expectedDeliveryDate)}}</p>
+            </div>
+            <div class="col-md-12 mb-0">
+                <h5 class="font-weight-boldest mt-3 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</h5>
             </div>
             <div class="col-12 mb-2" *ngFor="let item of orderDetails?.orderDetailItems">
-                <hr>
+                <hr class="my-2">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <h6><span class="font-weight-boldest">Product Name:</span> {{item.productName || '----'}}</h6>
+                        <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}:</span> {{item.productName || '----'}}</p>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <h6><span class="font-weight-boldest">Quantity:</span> {{item.orderQuantity}}</h6>
+                        <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.QUANTITY' | translate}}:</span> {{item.orderQuantity}}</p>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <h6><span class="font-weight-boldest">Line Total:</span> {{item.lineTotal || '----'}}</h6>
+                        <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}}:</span> {{item.lineTotal || '----'}}</p>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <h6><span class="font-weight-boldest">Unit Price Discount:</span> {{item.unitPriceDiscount || '----'}}</h6>
+                        <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.UNIT_PRICE_DISCOUNT' | translate}}:</span> {{item.unitPriceDiscount || '----'}}</p>
                     </div>
                 </div>
             </div>
@@ -63,6 +104,5 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
-        <!-- <button type="button" class="btn btn-primary" (click)="changeStatus()">{{"INPUT."+eventStatus | translate}}</button> -->
     </div>
 </ng-template>

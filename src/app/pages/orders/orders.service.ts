@@ -16,4 +16,8 @@ export class OrdersService {
         return this.http.post<any>('Orders/GetOrder', {id:id});
     }
 
+    updateOrder(dataForm): Observable<any> {
+        return this.http.put<any>('Orders/UpdateOrder', dataForm);
+    }
+
 }
