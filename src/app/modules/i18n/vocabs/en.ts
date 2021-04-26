@@ -241,6 +241,7 @@ export const locale = {
       CHOOSE_ESTIMATED_DELIVERY_DATE: 'Choose Expected Delivery Date',
       ORDER_NUMBER: 'Order Number',
       CUSTOMER_NAME: 'Customer Name',
+      CUSTOMER_PHONE_NUMBER: 'Customer Phone Number',
       SUB_TOTAL_PRICE: 'Sub Total Price',
       TAX: 'Tax',
       TOTAL_DUE_AMOUNT: 'Total Due Amount',

@@ -240,6 +240,7 @@ export const locale = {
       CHOOSE_ESTIMATED_DELIVERY_DATE: 'اختر تاريخ التوصيل المتوقع',
       ORDER_NUMBER: 'رقم الطلب',
       CUSTOMER_NAME: 'اسم العميل',
+      CUSTOMER_PHONE_NUMBER: 'رقم هاتف العميل',
       SUB_TOTAL_PRICE: 'المجموع الفرعي',
       TAX: 'الضريبة',
       TOTAL_DUE_AMOUNT: 'السعر الإجمالي المستحق',
