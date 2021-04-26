@@ -239,6 +239,7 @@ export const locale = {
       REASON_OF_REJECT: 'Reason of Reject',
       SEND: 'Send',
       CHOOSE_ESTIMATED_DELIVERY_DATE: 'Choose Expected Delivery Date',
+      ESTIMATED_DELIVERY_DATE: 'Expected Delivery Date',
       ORDER_NUMBER: 'Order Number',
       CUSTOMER_NAME: 'Customer Name',
       CUSTOMER_PHONE_NUMBER: 'Customer Phone Number',

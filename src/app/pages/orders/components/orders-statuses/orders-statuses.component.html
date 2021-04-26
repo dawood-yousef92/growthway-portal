@@ -72,6 +72,9 @@
                 <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_PHONE_NUMBER' | translate}}:</span> {{orderDetails?.customerPhone || '----'}}</p>
             </div>
             <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ESTIMATED_DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.expectedDeliveryDate)}}</p>
+            </div>
+            <div class="col-md-12 mb-3">
                 <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.SUB_TOTAL_PRICE' | translate}}:</span> {{orderDetails?.subTotalPrice || '----'}}</p>
             </div>
             <div class="col-md-12 mb-3">
@@ -79,9 +82,6 @@
             </div>
             <div class="col-md-12 mb-3">
                 <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}:</span> {{orderDetails?.totalDueAmount || '----'}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CHOOSE_ESTIMATED_DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.expectedDeliveryDate)}}</p>
             </div>
             <div class="col-md-12 mb-0">
                 <h5 class="font-weight-boldest mt-3 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</h5>
