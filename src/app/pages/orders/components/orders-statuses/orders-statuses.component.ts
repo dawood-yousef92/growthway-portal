@@ -18,7 +18,7 @@ export class OrdersStatusesComponent implements OnInit {
 	@Input() branches:any[];
 	permissions = localStorage.getItem('permissions');
 	customActions:any[] = [];
-	displayedColumns: string[] = ['orderNumber', 'customerName', 'status', 'totalDueAmount'];
+	displayedColumns: string[] = ['orderNumber', 'createdOn', 'customerName', 'status', 'totalDueAmount'];
 	actions:any = [];
 	gridData:any[] = [];
 	orderId:string;
@@ -176,6 +176,7 @@ export class OrdersStatusesComponent implements OnInit {
 			data.result.orderItems.items.map((item) => {
 				item.orderNumber = item.orderNumber.toString();
 				item.totalDueAmount = item.totalDueAmount.toString();
+				item.createdOn = this.getDateFormat(item.createdOn);
 			})
 			this.gridData = data.result.orderItems.items;
 			this.loderService.setIsLoading = false;
