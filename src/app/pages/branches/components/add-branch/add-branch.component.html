@@ -93,7 +93,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
-                        <button type="button" class="btn btn-primary" (click)="openCentred(mapModal)">{{'INPUT.SELECT_BRANCH_LOCATION' | translate}}</button>
+                        <button type="button" class="btn btn-primary mb-2" (click)="openCentred(mapModal)">{{'INPUT.SELECT_BRANCH_LOCATION' | translate}}</button>
+                        <p class="mb-0">{{'INPUT.LATITUDE' | translate}}: {{pastLocation?.lat || '----'}}</p>
+                        <p>{{'INPUT.LONGITUDE' | translate}}: {{pastLocation?.lng || '----'}}</p>
                     </div>
                 </div>
                 <div class="col-md-6">

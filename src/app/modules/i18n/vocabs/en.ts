@@ -251,6 +251,8 @@ export const locale = {
       QUANTITY: 'Quantity',
       LINE_TOTAL: 'Line Total',
       UNIT_PRICE_DISCOUNT: 'Unit Price Discount',
+      LATITUDE: 'Latitude',
+      LONGITUDE: 'Longitude',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -289,6 +291,7 @@ export const locale = {
       ACCEPT_ORDER: 'Accept Order',
       REJECT_ORDER: 'Reject Order',
       SEND_ORDER: 'Send Order',
+      EDIT_ITEM: 'Edit Item',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',

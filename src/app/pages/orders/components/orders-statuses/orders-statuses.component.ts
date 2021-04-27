@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
@@ -24,6 +24,7 @@ export class OrdersStatusesComponent implements OnInit {
 	orderId:string;
 	eventStatus:string;
 	orderDetails:any;
+	minDate:Date = new Date();
 
 	acceptOrderForm: FormGroup;
 	rejectOrderForm: FormGroup;
@@ -41,10 +42,16 @@ export class OrdersStatusesComponent implements OnInit {
 	initAcceptOrderForm() {
 		this.acceptOrderForm = this.fb.group({
 		  branchId: [
-			this.getBranchId() || ''
+			this.getBranchId() || '',
+			Validators.compose([
+				Validators.required,
+			]),
 		  ],
 		  expectedDeliveryDate: [
-			this.getEstimatedDeliveryDate() || ''
+			this.getEstimatedDeliveryDate() || '',
+			Validators.compose([
+				Validators.required,
+			]),
 		  ]
 		})
 	}
@@ -63,7 +70,7 @@ export class OrdersStatusesComponent implements OnInit {
 
 		var d = new Date(date),
 			month = '' + (d.getMonth() + 1),
-			day = '' + (d.getDate() + 1),
+			day = '' + (d.getDate()),
 			year = d.getFullYear();
 	
 		if (month.length < 2) 
@@ -114,7 +121,7 @@ export class OrdersStatusesComponent implements OnInit {
 			statusId: nextStatus,
 			id: this.orderId,
 			branchId: this.acceptOrderForm.controls.branchId.value,
-			expectedDeliveryDate: this.acceptOrderForm.controls.expectedDeliveryDate.value
+			expectedDeliveryDate: new Date(this.acceptOrderForm.controls.expectedDeliveryDate.value).toLocaleString()
 		}).subscribe((data) => {
 			this.toaster.success(data.result);
 			this.loderService.setIsLoading = false;

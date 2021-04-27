@@ -13,7 +13,7 @@
                 <div class="col-12">
                     <div class="mb-3">
                         <mat-form-field class="w-100">
-                            <mat-select class="py-1" formControlName="branchId" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}">
+                            <mat-select class="py-1" formControlName="branchId" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}" required>
                                 <mat-option [value]="''">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
                                 <mat-option *ngFor="let branch of branches" [value]="branch.id">
                                     {{branch.nameEn}}
@@ -26,7 +26,7 @@
                     <div class="mb-3">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>{{'INPUT.CHOOSE_ESTIMATED_DELIVERY_DATE' | translate}}</mat-label>
-                            <input matInput formControlName="expectedDeliveryDate" [matDatepicker]="dp3" disabled>
+                            <input matInput formControlName="expectedDeliveryDate" [min]="minDate" [matDatepicker]="dp3" disabled required>
                             <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                             <mat-datepicker #dp3 disabled="false"></mat-datepicker>
                         </mat-form-field>
@@ -48,8 +48,8 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
-        <button type="button" *ngIf="eventStatus === 'ACCEPT' || eventStatus === 'SEND'" class="btn btn-primary" (click)="acceptOrder()">{{"INPUT."+eventStatus | translate}}</button>
-        <button type="button" *ngIf="eventStatus === 'REJECT'"  class="btn btn-primary" (click)="rejectOrder()">{{"INPUT."+eventStatus | translate}}</button>
+        <button type="submit" [disabled]="acceptOrderForm.invalid" *ngIf="eventStatus === 'ACCEPT' || eventStatus === 'SEND'" class="btn btn-primary" (click)="acceptOrder()">{{"INPUT."+eventStatus | translate}}</button>
+        <button type="submit" [disabled]="rejectOrderForm.invalid" *ngIf="eventStatus === 'REJECT'"  class="btn btn-primary" (click)="rejectOrder()">{{"INPUT."+eventStatus | translate}}</button>
     </div>
 </ng-template>
 

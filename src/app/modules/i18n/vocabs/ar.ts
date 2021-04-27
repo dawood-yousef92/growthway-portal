@@ -250,6 +250,8 @@ export const locale = {
       QUANTITY: 'الكمية',
       LINE_TOTAL: 'السعر',
       UNIT_PRICE_DISCOUNT: 'السعر بعد الخصم',
+      LATITUDE: 'خط الطول',
+      LONGITUDE: 'خط العرض',
     },
 
     TITLE: {
@@ -289,6 +291,7 @@ export const locale = {
       ACCEPT_ORDER: 'قبول الطلب',
       REJECT_ORDER: 'رفض الطلب',
       SEND_ORDER: 'ارسال الطلب',
+      EDIT_ITEM: 'تعديل بطاقة الصنف',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',

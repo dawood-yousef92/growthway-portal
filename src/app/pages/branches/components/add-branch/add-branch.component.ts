@@ -108,10 +108,10 @@ export class AddBranchComponent implements OnInit {
   getBranch() {
     this.loderService.setIsLoading = true;
     this.branchesService.getBranch(this.branchtId).subscribe((data) => {
-      this.branch = data.result.brancheForEdit;
+      this.branch = data.result.branchForEdit;
       this.getCities({value:this.branch?.countryId});
       this.initForm();
-      this.pastLocation = {lat: this.branch.latitude, lng: this.branch.longitude};
+      this.pastLocation = {lat: this.branch?.latitude, lng: this.branch?.longitude};
       this.loderService.setIsLoading = false;
     }, (error) => {
       this.loderService.setIsLoading = false;
