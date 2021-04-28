@@ -14,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     let apiUrl = request.url;
-    if (apiUrl.toLowerCase().indexOf('https://jsonplaceholder.typicode') < 0 && apiUrl.toLowerCase().indexOf('.json') < 0) {
+    if (apiUrl.toLowerCase().indexOf('https://jsonplaceholder.typicode') < 0 && apiUrl.toLowerCase().indexOf('.json') < 0 && !apiUrl.includes('maps.googleapis.com')) {
       apiUrl = `${environment.apiUrl}${request.url}`;
     }
     else {
@@ -27,7 +27,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const token = localStorage.getItem('token');
     const tanent = window.location.href.split('.')[0].split('//')[1];
-    console.log(tanent);
 
     if (tanent != null && !tanent.includes('growthway')) {
       if (token != null) {

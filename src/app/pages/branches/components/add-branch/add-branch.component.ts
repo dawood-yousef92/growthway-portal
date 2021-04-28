@@ -20,6 +20,7 @@ export class AddBranchComponent implements OnInit {
   cities:any[] = [];
   branch:any;
   pastLocation:any;
+  fullAddressText:string;
 
   constructor(
     private generalService:GeneralService,
@@ -112,6 +113,9 @@ export class AddBranchComponent implements OnInit {
       this.getCities({value:this.branch?.countryId});
       this.initForm();
       this.pastLocation = {lat: this.branch?.latitude, lng: this.branch?.longitude};
+      setTimeout(() => {
+        this.getFullAddressName();
+      },500);
       this.loderService.setIsLoading = false;
     }, (error) => {
       this.loderService.setIsLoading = false;
@@ -122,9 +126,20 @@ export class AddBranchComponent implements OnInit {
     if(e.lat){
       this.pastLocation = {lat: e.lat, lng: e.lng};
       this.modalService.dismissAll();
+      this.getFullAddressName()
     }
   }
 
+  getFullAddressName() {
+    this.loderService.setIsLoading = true;
+    this.branchesService.getFullAddressName(this.pastLocation.lat,this.pastLocation.lng).subscribe((data) => {
+      this.fullAddressText = data?.results[0]?.formatted_address;
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
+    });
+  }
+  
   submit() {
     this.loderService.setIsLoading = true;
     var formData: FormData = new FormData();

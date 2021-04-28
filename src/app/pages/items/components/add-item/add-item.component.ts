@@ -335,7 +335,7 @@ export class AddItemComponent implements OnInit {
   }
 
   submit() {
-    this.loderService.setIsLoading = true;
+    // this.loderService.setIsLoading = true;
     var formData: FormData = new FormData();
     formData.append('code',this.itemForm.controls.code.value);
     formData.append('nameEn',this.itemForm.controls.nameEn.value);
@@ -350,11 +350,11 @@ export class AddItemComponent implements OnInit {
     formData.append('unitOfMeasurementId',this.itemForm.controls.unitOfMeasurementId.value);
     formData.append('packagingTypeId',this.itemForm.controls.packagingTypeId.value);
     formData.append('isActive',this.itemForm.controls.isActive.value);
-    formData.append('defaultImageIndex',this.itemForm.controls.defaultImageIndex.value);
     formData.append('categoryId',this.itemForm.controls.categoryId.value);
     formData.append('minimumOrderQuantity',this.itemForm.controls.minimumOrderQuantity.value);
     formData.append('tags',this.tags?.join(','));
     if(!this.productId) {
+      formData.append('defaultImageIndex',this.itemForm.controls.defaultImageIndex.value);
       for(let i = 0; i < this.itemImages.length; i++) {
         formData.append("productImages", this.itemImages[i].file as File, this.itemImages[i].file['name']);
       }
@@ -368,6 +368,27 @@ export class AddItemComponent implements OnInit {
       });
     }
     else {
+      let zeft:any = [];
+      zeft = zeft.concat(this.itemImages);
+      let a = zeft[this.itemForm.controls.defaultImageIndex.value];
+      if(a?.base64?.imagePath) {
+        for(let i = 0; i < zeft.length; i++) {
+          if(!zeft[i]?.base64?.imagePath) {
+            zeft.splice(zeft.indexOf(zeft[i]),1);
+            i--;
+          }
+        }
+        formData.append('defaultImageIdIndex',zeft.indexOf(a));
+      }
+      else {
+        for(let i = 0; i < zeft.length; i++) {
+          if(zeft[i]?.base64?.imagePath) {
+            zeft.splice(zeft.indexOf(zeft[i]),1);
+            i--;
+          }
+        }
+        formData.append('defaultImageIndex',zeft.indexOf(a));
+      }
       formData.append('id',this.productId);
       for(let i = 0; i < this.itemImages.length; i++) {
         if(this.itemImages[i].file) {

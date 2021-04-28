@@ -27,4 +27,8 @@ export class BranchesService {
     updateBranch(formData): Observable<any> {
         return this.http.put<any>('Branches/UpdateBranch', formData);
     }
+
+    getFullAddressName(lat,lng) {
+        return this.http.get<any>(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyDGY4ZEEgNDbOWPz4riWbb38AB6L-GgBic&language=ar`);   
+    }
 }
