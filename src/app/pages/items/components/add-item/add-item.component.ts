@@ -57,14 +57,14 @@ export class AddItemComponent implements OnInit {
         this.product?.nameEn || '',
         Validators.compose([
           Validators.required,
-          Validators.pattern("[a-zA-Z0-9]+"),
+          Validators.pattern("[a-zA-Z0-9-_ ]+"),
         ]),
       ],
       nameAr: [
         this.product?.nameAr || '',
         Validators.compose([
           Validators.required,
-          Validators.pattern("[a-zA-Zأ-ي0-9]+"),
+          Validators.pattern("[a-zA-Zأ-ي0-9-_ ]+"),
         ]),
       ],
       descriptionEn: [
