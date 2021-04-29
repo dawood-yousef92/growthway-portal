@@ -34,7 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
           setHeaders: {
             Authorization: 'Bearer ' + token.replace(/\"/g, ""),
             // "X-Tenant": tanent,
-            "X-Tenant": 'test-ksa',
+            "X-Tenant": 'navarro_hays_inc-ksa',
           },
         });
       }
@@ -42,7 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
         request = request.clone({
           setHeaders: {
             // "X-Tenant": tanent,
-            "X-Tenant": 'test-ksa',
+            "X-Tenant": 'navarro_hays_inc-ksa',
           },
         });
       }

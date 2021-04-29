@@ -60,6 +60,11 @@
                                         message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
                                         control: itemForm.controls['nameEn']
                                         }"></mat-error>
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                        validation: 'pattern',
+                                        message: 'AUTH.VALIDATION.INVALID_FIELD' | translate,
+                                        control: itemForm.controls['nameEn']
+                                        }"></mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -70,6 +75,11 @@
                                     <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
                                         message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                        control: itemForm.controls['nameAr']
+                                        }"></mat-error>
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                        validation: 'pattern',
+                                        message: 'AUTH.VALIDATION.INVALID_FIELD' | translate,
                                         control: itemForm.controls['nameAr']
                                         }"></mat-error>
                                 </mat-form-field>
