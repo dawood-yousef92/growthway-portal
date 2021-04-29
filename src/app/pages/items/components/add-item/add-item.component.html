@@ -247,14 +247,14 @@
                                     class="flaticon-upload-1 text-white ml-2"></i></button>
                         </div>
                         <div class="col-md-4 mb-3" *ngFor="let img of itemImages; let i = index">
-                            <div class="position-relative">
+                            <div class="selected-item-images position-relative">
                                 <button type="button" class="make-primary" (click)="itemForm.get('defaultImageIndex').setValue(i)">
                                     <i *ngIf="i !== itemForm.controls.defaultImageIndex.value" class="far fa-star"></i>
                                     <i *ngIf="i === itemForm.controls.defaultImageIndex.value" class="fas fa-star"></i>
                                 </button>
                                 <button type="button" class="delete-item" (click)="deleteImg(img)"><i
                                         class="flaticon-circle"></i></button>
-                                <img [src]="img.base64.imagePath || img.base64" class="w-100 cursor-pointer" (click)="itemForm.get('defaultImageIndex').setValue(i)" />
+                                <img [src]="img.base64.imagePath || img.base64" class="cursor-pointer" (click)="itemForm.get('defaultImageIndex').setValue(i)" />
                             </div>
                         </div>
                     </div>

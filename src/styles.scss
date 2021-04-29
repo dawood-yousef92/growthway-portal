@@ -209,7 +209,7 @@ mat-table.mat-table {
   cursor: not-allowed;
 }
 .img-table-col {
-  max-width: 60px;
+  width: 60px;
   height: 40px;
 }
 .filter {
@@ -360,4 +360,10 @@ mat-table.mat-table {
 }
 .modal.fade.show, .modal-backdrop.fade.show {
   z-index: 100!important;
+}
+.selected-item-images {
+  img {
+    width: 100%;
+    height: 110px;
+  }
 }
