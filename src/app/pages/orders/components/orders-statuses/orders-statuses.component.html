@@ -45,10 +45,25 @@
                 </div>
             </div>
         </form>
+        <form *ngIf="eventStatus === 'DELIVERED'" class="form" [formGroup]="sentOrderForm" novalidate="novalidate" (ngSubmit)="deliverOrder()">
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <mat-form-field class="w-100" appearance="fill">
+                            <mat-label>{{'INPUT.CHOOSE_DELIVERY_DATE' | translate}}</mat-label>
+                            <input matInput formControlName="deliveryDate" [min]="minDate" [matDatepicker]="dp3" disabled required>
+                            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
         <button type="submit" [disabled]="acceptOrderForm.invalid" *ngIf="eventStatus === 'ACCEPT' || eventStatus === 'SEND'" class="btn btn-primary" (click)="acceptOrder()">{{"INPUT."+eventStatus | translate}}</button>
+        <button type="submit" [disabled]="sentOrderForm.invalid" *ngIf="eventStatus === 'DELIVERED'" class="btn btn-primary" (click)="deliverOrder()">{{"INPUT."+eventStatus | translate}}</button>
         <button type="submit" [disabled]="rejectOrderForm.invalid" *ngIf="eventStatus === 'REJECT'"  class="btn btn-primary" (click)="rejectOrder()">{{"INPUT."+eventStatus | translate}}</button>
     </div>
 </ng-template>
@@ -66,27 +81,36 @@
                 <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ORDER_NUMBER' | translate}}</span>: {{orderDetails?.orderNumber || '----'}}</p>
             </div>
             <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_NAME' | translate}}:</span> {{orderDetails?.customerName || '----'}}</p>
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_NAME' | translate}}:</span> {{orderDetails?.name || '----'}}</p>
             </div>
             <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_PHONE_NUMBER' | translate}}:</span> {{orderDetails?.customerPhone || '----'}}</p>
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_EMAIL' | translate}}:</span> {{orderDetails?.email || '----'}}</p>
+            </div>
+            <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_PHONE_NUMBER' | translate}}:</span> {{orderDetails?.phone || '----'}}</p>
+            </div>
+            <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TABLE.CREATEDON' | translate}}:</span> {{getDateTimeFormat(orderDetails?.createdOn)}}</p>
             </div>
             <div class="col-md-12 mb-3">
                 <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ESTIMATED_DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.expectedDeliveryDate)}}</p>
             </div>
             <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.SUB_TOTAL_PRICE' | translate}}:</span> {{orderDetails?.subTotalPrice || '----'}}</p>
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.deliveryDate)}}</p>
             </div>
             <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TAX' | translate}}:</span> {{orderDetails?.tax || '----'}}</p>
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.SUB_TOTAL_PRICE' | translate}}:</span> {{(orderDetails?.subTotalPrice.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
             </div>
             <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}:</span> {{orderDetails?.totalDueAmount || '----'}}</p>
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TAX' | translate}}:</span> {{(orderDetails?.tax.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
+            </div>
+            <div class="col-md-12 mb-3">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}:</span> {{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
             </div>
             <div class="col-md-12 mb-0">
                 <h5 class="font-weight-boldest mt-3 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</h5>
             </div>
-            <div class="col-12 mb-2" *ngFor="let item of orderDetails?.orderDetailItems">
+            <div class="col-12" *ngFor="let item of orderDetails?.orderDetailItems">
                 <hr class="my-2">
                 <div class="row">
                     <div class="col-md-6 mb-3">

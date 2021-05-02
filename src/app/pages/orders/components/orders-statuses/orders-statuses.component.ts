@@ -18,7 +18,7 @@ export class OrdersStatusesComponent implements OnInit {
 	@Input() branches:any[];
 	permissions = localStorage.getItem('permissions');
 	customActions:any[] = [];
-	displayedColumns: string[] = ['orderNumber', 'createdOn', 'customerName', 'status', 'totalDueAmount'];
+	displayedColumns: string[] = ['orderNumber', 'createdOn', 'customerName', 'customerPhone', 'status', 'totalDueAmount'];
 	actions:any = [];
 	gridData:any[] = [];
 	orderId:string;
@@ -28,6 +28,7 @@ export class OrdersStatusesComponent implements OnInit {
 
 	acceptOrderForm: FormGroup;
 	rejectOrderForm: FormGroup;
+	sentOrderForm: FormGroup;
 
 	constructor(private OrdersService:OrdersService,
 		private loderService: LoaderService,
@@ -64,6 +65,17 @@ export class OrdersStatusesComponent implements OnInit {
 		})
 	}
 
+	initSentOrderForm() {
+		this.sentOrderForm = this.fb.group({
+			deliveryDate: [
+				'',
+				Validators.compose([
+					Validators.required,
+				]),
+			]
+		})
+	}
+
 	getDateFormat(date) {
 		if(!date)
 		   return '----';
@@ -72,13 +84,17 @@ export class OrdersStatusesComponent implements OnInit {
 			month = '' + (d.getMonth() + 1),
 			day = '' + (d.getDate()),
 			year = d.getFullYear();
-	
+			
 		if (month.length < 2) 
 			month = '0' + month;
 		if (day.length < 2) 
 			day = '0' + day;
 	
 		return [ day, month, year,].join('/');
+	}
+
+	getDateTimeFormat(date) {
+		return new Date(date).toLocaleString();
 	}
 
 	getBranchId() {
@@ -92,9 +108,10 @@ export class OrdersStatusesComponent implements OnInit {
 	actionsEvent(event) {
 		this.orderId = event.rowId;
 		this.eventStatus = event?.type.toUpperCase();
-		if(event.type === 'Accept' || event.type === 'Reject' || event.type === 'Send') {
+		if(event.type === 'Accept' || event.type === 'Reject' || event.type === 'Send' || event.type === 'Delivered') {
 			this.initAcceptOrderForm();
 			this.initRejectOrderForm();
+			this.initSentOrderForm();
 			this.openCentred(this.changeStatusModal);
 		}
 		if(event.type === 'View') {
@@ -148,6 +165,22 @@ export class OrdersStatusesComponent implements OnInit {
 		});
 	}
 
+	deliverOrder() {
+		this.loderService.setIsLoading = true;
+		this.OrdersService.updateOrder({
+			statusId: '0d014e78-7887-4f53-ab63-94f9fad40193',
+			id: this.orderId,
+			deliveryDate: this.sentOrderForm.controls.deliveryDate.value,
+		}).subscribe((data) => {
+			this.toaster.success(data.result);
+			this.loderService.setIsLoading = false;
+			this.getOrders();
+			this.modalService.dismissAll();
+		}, (error) => {
+			this.loderService.setIsLoading = false;
+		});
+	}
+
 	getOrder() {
 		this.OrdersService.getOrder(this.orderId).subscribe((data) => {
 			this.orderDetails = data.result.orderItemForEdit;
@@ -165,6 +198,9 @@ export class OrdersStatusesComponent implements OnInit {
 		if((this.permissions.includes('Orders.UpdateOrder') || true) && this.statusId === 'c91d4598-1bfd-42bb-abaf-c161151cb127') {
 			this.customActions.push({name: 'Send', icon:'flaticon2-delivery-truck text-success'});
 		}
+		if((this.permissions.includes('Orders.UpdateOrder') || true) && this.statusId === '8ce0ae9c-511b-4992-84a0-b05fa61d1e78') {
+			this.customActions.push({name: 'Delivered', icon:'flaticon2-box text-success'});
+		}
 		if(this.customActions.length > 0) {
 		  	this.displayedColumns.push('actions');
 		}
@@ -175,8 +211,8 @@ export class OrdersStatusesComponent implements OnInit {
 		this.OrdersService.getOrders({branchId: this.branchId, statusId: this.statusId,rowsPerPage: 5000000,}).subscribe((data) => {
 			data.result.orderItems.items.map((item) => {
 				item.orderNumber = item.orderNumber.toString();
-				item.totalDueAmount = item.totalDueAmount.toString();
-				item.createdOn = this.getDateFormat(item.createdOn);
+				item.totalDueAmount = item.totalDueAmount.toFixed(2).toString();
+				item.createdOn = this.getDateTimeFormat(item.createdOn);
 			})
 			this.gridData = data.result.orderItems.items;
 			this.loderService.setIsLoading = false;

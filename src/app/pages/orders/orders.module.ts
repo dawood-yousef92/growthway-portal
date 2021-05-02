@@ -16,7 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import { OrdersStatusesComponent } from './components/orders-statuses/orders-statuses.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 
@@ -35,32 +35,6 @@ import { MatNativeDateModule } from '@angular/material/core';
         data: { 
           expectedRole: 'Orders.GetOrders'
         },
-        children: [
-            // {
-            //     path: '',
-            //     component: ItemsListComponent,
-            //     canActivate: [RoleGuard], 
-            //     data: { 
-            //       expectedRole: 'Products.GetProducts'
-            //     }     
-            // },
-            // {
-            //     path: 'add-item',
-            //     component: AddItemComponent,
-            //     canActivate: [RoleGuard], 
-            //     data: { 
-            //       expectedRole: 'Products.CreateProduct'
-            //     }
-            // },
-            // {
-            //     path: 'edit-item/:id',
-            //     component: AddItemComponent,
-            //     canActivate: [RoleGuard], 
-            //     data: { 
-            //       expectedRole: 'Products.UpdateProduct'
-            //     }
-            // },
-        ]
       },
     ]),
 
@@ -75,6 +49,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
 
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   exports: [RouterModule],
 })

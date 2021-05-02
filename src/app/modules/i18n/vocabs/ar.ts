@@ -162,6 +162,7 @@ export const locale = {
       CUSTOMERNAME: 'اسم العميل',
       BRANCHNAME: 'اسم الفرع',
       TOTALDUEAMOUNT: 'المبلغ الاجمالي',
+      CUSTOMERPHONE: 'هاتف العميل',
     },
     INPUT: {
       EMAIL: 'البريد الالكتروني',
@@ -238,9 +239,13 @@ export const locale = {
       REASON_OF_REJECT: 'سبب الرفض',
       SEND: 'ارسال',
       CHOOSE_ESTIMATED_DELIVERY_DATE: 'اختر تاريخ التوصيل المتوقع',
+      CHOOSE_DELIVERY_DATE: 'اختر تاريخ التوصيل',
       ESTIMATED_DELIVERY_DATE: 'تاريخ التوصيل المتوقع',
+      DELIVERY_DATE: 'تاريخ التوصيل',
       ORDER_NUMBER: 'رقم الطلب',
+      ORDER_STATUS: 'حالة الطلب',
       CUSTOMER_NAME: 'اسم العميل',
+      CUSTOMER_EMAIL: 'بريد العميل الالكتروني',
       CUSTOMER_PHONE_NUMBER: 'رقم هاتف العميل',
       SUB_TOTAL_PRICE: 'المجموع الفرعي',
       TAX: 'الضريبة',
@@ -252,6 +257,7 @@ export const locale = {
       UNIT_PRICE_DISCOUNT: 'السعر بعد الخصم',
       LATITUDE: 'خط الطول',
       LONGITUDE: 'خط العرض',
+      DELIVERED: 'تم التوصيل',
     },
 
     TITLE: {
