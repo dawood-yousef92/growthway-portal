@@ -76,54 +76,56 @@
         </button>
     </div>
     <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ORDER_NUMBER' | translate}}</span>: {{orderDetails?.orderNumber || '----'}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_NAME' | translate}}:</span> {{orderDetails?.name || '----'}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_EMAIL' | translate}}:</span> {{orderDetails?.email || '----'}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_PHONE_NUMBER' | translate}}:</span> {{orderDetails?.phone || '----'}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TABLE.CREATEDON' | translate}}:</span> {{getDateTimeFormat(orderDetails?.createdOn)}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ESTIMATED_DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.expectedDeliveryDate)}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.deliveryDate)}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.SUB_TOTAL_PRICE' | translate}}:</span> {{(orderDetails?.subTotalPrice.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TAX' | translate}}:</span> {{(orderDetails?.tax.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
-            </div>
-            <div class="col-md-12 mb-3">
-                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}:</span> {{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
-            </div>
-            <div class="col-md-12 mb-0">
-                <h5 class="font-weight-boldest mt-3 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</h5>
-            </div>
-            <div class="col-12" *ngFor="let item of orderDetails?.orderDetailItems">
-                <hr class="my-2">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}:</span> {{item.productName || '----'}}</p>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.QUANTITY' | translate}}:</span> {{item.orderQuantity}}</p>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}}:</span> {{item.lineTotal || '----'}}</p>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.UNIT_PRICE_DISCOUNT' | translate}}:</span> {{item.unitPriceDiscount || '----'}}</p>
+        <div id="contentToConvert">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ORDER_NUMBER' | translate}}</span>: {{orderDetails?.orderNumber || '----'}}</p>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_NAME' | translate}}:</span> {{orderDetails?.name || '----'}}</p>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_EMAIL' | translate}}:</span> {{orderDetails?.email || '----'}}</p>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_PHONE_NUMBER' | translate}}:</span> {{orderDetails?.phone || '----'}}</p>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TABLE.CREATEDON' | translate}}:</span> {{getDateTimeFormat(orderDetails?.createdOn)}}</p>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ESTIMATED_DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.expectedDeliveryDate)}}</p>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.deliveryDate)}}</p>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.SUB_TOTAL_PRICE' | translate}}:</span> {{(orderDetails?.subTotalPrice.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TAX' | translate}}:</span> {{(orderDetails?.tax.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}:</span> {{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
+                </div>
+                <div class="col-md-12 mb-0">
+                    <p class="font-weight-boldest mt-3 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</p>
+                </div>
+                <div class="col-12" *ngFor="let item of orderDetails?.orderDetailItems">
+                    <hr class="my-2">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}:</span> {{item.productName || '----'}}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.QUANTITY' | translate}}:</span> {{item.orderQuantity}}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}}:</span> {{item.lineTotal || '----'}}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.UNIT_PRICE_DISCOUNT' | translate}}:</span> {{item.unitPriceDiscount || '----'}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,5 +133,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
+        <button type="button" class="btn btn-secondary" (click)="generatePDF()">{{'INPUT.EXPORT_PDF' | translate}}</button>
     </div>
 </ng-template>

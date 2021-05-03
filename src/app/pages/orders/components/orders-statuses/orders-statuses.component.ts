@@ -4,6 +4,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { OrdersService } from '../../orders.service';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-orders-statuses',
@@ -29,6 +32,7 @@ export class OrdersStatusesComponent implements OnInit {
 	acceptOrderForm: FormGroup;
 	rejectOrderForm: FormGroup;
 	sentOrderForm: FormGroup;
+testImage:any;
 
 	constructor(private OrdersService:OrdersService,
 		private loderService: LoaderService,
@@ -95,6 +99,39 @@ export class OrdersStatusesComponent implements OnInit {
 
 	getDateTimeFormat(date) {
 		return new Date(date).toLocaleString();
+	}
+
+	generatePDF() {
+		var data = (document.getElementById('contentToConvert').innerHTML as string);
+
+		const doc = new jsPDF('portrait', 'px', 'a4');
+		data = this.replaceAll(data, "<p", "<p style='width:700px; font-size:8px;line-height:5px;margin:0px;'");
+		data = this.replaceAll(data, "<span", "<span style='font-size:8px;line-height:5px;margin:0px;'");
+		data = this.replaceAll(data, "<div", "<div style='font-size:8px;line-height:5px;margin:0px;'");
+		data = this.replaceAll(data, '<hr ', "<p style='color:#aaa;width:700px; font-size:8px;line-height:8px;margin-top:8px;margin-bottom:0px;'>-----------------------------------------------------------</p><hr ");
+		doc.html(data, {x:10,y:10});
+		setTimeout(() => {
+			doc.save('Order.pdf');
+		}, 2000);
+
+		// html2canvas(data).then(canvas => {
+		// 	console.log(canvas);
+		//   var imgWidth = 100;
+		//   var imgHeight = canvas.height * imgWidth / canvas.width;
+		//   const contentDataURL = canvas.toDataURL('image/png')
+		//   console.log(contentDataURL);
+		//   this.testImage = contentDataURL;
+		//   let pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+		//   var position = 0;
+		//   pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+		//   setTimeout(() => {
+		// 	  pdf.save('Order.pdf');
+		//   }, 1000);
+		// });
+	}
+
+	replaceAll(string, search, replace) {
+		return string.split(search).join(replace);
 	}
 
 	getBranchId() {

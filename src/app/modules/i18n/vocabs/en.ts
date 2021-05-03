@@ -259,6 +259,7 @@ export const locale = {
       LATITUDE: 'Latitude',
       LONGITUDE: 'Longitude',
       DELIVERED: 'Delivered',
+      EXPORT_PDF: 'Export PDF',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
