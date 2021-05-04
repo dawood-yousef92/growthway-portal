@@ -260,6 +260,7 @@ export const locale = {
       LONGITUDE: 'Longitude',
       DELIVERED: 'Delivered',
       EXPORT_PDF: 'Export PDF',
+      PRINT: 'Print',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',

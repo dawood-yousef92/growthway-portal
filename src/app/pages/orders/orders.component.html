@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-                <div class="mb-3">
+                <div class="mb-3 d-flex align-items-center">
                     <mat-form-field class="w-100">
                         <mat-select class="py-1" (selectionChange)="changeBranch($event)" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}">
                             <mat-option [value]="''">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
@@ -11,6 +11,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <button type="button" class="btn btn-secondary ml-2" (click)="printTable()">{{'INPUT.PRINT' | translate}}</button>
                 </div>
             </div>
         </div>

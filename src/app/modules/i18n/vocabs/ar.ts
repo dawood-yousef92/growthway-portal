@@ -259,6 +259,7 @@ export const locale = {
       LONGITUDE: 'خط العرض',
       DELIVERED: 'تم التوصيل',
       EXPORT_PDF: 'تحميل PDF',
+      PRINT: 'طباعة',
     },
 
     TITLE: {
