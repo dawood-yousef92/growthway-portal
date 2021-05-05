@@ -1,1 +1,318 @@
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card card-custom card-stretch gutter-b">
+            <div class="card-header align-items-center border-0 mt-4">
+              <h3 class="card-title align-items-start flex-column">
+                <span class="font-weight-bolder text-dark">My Activity</span>
+              </h3>
+              <div class="card-toolbar">
+                <mat-form-field appearance="fill" class="mr-3">
+                    <mat-label>Enter a date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                      <input matStartDate placeholder="Start date" disabled>
+                      <input matEndDate placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select class="py-1" placeholder="Filter By">
+                        <mat-option [value]="null">Filter by</mat-option>
+                        <mat-option *ngFor="let item of filter" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="card-body charts-section py-5">
+                <div class="d-flex flex-wrap flex-grow-1 py-5 my-5">
+                    <a routerLink="/orders/new" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                        <apx-chart
+                            [series]="chartOptions.series"
+                            [chart]="chartOptions.chart"
+                            [xaxis]="chartOptions.xaxis"
+                            [yaxis]="chartOptions.yaxis"
+                            [dataLabels]="chartOptions.dataLabels"
+                            [stroke]="chartOptions.stroke"
+                            [legend]="chartOptions.legend"
+                            [fill]="chartOptions.fill"
+                            [states]="chartOptions.states"
+                            [tooltip]="chartOptions.tooltip"
+                            [colors]="chartOptions.colors"
+                            [markers]="chartOptions.markers"
+                            [plotOptions]="chartOptions.plotOptions"
+                        ></apx-chart>
+                        <div class="chart-img">
+                            <img class="w-75 mx-auto" src="../../../assets/images/new-order (1).svg" alt="New Orders">
+                        </div>
+                        <h5 class="text-center">{{'TITLE.NEW_ORDERS' | translate}}<br>12</h5>
+                    </a>
+                    <a routerLink="/orders/accepted" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                        <apx-chart
+                            [series]="chartOptions.series"
+                            [chart]="chartOptions.chart"
+                            [xaxis]="chartOptions.xaxis"
+                            [yaxis]="chartOptions.yaxis"
+                            [dataLabels]="chartOptions.dataLabels"
+                            [stroke]="chartOptions.stroke"
+                            [legend]="chartOptions.legend"
+                            [fill]="chartOptions.fill"
+                            [states]="chartOptions.states"
+                            [tooltip]="chartOptions.tooltip"
+                            [colors]="chartOptions.colors"
+                            [markers]="chartOptions.markers"
+                            [plotOptions]="chartOptions.plotOptions"
+                        ></apx-chart>
+                        <div class="chart-img">
+                            <img class="w-75 mx-auto" src="../../../assets/images/Accepted (1).svg" alt="Accepted Orders">
+                        </div>
+                        <h5 class="text-center">{{'TITLE.ACCEPTED_ORDERS' | translate}}<br>12</h5>
+                    </a>
+                    <a routerLink="/orders/rejected" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                        <apx-chart
+                            [series]="chartOptions.series"
+                            [chart]="chartOptions.chart"
+                            [xaxis]="chartOptions.xaxis"
+                            [yaxis]="chartOptions.yaxis"
+                            [dataLabels]="chartOptions.dataLabels"
+                            [stroke]="chartOptions.stroke"
+                            [legend]="chartOptions.legend"
+                            [fill]="chartOptions.fill"
+                            [states]="chartOptions.states"
+                            [tooltip]="chartOptions.tooltip"
+                            [colors]="chartOptions.colors"
+                            [markers]="chartOptions.markers"
+                            [plotOptions]="chartOptions.plotOptions"
+                        ></apx-chart>
+                        <div class="chart-img">
+                            <img class="w-75 mx-auto" src="../../../assets/images/Rejected.svg" alt="Rejected Orders">
+                        </div>
+                        <h5 class="text-center">{{'TITLE.REJECTED_ORDERS' | translate}}<br>12</h5>
+                    </a>
+                    <a routerLink="/orders/sent" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                        <apx-chart
+                            [series]="chartOptions.series"
+                            [chart]="chartOptions.chart"
+                            [xaxis]="chartOptions.xaxis"
+                            [yaxis]="chartOptions.yaxis"
+                            [dataLabels]="chartOptions.dataLabels"
+                            [stroke]="chartOptions.stroke"
+                            [legend]="chartOptions.legend"
+                            [fill]="chartOptions.fill"
+                            [states]="chartOptions.states"
+                            [tooltip]="chartOptions.tooltip"
+                            [colors]="chartOptions.colors"
+                            [markers]="chartOptions.markers"
+                            [plotOptions]="chartOptions.plotOptions"
+                        ></apx-chart>
+                        <div class="chart-img">
+                            <img class="w-75 mx-auto" src="../../../assets/images/send-order.svg" alt="Sent Orders">
+                        </div>
+                        <h5 class="text-center">{{'TITLE.SENT_ORDERS' | translate}}<br>12</h5>
+                    </a>
+                    <a routerLink="/orders/delivered" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                        <apx-chart
+                            [series]="chartOptions.series"
+                            [chart]="chartOptions.chart"
+                            [xaxis]="chartOptions.xaxis"
+                            [yaxis]="chartOptions.yaxis"
+                            [dataLabels]="chartOptions.dataLabels"
+                            [stroke]="chartOptions.stroke"
+                            [legend]="chartOptions.legend"
+                            [fill]="chartOptions.fill"
+                            [states]="chartOptions.states"
+                            [tooltip]="chartOptions.tooltip"
+                            [colors]="chartOptions.colors"
+                            [markers]="chartOptions.markers"
+                            [plotOptions]="chartOptions.plotOptions"
+                        ></apx-chart>
+                        <div class="chart-img">
+                            <img class="w-100" src="../../../assets/images/Delivered.svg" alt="Delivered Orders">
+                        </div>
+                        <h5 class="text-center">{{'TITLE.DELIVERED_ORDERS' | translate}}<br>12</h5>
+                    </a>
+                </div>
+                <div class="row my-5 pt-5">
+                    <div class="px-5 mb-5 col-md-3 offset-md-3">
+                        <a href="#" class="dashboard-main-link">
+                            <span>
+                                <span class="num">119</span>
+                                Total Customer
+                            </span>
+                            <span class="indecator">
+                                <img src="../../../assets/images/arrow-pointing-to-right_(3).svg" alt="arrow">
+                            </span>
+                        </a>
+                    </div>
+                    <div class="px-5 mb-5 col-md-3">
+                        <a href="#" class="dashboard-main-link">
+                            <span>
+                                <span class="num">19</span>
+                                Total Orders
+                            </span>
+                            <span class="indecator">
+                                <img src="../../../assets/images/arrow-pointing-to-right_(3).svg" alt="arrow">
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>          
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="card card-custom card-stretch gutter-b">
+            <div class="card-header border-0 py-0 border-bottom">
+                <h3 class="card-title d-flex align-items-center">
+                    <span class="card-label font-weight-bolder text-dark">Top 10 Items</span>
+                </h3>
+                <div class="card-toolbar">
+                    <mat-form-field>
+                        <mat-select class="py-1" placeholder="Filter By">
+                            <mat-option [value]="null">Filter by</mat-option>
+                            <mat-option *ngFor="let item of months" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="card-body custom pt-0 pb-3">
+                <div class="tab-content">
+                    <div class="table-responsive">
+                        <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
+                            <thead>
+                                <tr class="text-left text-uppercase">
+                                    <th style="min-width: 250px;" class="pl-7">
+                                    </th>
+                                    <th style="min-width: 100px;">
+                                        <span class="text-dark-75">Count</span>
+                                    </th>
+                                    <th style="min-width: 100px;">
+                                        <span class="text-dark-75">Amount</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of [3,5,6,7,2,3,4,5,6,7]">
+                                    <td class="pl-0 py-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="symbol symbol-50 symbol-light mr-4">
+                                                <img src="../../../assets/images/Capture{{item}}.PNG" class="img-table-col"/>
+                                            </div>
+                                            <div>
+                                                <a class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg cursor-pointer">
+                                                    Brad Simmons
+                                                </a>
+                                                <span class="text-muted font-weight-bold d-block">HTML, JS, ReactJS</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                                            90.001
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                                            $8,000,000
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card card-custom card-stretch gutter-b">
+            <div class="card-header border-0 py-0 border-bottom">
+                <h3 class="card-title d-flex align-items-center">
+                    <span class="card-label font-weight-bolder text-dark">Top 10 Customrts</span>
+                </h3>
+                <div class="card-toolbar">
+                    <mat-form-field>
+                        <mat-select class="py-1" placeholder="Filter By">
+                            <mat-option [value]="null">Filter by</mat-option>
+                            <mat-option *ngFor="let item of months" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="card-body custom pt-0 pb-3">
+                <div class="tab-content">
+                    <div class="table-responsive">
+                        <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
+                            <thead>
+                                <tr class="text-left text-uppercase">
+                                    <th style="min-width: 250px;" class="pl-7">
+                                    </th>
+                                    <th style="min-width: 100px;">
+                                        <span class="text-dark-75">Count</span>
+                                    </th>
+                                    <th style="min-width: 100px;">
+                                        <span class="text-dark-75">Amount</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of [2,3,4,5,6,7,2,3,4,5,6,7]">
+                                    <td class="pl-0 py-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="symbol symbol-50 symbol-light mr-4">
+                                                <img src="../../../assets/images/Capture{{item}}.PNG" class="img-table-col"/>
+                                            </div>
+                                            <div>
+                                                <a class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg cursor-pointer">
+                                                    Brad Simmons
+                                                </a>
+                                                <span class="text-muted font-weight-bold d-block">HTML, JS, ReactJS</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                                            90.001
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                                            $8,000,000
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-custom card-stretch gutter-b">
+            <div class="card-header border-0 py-0 border-bottom">
+                <h3 class="card-title d-flex align-items-center">
+                    <span class="card-label font-weight-bolder text-dark">Expected Delivered Orders</span>
+                </h3>
+            </div>
+            <div class="card-body custom pt-0 pb-3">
+                <div class="tab-content">
+                    <div class="table-responsive">
+                        <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
 <app-dashboard-wrapper></app-dashboard-wrapper>

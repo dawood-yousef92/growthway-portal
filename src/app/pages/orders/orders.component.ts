@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BranchesService } from '../branches/branches.service';
 
 @Component({
@@ -9,8 +10,9 @@ export class OrdersComponent implements OnInit {
     branchId:string = '';
     activeTab:number = 0;
     branches:any = [];
+    type:string;
 
-    constructor( private branchesService:BranchesService,) {}
+    constructor( private branchesService:BranchesService, private route: ActivatedRoute,) {}
 
     changeActiveTab(e) {
         this.activeTab = e.index;
@@ -54,5 +56,28 @@ export class OrdersComponent implements OnInit {
 
     ngOnInit() {
         this.getBranches();
+        this.route.params.subscribe((data) => {
+            this.type = data.type;
+            switch (this.type) {
+                case 'new':
+                    this.activeTab = 0;
+                    break;
+                case 'accepted':
+                    this.activeTab = 1;
+                    break;
+                case 'rejected':
+                    this.activeTab = 2;
+                    break;
+                case 'sent':
+                        this.activeTab = 3;
+                        break;
+                case 'delivered':
+                    this.activeTab = 4;
+                    break;
+            
+                default:
+                    break;
+            }
+        });
     }
 }

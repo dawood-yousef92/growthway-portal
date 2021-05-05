@@ -367,3 +367,63 @@ mat-table.mat-table {
     height: 110px;
   }
 }
+.chart-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 130px;
+  height: 130px;
+  margin-left: -64px;
+  margin-top: -77px;
+  z-index: 2;
+  padding: 30px;
+  border-radius: 50%;
+  border: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+}
+.charts-section {
+  background-image: url('./assets/images/Combined_Map.svg');
+  background-position: center;
+  background-size: 100%;
+}
+.dashboard-main-link {
+  min-height: 120px;
+  background: #fff;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  font-size: 20px;
+  align-items: center;
+  box-shadow: 0px 0px 11px 1px #00000066;
+  padding: 15px;
+  color: #000;
+  position: relative;
+  .num {
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 40px;
+    display: block;
+  }
+  .indecator {
+    position: absolute;
+    top: 0;
+    right: -10px;
+    height: 80%;
+    margin-top: 5%;
+    width: 20px;
+    text-align: center;
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+    background-color: #558916;
+    img {
+      margin: auto;
+    }
+  }
+}
+.card-body.custom {
+  max-height: 400px;
+  overflow: auto;
+}

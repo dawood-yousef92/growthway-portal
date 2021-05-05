@@ -137,7 +137,7 @@ testImage:any;
 	print(): void {
 		let printContents, popupWin;
 		printContents = document.getElementById('contentToConvert').innerHTML;
-		popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+		popupWin = window.open('', '_blank', 'top=0,left=0,height=1000px,width=1000px');
 		popupWin.document.open();
 		popupWin.document.write(`
 		  <html>
@@ -275,6 +275,12 @@ testImage:any;
 		}, (error) => {
 			this.loderService.setIsLoading = false;
 		});
+	}
+
+	getCreatedOn() {
+		if(this.orderId) {
+			return new Date(this.gridData?.find(item => item.id === this.orderId).createdOn);
+		}
 	}
 
 	ngOnInit() {

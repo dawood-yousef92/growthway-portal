@@ -295,6 +295,7 @@ export const locale = {
       SENT_ORDERS: 'Sent Orders',
       REJECTED_ORDERS: 'Rejected Orders',
       DELIVERED_ORDERS: 'Delivered Orders',
+      DELIVERED_ORDER: 'Deliver Order',
       ALL_ORDERS: 'All Orders',
       ACCEPT_ORDER: 'Accept Order',
       REJECT_ORDER: 'Reject Order',

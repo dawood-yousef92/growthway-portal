@@ -51,7 +51,7 @@
                     <div class="mb-3">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>{{'INPUT.CHOOSE_DELIVERY_DATE' | translate}}</mat-label>
-                            <input matInput formControlName="deliveryDate" [min]="minDate" [matDatepicker]="dp3" disabled required>
+                            <input matInput formControlName="deliveryDate" [min]="getCreatedOn()" [max]="minDate" [matDatepicker]="dp3" disabled required>
                             <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                             <mat-datepicker #dp3 disabled="false"></mat-datepicker>
                         </mat-form-field>
@@ -115,7 +115,7 @@
                     <hr class="my-2">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}:</span> {{item.productName || '----'}}</p>
+                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}:</span> {{item.productNameEn || '----'}}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.QUANTITY' | translate}}:</span> {{item.orderQuantity}}</p>

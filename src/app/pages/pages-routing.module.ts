@@ -53,6 +53,11 @@ const routes: Routes = [
           import('./orders/orders.module').then((m) => m.OrdersModule),
       },
       {
+        path: 'orders/:type',
+        loadChildren: () =>
+          import('./orders/orders.module').then((m) => m.OrdersModule),
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',

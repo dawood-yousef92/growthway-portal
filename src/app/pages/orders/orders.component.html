@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <mat-tab-group (selectedTabChange)="changeActiveTab($event)">
+        <mat-tab-group (selectedTabChange)="changeActiveTab($event)" [selectedIndex]="activeTab">
             <mat-tab label="{{'TITLE.NEW_ORDERS' | translate}}">
                 <app-orders-statuses *ngIf="activeTab === 0" [branches]="branches" [statusId]="'bd0a4950-4559-40ce-a6fe-4d081aa7a880'" [branchId]="branchId"></app-orders-statuses>
             </mat-tab>
