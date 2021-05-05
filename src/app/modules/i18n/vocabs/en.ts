@@ -237,6 +237,7 @@ export const locale = {
       ACCEPT: 'Accept',
       REJECT: 'Reject',
       SELECT_BRANCH: 'Select Branch',
+      DELETE_BRANCH: 'Delete Branch',
       REASON_OF_REJECT: 'Reason of Reject',
       SEND: 'Send',
       CHOOSE_ESTIMATED_DELIVERY_DATE: 'Choose Expected Delivery Date',

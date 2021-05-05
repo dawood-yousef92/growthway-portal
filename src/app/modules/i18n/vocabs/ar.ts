@@ -236,6 +236,7 @@ export const locale = {
       ACCEPT: 'قبول',
       REJECT: 'رفض',
       SELECT_BRANCH: 'اختر الفرع',
+      DELETE_BRANCH: 'مسح الفرع',
       REASON_OF_REJECT: 'سبب الرفض',
       SEND: 'ارسال',
       CHOOSE_ESTIMATED_DELIVERY_DATE: 'اختر تاريخ التوصيل المتوقع',
