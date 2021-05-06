@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from 'src/app/_metronic/core';
+import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +15,10 @@ export class DashboardComponent implements OnInit {
   fontFamily: string;
   chartOptions: any = {};
   filter:any = [
-    {id: 1, name:'today'},
-    {id: 2, name:'last week'},
-    {id: 3, name:'last month'},
-    {id: 4, name:'last year'}
+    {id: 1, name:'TODAY'},
+    {id: 2, name:'LAST_WEEK'},
+    {id: 3, name:'LAST_MONTH'},
+    {id: 4, name:'LAST_YEAR'}
   ]
   months:any = [
     {id:1, name:'January'},
@@ -36,8 +37,13 @@ export class DashboardComponent implements OnInit {
 	displayedColumns: string[] = ['orderNumber', 'createdOn', 'customerName', 'customerPhone', 'status', 'totalDueAmount'];
   customActions:any = [];
   gridData:any = [];
+  newOrders = [22];
+  acceptedOrders = [34];
+  rejectedOrders = [99];
+  sentOrders = [78];
+  deliveredOrders = [66];
 
-  constructor(private layout: LayoutService) {
+  constructor(private layout: LayoutService,private loderService: LoaderService) {
     this.colorsGrayGray100 = this.layout.getProp('js.colors.gray.gray100');
     this.colorsGrayGray700 = this.layout.getProp('js.colors.gray.gray700');
     this.colorsThemeBaseSuccess = this.layout.getProp(
@@ -50,7 +56,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chartOptions = this.getChartOptions();
+    this.chartOptions = this.getChartOptions(70);
     this.gridData = [
       {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
       {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
@@ -59,14 +65,23 @@ export class DashboardComponent implements OnInit {
       {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
       {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
     ]
+    // setTimeout(() => {
+    //   this.loderService.setIsLoading = true;
+    //   this.newOrders = [55];
+    //   this.acceptedOrders = [35];
+    //   this.rejectedOrders = [33];
+    //   this.sentOrders = [78];
+    //   this.deliveredOrders = [54];
+    //   this.loderService.setIsLoading = false;
+    // },2500);
   }
 
   actionsEvent(e) { }
 
-  getChartOptions() {
+  getChartOptions(num) {
     const strokeColor = '#D13647';
     return {
-      series: [50],
+      series: [num],
       chart: {
         type: 'radialBar',
         height: 200,
@@ -92,24 +107,18 @@ export class DashboardComponent implements OnInit {
             },
           },
           track: {
-            background: this.colorsThemeLightSuccess,
+            background: '#D0D1CC',
             strokeWidth: '100%',
           },
         },
       },
-      colors: [this.colorsThemeBaseSuccess],
       stroke: {
         lineCap: 'round',
       },
-      labels: ['Progress'],
-      legend: {},
-      dataLabels: {},
-      fill: {},
-      xaxis: {},
-      yaxis: {},
-      states: {},
-      tooltip: {},
-      markers: {},
     };
+  }
+
+  getPercentage(num) {
+    return num;
   }
 }

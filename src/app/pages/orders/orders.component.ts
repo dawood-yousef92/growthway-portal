@@ -74,6 +74,9 @@ export class OrdersComponent implements OnInit {
                 case 'delivered':
                     this.activeTab = 4;
                     break;
+                case 'all':
+                    this.activeTab = 5;
+                    break;
             
                 default:
                     break;

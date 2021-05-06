@@ -1,13 +1,15 @@
-<!-- <div class="row">
+<div class="row">
     <div class="col-12">
         <div class="card card-custom card-stretch gutter-b">
-            <div class="card-header align-items-center border-0 mt-4">
-              <h3 class="card-title align-items-start flex-column">
-                <span class="font-weight-bolder text-dark">My Activity</span>
-              </h3>
+            <div class="card-header align-items-top border-0 mt-4">
+                <div class="col bg-light-danger p-2 mt-2 rounded d-flex align-items-center mr-3 mb-7">
+                    <p class="text-danger font-weight-bold font-size-xs mb-0">
+                        {{'TITLE.DASHBOARD_TIP' | translate}}
+                    </p>
+                </div>
               <div class="card-toolbar">
                 <mat-form-field appearance="fill" class="mr-3">
-                    <mat-label>Enter a date range</mat-label>
+                    <mat-label>{{'INPUT.ENTER_DATE_RANE' | translate}}</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
                       <input matStartDate placeholder="Start date" disabled>
                       <input matEndDate placeholder="End date">
@@ -16,10 +18,10 @@
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-select class="py-1" placeholder="Filter By">
-                        <mat-option [value]="null">Filter by</mat-option>
+                    <mat-select class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
+                        <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
                         <mat-option *ngFor="let item of filter" [value]="item.id">
-                            {{item.name}}
+                            {{'INPUT.'+item.name | translate}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -27,9 +29,9 @@
             </div>
             <div class="card-body charts-section py-5">
                 <div class="d-flex flex-wrap flex-grow-1 py-5 my-5">
-                    <a routerLink="/orders/new" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                    <a routerLink="/orders/new" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
-                            [series]="chartOptions.series"
+                            [series]="newOrders"
                             [chart]="chartOptions.chart"
                             [xaxis]="chartOptions.xaxis"
                             [yaxis]="chartOptions.yaxis"
@@ -39,18 +41,18 @@
                             [fill]="chartOptions.fill"
                             [states]="chartOptions.states"
                             [tooltip]="chartOptions.tooltip"
-                            [colors]="chartOptions.colors"
+                            [colors]="['#3E454C']"
                             [markers]="chartOptions.markers"
                             [plotOptions]="chartOptions.plotOptions"
                         ></apx-chart>
                         <div class="chart-img">
                             <img class="w-75 mx-auto" src="../../../assets/images/new-order (1).svg" alt="New Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.NEW_ORDERS' | translate}}<br>12</h5>
+                        <h5 class="text-center">{{'TITLE.NEW_ORDERS' | translate}}<br>{{newOrders}}%</h5>
                     </a>
-                    <a routerLink="/orders/accepted" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                    <a routerLink="/orders/accepted" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
-                            [series]="chartOptions.series"
+                            [series]="acceptedOrders"
                             [chart]="chartOptions.chart"
                             [xaxis]="chartOptions.xaxis"
                             [yaxis]="chartOptions.yaxis"
@@ -60,18 +62,18 @@
                             [fill]="chartOptions.fill"
                             [states]="chartOptions.states"
                             [tooltip]="chartOptions.tooltip"
-                            [colors]="chartOptions.colors"
+                            [colors]="['#4A8927']"
                             [markers]="chartOptions.markers"
                             [plotOptions]="chartOptions.plotOptions"
                         ></apx-chart>
                         <div class="chart-img">
                             <img class="w-75 mx-auto" src="../../../assets/images/Accepted (1).svg" alt="Accepted Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.ACCEPTED_ORDERS' | translate}}<br>12</h5>
+                        <h5 class="text-center">{{'TITLE.ACCEPTED_ORDERS' | translate}}<br>{{acceptedOrders}}%</h5>
                     </a>
-                    <a routerLink="/orders/rejected" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                    <a routerLink="/orders/rejected" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
-                            [series]="chartOptions.series"
+                            [series]="rejectedOrders"
                             [chart]="chartOptions.chart"
                             [xaxis]="chartOptions.xaxis"
                             [yaxis]="chartOptions.yaxis"
@@ -81,18 +83,18 @@
                             [fill]="chartOptions.fill"
                             [states]="chartOptions.states"
                             [tooltip]="chartOptions.tooltip"
-                            [colors]="chartOptions.colors"
+                            [colors]="['#86511A']"
                             [markers]="chartOptions.markers"
                             [plotOptions]="chartOptions.plotOptions"
                         ></apx-chart>
                         <div class="chart-img">
                             <img class="w-75 mx-auto" src="../../../assets/images/Rejected.svg" alt="Rejected Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.REJECTED_ORDERS' | translate}}<br>12</h5>
+                        <h5 class="text-center">{{'TITLE.REJECTED_ORDERS' | translate}}<br>{{rejectedOrders}}%</h5>
                     </a>
-                    <a routerLink="/orders/sent" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                    <a routerLink="/orders/sent" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
-                            [series]="chartOptions.series"
+                            [series]="sentOrders"
                             [chart]="chartOptions.chart"
                             [xaxis]="chartOptions.xaxis"
                             [yaxis]="chartOptions.yaxis"
@@ -102,18 +104,19 @@
                             [fill]="chartOptions.fill"
                             [states]="chartOptions.states"
                             [tooltip]="chartOptions.tooltip"
-                            [colors]="chartOptions.colors"
+                            [colors]="['#39869A']"
                             [markers]="chartOptions.markers"
                             [plotOptions]="chartOptions.plotOptions"
                         ></apx-chart>
                         <div class="chart-img">
                             <img class="w-75 mx-auto" src="../../../assets/images/send-order.svg" alt="Sent Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.SENT_ORDERS' | translate}}<br>12</h5>
+                        <h5 class="text-center">{{'TITLE.SENT_ORDERS' | translate}}<br>{{sentOrders}}%</h5>
                     </a>
-                    <a routerLink="/orders/delivered" class="flex-fill position-relative" style="height: 200px; width: 200px;">
+                    <a routerLink="/orders/delivered" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
-                            [series]="chartOptions.series"
+                            #delivered
+                            [series]="deliveredOrders"
                             [chart]="chartOptions.chart"
                             [xaxis]="chartOptions.xaxis"
                             [yaxis]="chartOptions.yaxis"
@@ -123,22 +126,23 @@
                             [fill]="chartOptions.fill"
                             [states]="chartOptions.states"
                             [tooltip]="chartOptions.tooltip"
-                            [colors]="chartOptions.colors"
+                            [colors]="['#3E454C']"
                             [markers]="chartOptions.markers"
                             [plotOptions]="chartOptions.plotOptions"
                         ></apx-chart>
                         <div class="chart-img">
                             <img class="w-100" src="../../../assets/images/Delivered.svg" alt="Delivered Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.DELIVERED_ORDERS' | translate}}<br>12</h5>
+                        <h5 class="text-center">{{'TITLE.DELIVERED_ORDERS' | translate}}<br>{{deliveredOrders}}%</h5>
                     </a>
                 </div>
                 <div class="row my-5 pt-5">
-                    <div class="px-5 mb-5 col-md-3 offset-md-3">
+                    <dic class="col-md-3"></dic>
+                    <div class="px-5 mb-5 col-md-3">
                         <a href="#" class="dashboard-main-link">
                             <span>
                                 <span class="num">119</span>
-                                Total Customer
+                                {{'TITLE.TOTAL_CUSTOMERS' | translate}}
                             </span>
                             <span class="indecator">
                                 <img src="../../../assets/images/arrow-pointing-to-right_(3).svg" alt="arrow">
@@ -146,10 +150,10 @@
                         </a>
                     </div>
                     <div class="px-5 mb-5 col-md-3">
-                        <a href="#" class="dashboard-main-link">
+                        <a routerLink="/orders/all" class="dashboard-main-link">
                             <span>
                                 <span class="num">19</span>
-                                Total Orders
+                                {{'TITLE.TOTAL_ORDERS' | translate}}
                             </span>
                             <span class="indecator">
                                 <img src="../../../assets/images/arrow-pointing-to-right_(3).svg" alt="arrow">
@@ -167,12 +171,12 @@
         <div class="card card-custom card-stretch gutter-b">
             <div class="card-header border-0 py-0 border-bottom">
                 <h3 class="card-title d-flex align-items-center">
-                    <span class="card-label font-weight-bolder text-dark">Top 10 Items</span>
+                    <span class="card-label font-weight-bolder text-dark">{{'TITLE.TOP_10_ITEMS' | translate}}</span>
                 </h3>
                 <div class="card-toolbar">
                     <mat-form-field>
-                        <mat-select class="py-1" placeholder="Filter By">
-                            <mat-option [value]="null">Filter by</mat-option>
+                        <mat-select class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
+                            <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
                             <mat-option *ngFor="let item of months" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
@@ -233,12 +237,12 @@
         <div class="card card-custom card-stretch gutter-b">
             <div class="card-header border-0 py-0 border-bottom">
                 <h3 class="card-title d-flex align-items-center">
-                    <span class="card-label font-weight-bolder text-dark">Top 10 Customrts</span>
+                    <span class="card-label font-weight-bolder text-dark">{{'TITLE.TOP_10_CUSTOMERS' | translate}}</span>
                 </h3>
                 <div class="card-toolbar">
                     <mat-form-field>
-                        <mat-select class="py-1" placeholder="Filter By">
-                            <mat-option [value]="null">Filter by</mat-option>
+                        <mat-select class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
+                            <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
                             <mat-option *ngFor="let item of months" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
@@ -296,16 +300,15 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-12">
         <div class="card card-custom card-stretch gutter-b">
             <div class="card-header border-0 py-0 border-bottom">
                 <h3 class="card-title d-flex align-items-center">
-                    <span class="card-label font-weight-bolder text-dark">Expected Delivered Orders</span>
+                    <span class="card-label font-weight-bolder text-dark">{{'TITLE.EXPECTED_DELIVERED_ORDERS' | translate}}</span>
                 </h3>
             </div>
-            <div class="card-body custom pt-0 pb-3">
+            <div class="card-body pt-0 pb-3">
                 <div class="tab-content">
                     <div class="table-responsive">
                         <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
@@ -314,5 +317,4 @@
             </div>
         </div>
     </div>
-</div> -->
-<app-dashboard-wrapper></app-dashboard-wrapper>
+</div>

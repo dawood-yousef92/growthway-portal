@@ -163,6 +163,8 @@ export const locale = {
       BRANCHNAME: 'اسم الفرع',
       TOTALDUEAMOUNT: 'المبلغ الاجمالي',
       CUSTOMERPHONE: 'هاتف العميل',
+      COUNT: 'العدد',
+      AMOUNT: 'المبلغ',
     },
     INPUT: {
       EMAIL: 'البريد الالكتروني',
@@ -261,6 +263,12 @@ export const locale = {
       DELIVERED: 'تم التوصيل',
       EXPORT_PDF: 'تحميل PDF',
       PRINT: 'طباعة',
+      ENTER_DATE_RANE: 'اختر الفترة',
+      FILTER_BY: 'فلترة',
+      TODAY: 'اليوم',
+      LAST_WEEK: 'اسبوع',
+      LAST_MONTH: 'شهر',
+      LAST_YEAR: 'سنة',
     },
 
     TITLE: {
@@ -302,6 +310,12 @@ export const locale = {
       REJECT_ORDER: 'رفض الطلب',
       SEND_ORDER: 'ارسال الطلب',
       EDIT_ITEM: 'تعديل بطاقة الصنف',
+      DASHBOARD_TIP: 'ملاحظة: تستند جميع إحصائيات الطلبات إلى إجمالي عدد الطلبات والفترة المحددة و لا تتأثر الطلبات الجديدة بالفترة المحددة',
+      TOTAL_CUSTOMERS: 'جميع العملاء',
+      TOTAL_ORDERS: 'جميع الطلبات',
+      TOP_10_ITEMS: 'أفضل 10 منتجات',
+      TOP_10_CUSTOMERS: 'أفضل 10 عملاء',
+      EXPECTED_DELIVERED_ORDERS: 'الطلبات المفترض توصيلها',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',
