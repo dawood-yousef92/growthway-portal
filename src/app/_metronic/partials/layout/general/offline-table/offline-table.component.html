@@ -1,5 +1,5 @@
 <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'TABLE.FILTER' | translate}}" />
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'TABLE.FILTER' | translate}}" [value]="gridFilter || ''"/>
 </mat-form-field>
 <div class="example-container mat-elevation-z8 mat-table-container">
     <mat-table [dataSource]="dataSource" matSort>

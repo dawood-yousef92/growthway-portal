@@ -19,6 +19,7 @@ export class OfflineTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  gridFilter:string = '';
 
   constructor(private loderService: LoaderService){}
 
@@ -29,6 +30,10 @@ export class OfflineTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.gridData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.gridFilter = localStorage.getItem('gridFilter');
+    if(this.gridFilter &&  this.dataSource) {
+      this.applyFilter(this.gridFilter);
+    }
   }
 
   action(type, id) {
@@ -56,6 +61,7 @@ export class OfflineTableComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
+    localStorage.setItem('gridFilter', filterValue);
     this.loderService.setIsLoading = true;
     let a = [];
     this.gridData.map((item) => {

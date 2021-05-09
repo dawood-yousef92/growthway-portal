@@ -7,5 +7,7 @@ import { Component, OnInit } from '@angular/core';
 export class BranchesComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    localStorage.removeItem('gridFilter');
+  }
 }
