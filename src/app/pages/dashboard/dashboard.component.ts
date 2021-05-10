@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from 'src/app/_metronic/core';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +16,10 @@ export class DashboardComponent implements OnInit {
   fontFamily: string;
   chartOptions: any = {};
   filter:any = [
-    {id: 1, name:'TODAY'},
-    {id: 2, name:'LAST_WEEK'},
-    {id: 3, name:'LAST_MONTH'},
-    {id: 4, name:'LAST_YEAR'}
+    {id: 'today', name:'TODAY'},
+    {id: 'lastWeek', name:'LAST_WEEK'},
+    {id: 'lastMonth', name:'LAST_MONTH'},
+    {id: 'lastYear', name:'LAST_YEAR'}
   ]
   months:any = [
     {id:1, name:'January'},
@@ -37,13 +38,15 @@ export class DashboardComponent implements OnInit {
 	displayedColumns: string[] = ['orderNumber', 'createdOn', 'customerName', 'customerPhone', 'status', 'totalDueAmount'];
   customActions:any = [];
   gridData:any = [];
-  newOrders = [22];
-  acceptedOrders = [34];
-  rejectedOrders = [99];
-  sentOrders = [78];
-  deliveredOrders = [66];
+  newOrders:any = [0];
+  acceptedOrders:any = [0];
+  rejectedOrders:any = [0];
+  sentOrders:any = [0];
+  deliveredOrders:any = [0];
+  totalOrders:any;
+  totalCustomers:any;
 
-  constructor(private layout: LayoutService,private loderService: LoaderService) {
+  constructor(private layout: LayoutService,private loderService: LoaderService,private dashboardService:DashboardService) {
     this.colorsGrayGray100 = this.layout.getProp('js.colors.gray.gray100');
     this.colorsGrayGray700 = this.layout.getProp('js.colors.gray.gray700');
     this.colorsThemeBaseSuccess = this.layout.getProp(
@@ -65,15 +68,73 @@ export class DashboardComponent implements OnInit {
       {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
       {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
     ]
-    // setTimeout(() => {
-    //   this.loderService.setIsLoading = true;
-    //   this.newOrders = [55];
-    //   this.acceptedOrders = [35];
-    //   this.rejectedOrders = [33];
-    //   this.sentOrders = [78];
-    //   this.deliveredOrders = [54];
-    //   this.loderService.setIsLoading = false;
-    // },2500);
+
+    this.getTotalOrdersGroupedByStatus({});
+  }
+
+  changeFilterType(e) {
+    let type;
+    if(e.value) {
+      let selectedKey = e.value;
+      if(selectedKey === 'today') {
+        type = {
+          "today": true
+        };
+      }
+      else if(selectedKey === 'lastWeek') {
+        type = {
+          "lastWeek": true,
+        }
+      }
+      else if(selectedKey === 'lastMonth') {
+        type = {
+          "lastMonth": true
+        };
+      }
+      else if(selectedKey === 'lastYear') {
+        type = {
+          "lastYear": true
+        };
+      }
+      this.getTotalOrdersGroupedByStatus(type);
+    }
+  }
+
+  changeDate(start,end) {
+    if(end) {
+      this.getTotalOrdersGroupedByStatus(
+        {
+          "dateFrom": new Date(start),
+          "dateTo": new Date(end),
+        }
+      );
+    }
+  }
+
+  getTotalOrdersGroupedByStatus(filterData) {
+    this.loderService.setIsLoading = true;
+    this.dashboardService.getTotalOrdersGroupedByStatus(filterData).subscribe((data) => {
+      console.log(data);
+      let total = data.result.statusGroups.Pending+
+                  data.result.statusGroups.Accepted+
+                  data.result.statusGroups.Sent+
+                  data.result.statusGroups.Rejected+
+                  data.result.statusGroups.Delivered;
+      this.newOrders = [this.getPercentage(data.result.statusGroups.Pending, total)];
+      this.acceptedOrders = [this.getPercentage(data.result.statusGroups.Accepted, total)];
+      this.rejectedOrders = [this.getPercentage(data.result.statusGroups.Rejected, total)];
+      this.sentOrders = [this.getPercentage(data.result.statusGroups.Sent, total)];
+      this.deliveredOrders = [this.getPercentage(data.result.statusGroups.Delivered, total)];
+      this.totalOrders = [data.result.totalOrders];
+      this.totalCustomers = [data.result.totalCustomers];
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
+    });
+  }
+
+  getPercentage(num, total) {
+    return ((num / total) * 100).toFixed(0);
   }
 
   actionsEvent(e) { }
@@ -118,7 +179,4 @@ export class DashboardComponent implements OnInit {
     };
   }
 
-  getPercentage(num) {
-    return num;
-  }
 }

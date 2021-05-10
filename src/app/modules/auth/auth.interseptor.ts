@@ -32,17 +32,19 @@ export class AuthInterceptor implements HttpInterceptor {
       if (token != null) {
         request = request.clone({
           setHeaders: {
+            "Accept-Language": 'ar',
             Authorization: 'Bearer ' + token.replace(/\"/g, ""),
             // "X-Tenant": tanent,
-            "X-Tenant": 'test-ksa',
+            "X-Tenant": 'aqt-ksa',
           },
         });
       }
       else {
         request = request.clone({
           setHeaders: {
+            "Accept-Language": 'ar',
             // "X-Tenant": tanent,
-            "X-Tenant": 'test-ksa',
+            "X-Tenant": 'aqt-ksa',
           },
         });
       }
