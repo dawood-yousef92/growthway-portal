@@ -151,6 +151,7 @@ export const locale = {
       UNITPRICE: 'سعر الوحده',
       OFFERPRICE: 'سعر العرض',
       ORIGINCOUNTRY: 'بلد المنشأ',
+      ADDRESS: 'العنوان',
       ADDRESSAR: 'العنوان بالعربي',
       ADDRESSEN: ' العنوان بالإنجليزية',
       ACTIVE: 'فعال',
@@ -319,6 +320,12 @@ export const locale = {
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',
+    },
+    LOOKUPS: {
+      HOUR: 'ساعة',
+      DAY: 'يوم',
+      MONTH: 'شهر',
+      YEAR: 'سنة'
     }
   }
 };

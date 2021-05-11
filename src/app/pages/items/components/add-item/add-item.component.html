@@ -167,7 +167,7 @@
                                     <mat-select class="py-1" placeholder="{{'INPUT.SH_LIFE_TYPES' | translate }}" formControlName="shelfLifeType">
                                         <mat-option [value]="null">{{'INPUT.SH_LIFE_TYPES' | translate }}</mat-option>
                                         <mat-option *ngFor="let item of shelfLifeTypes" [value]="item.id">
-                                            {{item.name}}
+                                            {{'LOOKUPS.'+(item.name | uppercase) | translate}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>

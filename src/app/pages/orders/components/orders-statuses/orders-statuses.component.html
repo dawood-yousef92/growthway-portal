@@ -100,13 +100,13 @@
                     <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.deliveryDate)}}</p>
                 </div>
                 <div class="col-md-12 mb-3">
-                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.SUB_TOTAL_PRICE' | translate}}:</span> {{(orderDetails?.subTotalPrice.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.SUB_TOTAL_PRICE' | translate}}:</span> {{(orderDetails?.subTotalPrice.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</p>
                 </div>
                 <div class="col-md-12 mb-3">
-                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TAX' | translate}}:</span> {{(orderDetails?.tax.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TAX' | translate}}:</span> {{(orderDetails?.tax.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</p>
                 </div>
                 <div class="col-md-12 mb-3">
-                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}:</span> {{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyNameEn) || '----'}}</p>
+                    <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}:</span> {{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</p>
                 </div>
                 <div class="col-md-12 mb-0">
                     <p class="font-weight-boldest mt-3 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</p>
@@ -115,16 +115,16 @@
                     <hr class="my-2">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}:</span> {{item.productNameEn || '----'}}</p>
+                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}:</span> {{item.productName || '----'}}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.QUANTITY' | translate}}:</span> {{item.orderQuantity}}</p>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}}:</span> {{item.lineTotal || '----'}}</p>
+                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}}:</span> {{item.lineTotal+' '+orderDetails.currencyName || '----'}}</p>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.UNIT_PRICE_DISCOUNT' | translate}}:</span> {{item.unitPriceDiscount || '----'}}</p>
+                            <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.UNIT_PRICE_DISCOUNT' | translate}}:</span> {{item.unitPriceDiscount+' '+orderDetails.currencyName || '----'}}</p>
                         </div>
                     </div>
                 </div>
