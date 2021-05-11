@@ -137,6 +137,7 @@ export const locale = {
     },
     TABLE: {
       USERNAME: "User Name ",
+      NAME: "Name",
       EMAIL: "Email",
       ISACTIVE: "Is active",
       CREATEDON: "Created On",

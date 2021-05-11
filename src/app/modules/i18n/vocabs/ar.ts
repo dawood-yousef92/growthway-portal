@@ -136,7 +136,7 @@ export const locale = {
     },
     TABLE: {
       USERNAME: "اسم المستخدم",
-      NAME: "اسم المستخدم",
+      NAME: "الاسم",
       EMAIL: "البريد الالكتروني",
       ISACTIVE: "الحالة",
       CREATEDON: "تاريخ الانشاء",

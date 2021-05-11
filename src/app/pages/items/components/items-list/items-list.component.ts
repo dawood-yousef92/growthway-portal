@@ -23,7 +23,7 @@ export class ItemsListComponent implements OnInit {
     selectedPageSize: 0
   }
 
-  displayedColumns: string[] = ['imagePath', 'nameAr', 'nameEn', 'category', 'unitPrice', 'offerPrice', 'originCountry',];
+  displayedColumns: string[] = ['imagePath', 'name', 'category', 'unitPrice', 'offerPrice', 'originCountry',];
   actions:any = [];
   gridData:any[] = [];
   @ViewChild('deleteModal', { static: false }) deleteModal: ElementRef;

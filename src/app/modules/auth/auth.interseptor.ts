@@ -32,19 +32,19 @@ export class AuthInterceptor implements HttpInterceptor {
       if (token != null) {
         request = request.clone({
           setHeaders: {
-            "Accept-Language": 'ar',
+              "Accept-Language": localStorage.getItem('language') || 'en',
             Authorization: 'Bearer ' + token.replace(/\"/g, ""),
             // "X-Tenant": tanent,
-            "X-Tenant": 'aqt-ksa',
+            "X-Tenant": 'navarro_hays_inc-ksa',
           },
         });
       }
       else {
         request = request.clone({
           setHeaders: {
-            "Accept-Language": 'ar',
+              "Accept-Language": localStorage.getItem('language') || 'en',
             // "X-Tenant": tanent,
-            "X-Tenant": 'aqt-ksa',
+            "X-Tenant": 'navarro_hays_inc-ksa',
           },
         });
       }

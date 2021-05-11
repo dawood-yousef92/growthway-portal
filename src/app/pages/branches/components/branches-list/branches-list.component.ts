@@ -24,7 +24,7 @@ export class BranchesListComponent implements OnInit {
     selectedPageSize: 0
   }
 
-  displayedColumns: string[] = ['nameEn', 'nameAr', 'addressAr', 'addressEn', 'isActive',];
+  displayedColumns: string[] = ['name', 'isActive',];
   actions:any = [];
   gridData:any[] = [];
   @ViewChild('deleteModal', { static: false }) deleteModal: ElementRef;
