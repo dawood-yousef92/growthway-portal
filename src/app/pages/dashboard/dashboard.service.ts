@@ -11,4 +11,16 @@ export class DashboardService {
     getTotalOrdersGroupedByStatus(filterData): Observable<any> {
         return this.http.post<any>('Dashboard/GetTotalOrdersGroupedByStatus',filterData);
     }
+
+    getTopItems(filterData): Observable<any> {
+        return this.http.post<any>('Dashboard/GetTopItems',filterData);
+    }
+
+    getTopCustomers(filterData): Observable<any> {
+        return this.http.post<any>('Dashboard/GetTopCustomers',filterData);
+    }
+
+    getExpectedDeliveryOrders(): Observable<any> {
+        return this.http.post<any>('Dashboard/GetExpectedDeliveryOrders',{});
+    }
 }

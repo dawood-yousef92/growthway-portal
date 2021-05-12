@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
     {id:11, name:'November'},
     {id:12, name:'December'},
   ]
-	displayedColumns: string[] = ['orderNumber', 'createdOn', 'customerName', 'customerPhone', 'status', 'totalDueAmount'];
+	displayedColumns: string[] = ['orderNumber', 'createdOn', 'customerName', 'customerPhoneNumber', 'expectedDeliveryDate', 'statusName', 'totalDueAmount'];
   customActions:any = [];
   gridData:any = [];
   newOrders:any = [0];
@@ -45,6 +45,12 @@ export class DashboardComponent implements OnInit {
   deliveredOrders:any = [0];
   totalOrders:any;
   totalCustomers:any;
+  topItems:any = [];
+  topCustomers:any = [];
+  expectedDeliveredOrders:any = [];
+  targetTopItemsMonth:number = null;
+  targetTopCustomersMonth:number = null;
+
 
   constructor(private layout: LayoutService,private loderService: LoaderService,private dashboardService:DashboardService) {
     this.colorsGrayGray100 = this.layout.getProp('js.colors.gray.gray100');
@@ -60,16 +66,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartOptions = this.getChartOptions(70);
-    this.gridData = [
-      {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
-      {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
-      {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
-      {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
-      {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
-      {orderNumber:'342355', createdOn:'10/10/2020', customerName:'David', customerPhone:'797164481', status:'Sent', totalDueAmount:'299'},
-    ]
-
     this.getTotalOrdersGroupedByStatus({});
+    this.getTopItems();
+    this.getTopCustomers();
+    this.getExpectedDeliveryOrders();
   }
 
   changeFilterType(e) {
@@ -179,4 +179,62 @@ export class DashboardComponent implements OnInit {
     };
   }
 
+  changeMonthItems(e) {
+    this.targetTopItemsMonth = e.value;
+    this.getTopItems();
+  }
+
+  changeMonthCustomers(e) {
+    this.targetTopCustomersMonth = e.value;
+    this.getTopCustomers();
+  }
+
+  getTopItems() {
+    this.dashboardService.getTopItems({"targetMonth": this.targetTopItemsMonth,}).subscribe((data) => {
+      console.log(data);
+      this.topItems = data.result.items;
+    });
+  }
+
+  getTopCustomers() {
+    this.dashboardService.getTopCustomers({"targetMonth": this.targetTopCustomersMonth,}).subscribe((data) => {
+      console.log(data);
+      this.topCustomers = data.result.items;
+    });
+  }
+
+  getExpectedDeliveryOrders() {
+    this.dashboardService.getExpectedDeliveryOrders().subscribe((data) => {
+      console.log(data);
+      data.result.item.items.map((item) => {
+				item.orderNumber = item.orderNumber.toString();
+				item.totalDueAmount = item.totalDueAmount.toFixed(2).toString();
+				item.createdOn = this.getDateTimeFormat(item.createdOn);
+        item.expectedDeliveryDate = this.getDateFormat(item.expectedDeliveryDate);
+			})
+      this.expectedDeliveredOrders = data.result.item.items;
+    });
+  }
+
+  getDateFormat(date) {
+		if(!date)
+		   return '----';
+
+		var d = new Date(date),
+			month = '' + (d.getMonth() + 1),
+			day = '' + (d.getDate()),
+			year = d.getFullYear();
+			
+		if (month.length < 2) 
+			month = '0' + month;
+		if (day.length < 2) 
+			day = '0' + day;
+	
+		return [ day, month, year,].join('/');
+	}
+
+  getDateTimeFormat(date) {
+		return new Date(date).toLocaleString();
+	}
+  
 }

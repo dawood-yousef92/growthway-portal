@@ -175,10 +175,10 @@
                 </h3>
                 <div class="card-toolbar">
                     <mat-form-field>
-                        <mat-select class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
+                        <mat-select (selectionChange)="changeMonthItems($event)" class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
                             <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
                             <mat-option *ngFor="let item of months" [value]="item.id">
-                                {{item.name}}
+                                {{'LOOKUPS.'+(item.name | uppercase) | translate}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -201,28 +201,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of [3,5,6,7,2,3,4,5,6,7]">
+                                <tr *ngFor="let item of topItems" class="border-bottom">
                                     <td class="pl-0 py-3">
                                         <div class="d-flex align-items-center">
                                             <div class="symbol symbol-50 symbol-light mr-4">
-                                                <img src="../../../assets/images/Capture{{item}}.PNG" class="img-table-col"/>
+                                                <img [src]="item.imagePath" class="img-table-col"/>
                                             </div>
                                             <div>
                                                 <a class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg cursor-pointer">
-                                                    Brad Simmons
+                                                    {{item.name}}
                                                 </a>
-                                                <span class="text-muted font-weight-bold d-block">HTML, JS, ReactJS</span>
+                                                <!-- <span class="text-muted font-weight-bold d-block">HTML, JS, ReactJS</span> -->
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            90.001
+                                            {{item.totalOrders}}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            $8,000,000
+                                            {{item.totalSales}}
                                         </span>
                                     </td>
                                 </tr>
@@ -241,10 +241,10 @@
                 </h3>
                 <div class="card-toolbar">
                     <mat-form-field>
-                        <mat-select class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
+                        <mat-select (selectionChange)="changeMonthCustomers($event)" class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
                             <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
                             <mat-option *ngFor="let item of months" [value]="item.id">
-                                {{item.name}}
+                                {{'LOOKUPS.'+(item.name | uppercase) | translate}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -267,28 +267,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of [2,3,4,5,6,7,2,3,4,5,6,7]">
+                                <tr *ngFor="let item of topCustomers" class="border-bottom">
                                     <td class="pl-0 py-3">
                                         <div class="d-flex align-items-center">
-                                            <div class="symbol symbol-50 symbol-light mr-4">
+                                            <!-- <div class="symbol symbol-50 symbol-light mr-4">
                                                 <img src="../../../assets/images/Capture{{item}}.PNG" class="img-table-col"/>
-                                            </div>
+                                            </div> -->
                                             <div>
                                                 <a class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg cursor-pointer">
-                                                    Brad Simmons
+                                                    {{item.name}}
                                                 </a>
-                                                <span class="text-muted font-weight-bold d-block">HTML, JS, ReactJS</span>
+                                                <span class="text-muted font-weight-bold d-block direction-ltr">{{item.email}}</span>
+                                                <span class="text-muted font-weight-bold d-block direction-ltr">{{item.phoneNumber}}</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            90.001
+                                            {{item.count}}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            $8,000,000
+                                            {{item.totalPurchases}}
                                         </span>
                                     </td>
                                 </tr>
@@ -311,7 +312,7 @@
             <div class="card-body pt-0 pb-3">
                 <div class="tab-content">
                     <div class="table-responsive">
-                        <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+                        <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="expectedDeliveredOrders" (actionsEvent)="actionsEvent($event)"></app-offline-table>
                     </div>
                 </div>
             </div>
