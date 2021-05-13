@@ -114,7 +114,6 @@ export class DashboardComponent implements OnInit {
   getTotalOrdersGroupedByStatus(filterData) {
     this.loderService.setIsLoading = true;
     this.dashboardService.getTotalOrdersGroupedByStatus(filterData).subscribe((data) => {
-      console.log(data);
       let total = data.result.statusGroups.Pending+
                   data.result.statusGroups.Accepted+
                   data.result.statusGroups.Sent+
@@ -190,22 +189,28 @@ export class DashboardComponent implements OnInit {
   }
 
   getTopItems() {
+    this.loderService.setIsLoading = true;
     this.dashboardService.getTopItems({"targetMonth": this.targetTopItemsMonth,}).subscribe((data) => {
-      console.log(data);
       this.topItems = data.result.items;
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
     });
   }
 
   getTopCustomers() {
+    this.loderService.setIsLoading = true;
     this.dashboardService.getTopCustomers({"targetMonth": this.targetTopCustomersMonth,}).subscribe((data) => {
-      console.log(data);
       this.topCustomers = data.result.items;
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
     });
   }
 
   getExpectedDeliveryOrders() {
+    this.loderService.setIsLoading = true;
     this.dashboardService.getExpectedDeliveryOrders().subscribe((data) => {
-      console.log(data);
       data.result.item.items.map((item) => {
 				item.orderNumber = item.orderNumber.toString();
 				item.totalDueAmount = item.totalDueAmount.toFixed(2).toString();
@@ -213,6 +218,9 @@ export class DashboardComponent implements OnInit {
         item.expectedDeliveryDate = this.getDateFormat(item.expectedDeliveryDate);
 			})
       this.expectedDeliveredOrders = data.result.item.items;
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
     });
   }
 
@@ -236,5 +244,5 @@ export class DashboardComponent implements OnInit {
   getDateTimeFormat(date) {
 		return new Date(date).toLocaleString();
 	}
-  
+
 }
