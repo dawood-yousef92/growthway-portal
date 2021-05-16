@@ -70,6 +70,9 @@ export class AddBranchComponent implements OnInit {
       isActive: [
         this.getStatus(this.branch?.isActive),
       ],
+      isDefault: [
+        this.getStatus(this.branch?.isDefault),
+      ],
     });
   }
 
@@ -155,6 +158,7 @@ export class AddBranchComponent implements OnInit {
       formData.append('longitude',this.pastLocation.lng);
     }
     formData.append('isActive',this.branchForm.controls.isActive.value);
+    formData.append('isDefault',this.branchForm.controls.isDefault.value);
     if(!this.branchtId) {
       this.branchesService.createBranch(formData).subscribe((data) => {
         this.toaster.success(data.result.successMessage);

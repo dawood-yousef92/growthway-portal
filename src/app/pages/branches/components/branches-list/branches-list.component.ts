@@ -24,7 +24,7 @@ export class BranchesListComponent implements OnInit {
     selectedPageSize: 0
   }
 
-  displayedColumns: string[] = ['name', 'address', 'isActive',];
+  displayedColumns: string[] = ['name', 'address', 'isActive', 'isDefault'];
   actions:any = [];
   gridData:any[] = [];
   @ViewChild('deleteModal', { static: false }) deleteModal: ElementRef;
@@ -42,6 +42,12 @@ export class BranchesListComponent implements OnInit {
           }
           else {
             item.isActive = '<span class="label label-lg label-light-danger label-inline">' + this.translate.instant('TABLE.NOT_ACTIVE') + '</span>';
+          }
+          if(item.isDefault) {
+            item.isDefault = '<span class="label label-lg label-light-success label-inline">' + this.translate.instant('TABLE.DEFAULT') + '</span>';
+          }
+          else {
+            item.isDefault = '<span class="label label-lg label-light-danger label-inline">' + this.translate.instant('TABLE.NOT_DEFAULT') + '</span>';
           }
           return item;
         })
