@@ -269,6 +269,7 @@ export const locale = {
       PRINT: 'طباعة',
       ENTER_DATE_RANE: 'اختر الفترة',
       FILTER_BY: 'فلترة',
+      LAST_HOUR: 'منذ ساعة',
       TODAY: 'اليوم',
       LAST_WEEK: 'اسبوع',
       LAST_MONTH: 'شهر',

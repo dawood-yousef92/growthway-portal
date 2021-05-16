@@ -271,6 +271,7 @@ export const locale = {
       PRINT: 'Print',
       ENTER_DATE_RANE: 'Enter a Date Range',
       FILTER_BY: 'Filter By',
+      LAST_HOUR: 'Last Hour',
       TODAY: 'Today',
       LAST_WEEK: 'Last Week',
       LAST_MONTH: 'Last Month',

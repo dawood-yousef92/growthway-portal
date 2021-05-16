@@ -16,10 +16,11 @@ export class DashboardComponent implements OnInit {
   fontFamily: string;
   chartOptions: any = {};
   filter:any = [
-    {id: 'today', name:'TODAY'},
-    {id: 'lastWeek', name:'LAST_WEEK'},
-    {id: 'lastMonth', name:'LAST_MONTH'},
-    {id: 'lastYear', name:'LAST_YEAR'}
+    {id: 1, name:'LAST_HOUR'},
+    {id: 2, name:'TODAY'},
+    {id: 3, name:'LAST_WEEK'},
+    {id: 4, name:'LAST_MONTH'},
+    {id: 5, name:'LAST_YEAR'}
   ]
   months:any = [
     {id:1, name:'January'},
@@ -73,31 +74,11 @@ export class DashboardComponent implements OnInit {
   }
 
   changeFilterType(e) {
-    let type;
+    let durationType = {};
     if(e.value) {
-      let selectedKey = e.value;
-      if(selectedKey === 'today') {
-        type = {
-          "today": true
-        };
-      }
-      else if(selectedKey === 'lastWeek') {
-        type = {
-          "lastWeek": true,
-        }
-      }
-      else if(selectedKey === 'lastMonth') {
-        type = {
-          "lastMonth": true
-        };
-      }
-      else if(selectedKey === 'lastYear') {
-        type = {
-          "lastYear": true
-        };
-      }
-      this.getTotalOrdersGroupedByStatus(type);
+      durationType = {'durationType': e.value};
     }
+    this.getTotalOrdersGroupedByStatus(durationType);
   }
 
   changeDate(start,end) {
@@ -133,7 +114,11 @@ export class DashboardComponent implements OnInit {
   }
 
   getPercentage(num, total) {
-    return ((num / total) * 100).toFixed(0);
+    let per = ((num / total) * 100).toFixed(0);
+    if(!Number(per)) {
+      return 0;
+    }
+    return per;
   }
 
   actionsEvent(e) { }
