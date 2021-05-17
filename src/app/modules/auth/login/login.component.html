@@ -1,6 +1,7 @@
 <!--begin::Signin-->
 <div class="custom-login-form login-form login-signin">
-  <img src="./assets/images/logo.svg" alt="Logo" class="w-150px mx-auto d-block mb-8"/>
+  <img [src]="companyData?.logoPath" alt="Logo" class="w-150px mx-auto d-block mb-8"/>
+  <h2 class="text-center">{{companyData?.name}}</h2>
   <!--begin::Form-->
   <form
     class="form"

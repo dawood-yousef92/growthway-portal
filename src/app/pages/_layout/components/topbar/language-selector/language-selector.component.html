@@ -3,16 +3,19 @@
   <!--begin::Toggle-->
   <div
     ngbDropdownToggle
-    class="topbar-item"
+    class="topbar-item mx-4"
     data-toggle="dropdown"
     data-offset="10px,0px"
   >
-    <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+    <div class="btn btn-icon btn-clean btn-dropdown btn-lg w-auto px-2">
       <img
         class="h-25px w-25px rounded"
         src="{{ language?.flag }}"
         alt="language"
       />
+      <span class="ml-2">
+        {{ language?.name }}
+      </span>
     </div>
   </div>
   <!--end::Toggle-->

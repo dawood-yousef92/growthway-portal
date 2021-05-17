@@ -1,4 +1,10 @@
 <ng-container>
+    <div class="d-flex align-items-center mx-3">
+        <img [src]="companyData?.logoPath" alt="Logo" class="h-auto w-50px mx-3"/>
+        <h6 class="text-center mb-0">{{companyData?.name}}</h6>
+    </div>
+</ng-container>
+<ng-container>
     <app-language-selector class="mt-md-3 mt-2"></app-language-selector>
 </ng-container>
 <!--begin::User-->

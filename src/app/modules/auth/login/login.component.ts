@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   returnUrl: string;
   isLoading$: Observable<boolean>;
   withEmail:boolean = false;
+  companyData:any;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private loderService: LoaderService
+    private loderService: LoaderService,
   ) {
     if (ls.getValue("token")) {
       this.router.navigate(['/']);
@@ -47,8 +48,18 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
+    this.getCompanyLogoAndName();
   }
 
+  getCompanyLogoAndName() {
+    this.loderService.setIsLoading = true;
+    this.authService.getCompanyLogoAndName().subscribe((data) => {
+      this.companyData = data.result;
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
+    });
+  }
   // convenience getter for easy access to form fields
   get f() {
     return this.loginForm.controls;

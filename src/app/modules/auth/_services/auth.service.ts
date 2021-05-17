@@ -112,4 +112,10 @@ export class AuthService {
   getUserByToken(): Observable<any> {
     return this.httpClient.get<any>(`Manage/GetUser`);
   }
+
+  getCompanyLogoAndName(): Observable<any> {
+    return this.httpClient.post(
+      `Companies/GetCompanyLogoAndName`,{}
+    );
+  }
 }
