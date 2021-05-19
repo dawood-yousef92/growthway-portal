@@ -73,7 +73,12 @@ export class ItemsListComponent implements OnInit {
       this.gridData = data.result.products.items.map((item) => {
         item.imagePath = `<img src="${item.imagePath || './assets/images/default-img.png'}" class="img-table-col"/>`;
         item.unitPrice = item.unitPrice +'  '+item.currency;
-        item.offerPrice = item.offerPrice +'  '+item.currency;
+        if(item.offerPrice) {
+          item.offerPrice =  item.offerPrice+'  '+item.currency;
+        }
+        else {
+          item.offerPrice = '----';
+        }
         return item;
       })
       this.gridData = data.result.products.items;

@@ -141,6 +141,7 @@ export const locale = {
       EMAIL: "Email",
       ISACTIVE: "Is active",
       CREATEDON: "Created On",
+      CREATEDTIME: "Created Time",
       VERIFIED: "Verified",
       FILTER: "Filter",
       ACTIONS: 'Actions',

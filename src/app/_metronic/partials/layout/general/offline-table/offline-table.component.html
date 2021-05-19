@@ -38,9 +38,8 @@
     
         <ng-container *ngFor="let column of columns; let i = index" matColumnDef="{{ column.field }}">
             <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isDisabledSort(column.field)">
-                {{"TABLE."+(column.field | uppercase) | translate}}
                 <ng-container *ngIf="column.field !== 'actions'">
-                    <button class="btn btn-default p-0 h-20px mx-2 grid-view-header-menu" mat-icon-button [matMenuTriggerFor]="menu" >
+                    <button (click)="stop($event)" class="btn btn-default p-0 h-20px mr-1 grid-view-header-menu" mat-icon-button [matMenuTriggerFor]="menu" >
                         <mat-icon class="h-20px">menu</mat-icon>
                     </button>
                     <mat-menu #menu>
@@ -48,6 +47,7 @@
                         <button mat-menu-item (click)="unGroupBy($event, column);" >{{'TABLE.UNGROUP' | translate}}</button>
                     </mat-menu>
                 </ng-container>
+                {{"TABLE."+(column.field | uppercase) | translate}}
             </mat-header-cell>
             <ng-container *ngIf="column.field !== 'actions'">
                 <mat-cell *matCellDef="let row" [innerHTML]="row[column.field]">

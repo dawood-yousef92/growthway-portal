@@ -293,4 +293,8 @@ export class OfflineTableComponent implements OnInit {
     }
   }
 
+  stop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
 }

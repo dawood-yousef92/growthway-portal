@@ -140,6 +140,7 @@ export const locale = {
       EMAIL: "البريد الالكتروني",
       ISACTIVE: "الحالة",
       CREATEDON: "تاريخ الانشاء",
+      CREATEDTIME: "وقت الانشاء",
       VERIFIED: "تم التحقق",
       FILTER: "فلتر",
       ACTIONS: 'الخيارات',

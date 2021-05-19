@@ -21,7 +21,7 @@ export class OrdersStatusesComponent implements OnInit {
 	@Input() branches:any[];
 	permissions = localStorage.getItem('permissions');
 	customActions:any[] = [];
-	displayedColumns: string[] = ['orderNumber', 'createdOn', 'customerName', 'customerPhone', 'status', 'totalDueAmount'];
+	displayedColumns: string[] = ['orderNumber', 'createdOn', 'createdTime', 'customerName', 'customerPhone', 'status', 'totalDueAmount'];
 	actions:any = [];
 	gridData:any[] = [];
 	orderId:string;
@@ -98,7 +98,15 @@ testImage:any;
 	}
 
 	getDateTimeFormat(date) {
-		return new Date(date).toLocaleString();
+		if(!date)
+		   return '----';
+
+		// var d = new Date(date),
+		// 	hours = '' + (d.getHours()),
+		// 	minutes = '' + (d.getTime())
+	
+		// return [ hours, minutes,].join(':');
+		return new Date(date).toLocaleTimeString();
 	}
 
 	generatePDF() {
@@ -266,9 +274,10 @@ testImage:any;
 		this.loderService.setIsLoading = true;
 		this.OrdersService.getOrders({branchId: this.branchId, statusId: this.statusId,rowsPerPage: 5000000,}).subscribe((data) => {
 			data.result.orderItems.items.map((item) => {
+				item['createdTime'] = new Date(item.createdOn).toLocaleTimeString();
 				item.orderNumber = item.orderNumber.toString();
 				item.totalDueAmount = item.totalDueAmount.toFixed(2).toString();
-				item.createdOn = this.getDateTimeFormat(item.createdOn);
+				item.createdOn = this.getDateFormat(item.createdOn);
 			})
 			this.gridData = data.result.orderItems.items;
 			this.loderService.setIsLoading = false;
