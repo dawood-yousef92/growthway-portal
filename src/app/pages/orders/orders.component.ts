@@ -36,7 +36,7 @@ export class OrdersComponent implements OnInit {
         for(let i = 0; i < styles.length; i++) {
             a += styles[i].innerHTML;
         }
-        a += '.mat-column-actions {display: none;}'
+        a += '.mat-column-actions, .mat-menu-trigger{display: none;}'
         a += '</style>';
         console.log(a);
 		printContents = document.getElementsByTagName('mat-table')[0].innerHTML;

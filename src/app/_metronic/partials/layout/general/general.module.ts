@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OfflineTableComponent } from './offline-table/offline-table.component';
@@ -26,7 +28,9 @@ import { GoogleMapsModule } from '@angular/google-maps';
     MatFormFieldModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatMenuModule,
     MatTabsModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,

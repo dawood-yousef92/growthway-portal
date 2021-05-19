@@ -169,6 +169,8 @@ export const locale = {
       EXPECTEDDELIVERYDATE: 'تاريخ التوصيل المتوقع',
       COUNT: 'العدد',
       AMOUNT: 'المبلغ',
+      GROUP_BY_THIS_FIELD: 'انشاء مجموعة',
+      UNGROUP: 'الغاء المجموعة',
     },
     INPUT: {
       EMAIL: 'البريد الالكتروني',

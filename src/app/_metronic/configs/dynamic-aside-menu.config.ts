@@ -71,7 +71,7 @@ export const DynamicAsideMenuConfig = {
       svg: "./assets/media/svg/icons/Shopping/Box2.svg",
       bullet: "dot",
       translate: "MENU.ORDERS",
-      page: "/orders",
+      page: "/orders//new",
       permission: "Orders.",
     },
     {

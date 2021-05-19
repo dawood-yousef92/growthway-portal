@@ -145,7 +145,7 @@ export const locale = {
       FILTER: "Filter",
       ACTIONS: 'Actions',
       ISDEFAULT: 'Is default',
-      IMAGEPATH: 'Image path',
+      IMAGEPATH: 'Image',
       NAMEAR: 'Name Ar',
       NAMEEN: 'Name EN',
       CATEGORY: 'Category',
@@ -170,6 +170,8 @@ export const locale = {
       EXPECTEDDELIVERYDATE: 'Expected Delivery Date',
       COUNT: 'Count',
       AMOUNT: 'Amount',
+      GROUP_BY_THIS_FIELD: 'Group by this field',
+      UNGROUP: 'Ungroup',
     },
     INPUT: {
       EMAIL: 'Email',
