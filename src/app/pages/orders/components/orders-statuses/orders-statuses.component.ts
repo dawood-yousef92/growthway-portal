@@ -176,13 +176,14 @@ testImage:any;
 		this.orderId = event.rowId;
 		this.eventStatus = event?.type.toUpperCase();
 		if(event.type === 'Accept' || event.type === 'Reject' || event.type === 'Send' || event.type === 'Delivered') {
+			this.getOrder();
 			this.initAcceptOrderForm();
 			this.initRejectOrderForm();
 			this.initSentOrderForm();
 			this.openCentred(this.changeStatusModal);
 		}
 		if(event.type === 'View') {
-      	this.getOrder();
+      		this.getOrder();
 			this.openCentred(this.orderDetailsModal);
 		}
 	}
@@ -249,8 +250,12 @@ testImage:any;
 	}
 
 	getOrder() {
+		this.loderService.setIsLoading = true;
 		this.OrdersService.getOrder(this.orderId).subscribe((data) => {
 			this.orderDetails = data.result.orderItemForEdit;
+			this.loderService.setIsLoading = false;
+		}, (error) => {
+			this.loderService.setIsLoading = false;
 		});
 	}
 

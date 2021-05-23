@@ -142,10 +142,10 @@ export class OrdersComponent implements OnInit {
             }
 
             console.log(filter);
-            if(!filter.includes('|') && !filter.includes('-')) {
+            if(!filter?.includes('|') && !filter?.includes('-')) {
                 this.durationType = Number(filter);
             }
-            else if(filter.includes('|')) {
+            else if(filter?.includes('|')) {
                 let arr = filter.split('|');
                 this.selectedDateFrom = this.getDateFormat(new Date(arr[0]));
                 this.dateFrom = this.getDateFormat(new Date(arr[0]));
