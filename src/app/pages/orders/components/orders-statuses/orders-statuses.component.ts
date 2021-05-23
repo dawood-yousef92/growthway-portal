@@ -17,7 +17,10 @@ export class OrdersStatusesComponent implements OnInit {
 	@ViewChild('changeStatusModal', { static: false }) changeStatusModal: ElementRef;
 	@ViewChild('orderDetailsModal', { static: false }) orderDetailsModal: ElementRef;
 	@Input() statusId:string;
-	@Input() branchId:string;
+	@Input() branchId:any;
+	@Input() durationType:any;
+	@Input() dateFrom:string;
+	@Input() dateTo:string;
 	@Input() branches:any[];
 	permissions = localStorage.getItem('permissions');
 	customActions:any[] = [];
@@ -272,7 +275,13 @@ testImage:any;
 
 	getOrders() {
 		this.loderService.setIsLoading = true;
-		this.OrdersService.getOrders({branchId: this.branchId, statusId: this.statusId,rowsPerPage: 5000000,}).subscribe((data) => {
+		this.OrdersService.getOrders({
+			dateFrom: new Date(Number(this.dateFrom?.split('/')[2]),Number(this.dateFrom?.split('/')[1]) -1,Number(this.dateFrom?.split('/')[0]) + 1),
+			dateTo: new Date(Number(this.dateTo?.split('/')[2]),Number(this.dateTo?.split('/')[1]) -1,Number(this.dateTo?.split('/')[0]) + 1),
+			durationType: this.durationType,
+			branchId: this.branchId,
+			statusId: this.statusId,
+			rowsPerPage: 5000000,}).subscribe((data) => {
 			data.result.orderItems.items.map((item) => {
 				item['createdTime'] = new Date(item.createdOn).toLocaleTimeString();
 				item.orderNumber = item.orderNumber.toString();

@@ -29,7 +29,7 @@
             </div>
             <div class="card-body charts-section py-5">
                 <div class="d-flex flex-wrap flex-grow-1 py-5 my-5">
-                    <a routerLink="/orders/new" class="flex-fill position-relative" style="height: 200px; width: 180px;">
+                    <a routerLink="/orders/new/{{getFilterHeader()}}" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
                             [series]="newOrders"
                             [chart]="chartOptions.chart"
@@ -50,7 +50,7 @@
                         </div>
                         <h5 class="text-center">{{'TITLE.NEW_ORDERS' | translate}}<br>{{newOrders}}%</h5>
                     </a>
-                    <a routerLink="/orders/accepted" class="flex-fill position-relative" style="height: 200px; width: 180px;">
+                    <a routerLink="/orders/accepted/{{getFilterHeader()}}" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
                             [series]="acceptedOrders"
                             [chart]="chartOptions.chart"
@@ -71,7 +71,7 @@
                         </div>
                         <h5 class="text-center">{{'TITLE.ACCEPTED_ORDERS' | translate}}<br>{{acceptedOrders}}%</h5>
                     </a>
-                    <a routerLink="/orders/rejected" class="flex-fill position-relative" style="height: 200px; width: 180px;">
+                    <a routerLink="/orders/rejected/{{getFilterHeader()}}" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
                             [series]="rejectedOrders"
                             [chart]="chartOptions.chart"
@@ -92,7 +92,7 @@
                         </div>
                         <h5 class="text-center">{{'TITLE.REJECTED_ORDERS' | translate}}<br>{{rejectedOrders}}%</h5>
                     </a>
-                    <a routerLink="/orders/sent" class="flex-fill position-relative" style="height: 200px; width: 180px;">
+                    <a routerLink="/orders/sent/{{getFilterHeader()}}" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
                             [series]="sentOrders"
                             [chart]="chartOptions.chart"
@@ -113,7 +113,7 @@
                         </div>
                         <h5 class="text-center">{{'TITLE.SENT_ORDERS' | translate}}<br>{{sentOrders}}%</h5>
                     </a>
-                    <a routerLink="/orders/delivered" class="flex-fill position-relative" style="height: 200px; width: 180px;">
+                    <a routerLink="/orders/delivered/{{getFilterHeader()}}" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
                             #delivered
                             [series]="deliveredOrders"

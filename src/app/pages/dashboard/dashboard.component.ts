@@ -51,6 +51,9 @@ export class DashboardComponent implements OnInit {
   expectedDeliveredOrders:any = [];
   targetTopItemsMonth:number = null;
   targetTopCustomersMonth:number = null;
+  durationType:number = null;
+  dateFrom:string = null;
+  dateTo:string = null;
 
 
   constructor(private layout: LayoutService,private loderService: LoaderService,private dashboardService:DashboardService) {
@@ -76,6 +79,7 @@ export class DashboardComponent implements OnInit {
   changeFilterType(e) {
     let durationType = {};
     if(e.value) {
+      this.durationType = e.value;
       durationType = {'durationType': e.value};
     }
     this.getTotalOrdersGroupedByStatus(durationType);
@@ -83,10 +87,12 @@ export class DashboardComponent implements OnInit {
 
   changeDate(start,end) {
     if(end) {
+      this.dateFrom = start;
+      this.dateTo = end;
       this.getTotalOrdersGroupedByStatus(
         {
-          "dateFrom": new Date(start),
-          "dateTo": new Date(end),
+          dateFrom: new Date(Number(start?.split('/')[2]),Number(start?.split('/')[1]) -1,Number(start?.split('/')[0]) + 1),
+          dateTo: new Date(Number(end?.split('/')[2]),Number(end?.split('/')[1]) -1,Number(end?.split('/')[0]) + 1),
         }
       );
     }
@@ -230,4 +236,13 @@ export class DashboardComponent implements OnInit {
 		return new Date(date).toLocaleString();
 	}
 
+  getFilterHeader() {
+    if(this.durationType) {
+      return this.durationType;
+    }
+    else if(this.dateFrom && this.dateTo){
+      return new Date(this.dateFrom) + '|' + new Date(this.dateTo);
+    }
+    return '-'
+  }
 }

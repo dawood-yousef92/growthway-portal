@@ -17,6 +17,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { OrdersStatusesComponent } from './components/orders-statuses/orders-statuses.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 
 
@@ -48,6 +49,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMomentDateModule,
 
   ],
   providers: [

@@ -53,7 +53,7 @@ const routes: Routes = [
           import('./orders/orders.module').then((m) => m.OrdersModule),
       },
       {
-        path: 'orders/:type',
+        path: 'orders/:type/:filter',
         loadChildren: () =>
           import('./orders/orders.module').then((m) => m.OrdersModule),
       },
