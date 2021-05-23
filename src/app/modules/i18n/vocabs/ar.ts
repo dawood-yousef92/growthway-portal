@@ -186,7 +186,7 @@ export const locale = {
       PHONE_NUMBER: 'رقم الهاتف',
       ISACTIVE: "فعال",
       RANDAM_PASS: 'كلمة مرور عشوائية',
-      ACTIVE_CODE: 'إرسال بريد إلكتروني للتفعيل',
+      ACTIVE_CODE: 'إرسال كود على بريد إلكتروني للتفعيل',
       CHANGE_PHOTO: 'تغيير الصور',
       ADD_PHOTO: 'اضف الصور',
       REMOVE_PHOTO: 'إزالة الصورة',
@@ -277,6 +277,7 @@ export const locale = {
       LAST_WEEK: 'اسبوع',
       LAST_MONTH: 'شهر',
       LAST_YEAR: 'سنة',
+      ASSEIGN_USERS: 'ربط مستخدمين',
     },
 
     TITLE: {

@@ -206,7 +206,7 @@ testImage:any;
 			statusId: nextStatus,
 			id: this.orderId,
 			branchId: this.acceptOrderForm.controls.branchId.value,
-			expectedDeliveryDate: new Date(this.acceptOrderForm.controls.expectedDeliveryDate.value).toLocaleString()
+			expectedDeliveryDate: new Date(this.acceptOrderForm.controls.expectedDeliveryDate.value)
 		}).subscribe((data) => {
 			this.toaster.success(data.result);
 			this.loderService.setIsLoading = false;

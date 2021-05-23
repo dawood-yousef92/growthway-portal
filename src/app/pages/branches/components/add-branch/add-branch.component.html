@@ -16,6 +16,25 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="assignedUsers" placeholder="{{'INPUT.ASSEIGN_USERS' | translate }}" multiple required>
+                                <mat-option>
+                                    <ngx-mat-select-search (keyup)="search($event.target.value,'users')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngFor="let user of users" [value]="user.id" [ngClass]="{'d-none': !user?.userName?.toLowerCase().includes(usersFilter?.toLowerCase())}">
+                                    <div class="d-flex align-items-center">
+                                        {{user.userName}}
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                 message:'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                control: branchForm.controls['assignedUsers']
+                                }"></mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { GeneralService } from 'src/app/pages/general.service';
+import { UsersService } from 'src/app/pages/users/users.service';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { BranchesService } from '../../branches.service';
 
@@ -16,11 +17,13 @@ export class AddBranchComponent implements OnInit {
   branchForm: FormGroup;
   branchtId = null;
   countriesFilter:string = '';
+  usersFilter:string = '';
   countries:any[] = [];
   cities:any[] = [];
   branch:any;
   pastLocation:any;
   fullAddressText:string;
+  users:any[];
 
   constructor(
     private generalService:GeneralService,
@@ -29,7 +32,8 @@ export class AddBranchComponent implements OnInit {
     private fb: FormBuilder,private toaster: ToastrService,
     private router: Router,
     private loderService: LoaderService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private usersService:UsersService) { }
 
   initForm() {
     this.branchForm = this.fb.group(
@@ -45,6 +49,12 @@ export class AddBranchComponent implements OnInit {
       ],
       nameAr: [
         this.branch?.nameAr || '',
+        Validators.compose([
+          Validators.required,
+        ]),
+      ],
+      assignedUsers: [
+        this.branch?.assignedUsers || null,
         Validators.compose([
           Validators.required,
         ]),
@@ -85,6 +95,12 @@ export class AddBranchComponent implements OnInit {
     }
   }
 
+  getUsers() {
+    this.usersService.getUsers({}).subscribe((data) => {
+      this.users = data.result.users.items;
+    });
+  }
+
   getCountries() {
     this.generalService.getCountries().subscribe((data) => {
       // this.countries = data.result.countries;
@@ -106,6 +122,9 @@ export class AddBranchComponent implements OnInit {
   search(e,type) {
     if(type === 'countries') {
       this.countriesFilter = e;
+    }
+    else if(type === 'users') {
+      this.usersFilter = e;
     }
   }
 
@@ -151,6 +170,11 @@ export class AddBranchComponent implements OnInit {
     formData.append('nameAr',this.branchForm.controls.nameAr.value);
     formData.append('addressEn',this.branchForm.controls.addressEn.value);
     formData.append('addressAr',this.branchForm.controls.addressAr.value);
+    if(this.branchForm.controls.assignedUsers.value) {
+      for (var i = 0; i < this.branchForm.controls.assignedUsers.value.length; i++) {
+        formData.append('assignedUsers[]', this.branchForm.controls.assignedUsers.value[i]);
+      }
+    }
     formData.append('countryId',this.branchForm.controls.countryId.value);
     formData.append('cityId',this.branchForm.controls.cityId.value);
     if(this.pastLocation?.lat && this.pastLocation?.lng) {
@@ -185,6 +209,7 @@ export class AddBranchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getUsers();
     this.getCountries();
     this.initForm();
     this.route.params.subscribe((data) => {

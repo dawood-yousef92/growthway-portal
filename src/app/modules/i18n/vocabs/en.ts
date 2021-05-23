@@ -187,7 +187,7 @@ export const locale = {
       PHONE_NUMBER: 'Phone Number',
       ISACTIVE: "Is Active ",
       RANDAM_PASS: 'Random Pass',
-      ACTIVE_CODE: 'Active Code',
+      ACTIVE_CODE: 'Send Activation Code To Email Address',
       CHANGE_PHOTO: 'Change Photo',
       ADD_PHOTO: 'Add Images',
       REMOVE_PHOTO: 'Remove Photo',
@@ -279,6 +279,7 @@ export const locale = {
       LAST_WEEK: 'Last Week',
       LAST_MONTH: 'Last Month',
       LAST_YEAR: 'Last Year',
+      ASSEIGN_USERS: 'Assign Users',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
