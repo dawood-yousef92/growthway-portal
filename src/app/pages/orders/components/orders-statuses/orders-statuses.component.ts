@@ -7,6 +7,7 @@ import { OrdersService } from '../../orders.service';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-orders-statuses',
@@ -202,11 +203,12 @@ testImage:any;
 		else if(this.eventStatus === 'SEND') {
 			nextStatus = '8ce0ae9c-511b-4992-84a0-b05fa61d1e78';
 		}
+
 		this.OrdersService.updateOrder({
 			statusId: nextStatus,
 			id: this.orderId,
 			branchId: this.acceptOrderForm.controls.branchId.value,
-			expectedDeliveryDate: new Date(this.acceptOrderForm.controls.expectedDeliveryDate.value)
+			expectedDeliveryDate:  new Date(this.acceptOrderForm.controls.expectedDeliveryDate.value).toLocaleString('en')
 		}).subscribe((data) => {
 			this.toaster.success(data.result);
 			this.loderService.setIsLoading = false;
