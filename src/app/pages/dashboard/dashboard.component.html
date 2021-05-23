@@ -18,7 +18,7 @@
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-select (selectionChange)="changeFilterType($event)" class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
+                    <mat-select (selectionChange)="changeFilterType($event)"[(value)]="durationType" class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
                         <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
                         <mat-option *ngFor="let item of filter" [value]="item.id">
                             {{'INPUT.'+item.name | translate}}

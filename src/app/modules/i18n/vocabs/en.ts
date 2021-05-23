@@ -273,7 +273,7 @@ export const locale = {
       EXPORT_PDF: 'Export PDF',
       PRINT: 'Print',
       ENTER_DATE_RANE: 'Enter a Date Range',
-      FILTER_BY: 'Filter By',
+      FILTER_BY: 'All',
       LAST_HOUR: 'Last Hour',
       TODAY: 'Today',
       LAST_WEEK: 'Last Week',

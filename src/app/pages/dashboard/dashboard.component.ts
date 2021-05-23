@@ -79,6 +79,8 @@ export class DashboardComponent implements OnInit {
   changeFilterType(e) {
     let durationType = {};
     if(e.value) {
+      this.dateFrom = null;
+      this.dateTo = null;
       this.durationType = e.value;
       durationType = {'durationType': e.value};
     }
@@ -87,6 +89,7 @@ export class DashboardComponent implements OnInit {
 
   changeDate(start,end) {
     if(end) {
+      this.durationType = null;
       this.dateFrom = start;
       this.dateTo = end;
       this.getTotalOrdersGroupedByStatus(

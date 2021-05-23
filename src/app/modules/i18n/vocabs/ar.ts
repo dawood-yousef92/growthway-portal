@@ -271,7 +271,7 @@ export const locale = {
       EXPORT_PDF: 'تحميل PDF',
       PRINT: 'طباعة',
       ENTER_DATE_RANE: 'اختر الفترة',
-      FILTER_BY: 'فلترة',
+      FILTER_BY: 'الكل',
       LAST_HOUR: 'منذ ساعة',
       TODAY: 'اليوم',
       LAST_WEEK: 'اسبوع',
