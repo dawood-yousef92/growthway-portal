@@ -18,6 +18,8 @@ import { OrdersStatusesComponent } from './components/orders-statuses/orders-sta
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
 
 
 
@@ -50,7 +52,8 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     MatDatepickerModule,
     MatNativeDateModule,
     MatMomentDateModule,
-
+    NgxMatSelectSearchModule
+    
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

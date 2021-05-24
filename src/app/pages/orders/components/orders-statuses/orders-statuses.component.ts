@@ -36,7 +36,8 @@ export class OrdersStatusesComponent implements OnInit {
 	acceptOrderForm: FormGroup;
 	rejectOrderForm: FormGroup;
 	sentOrderForm: FormGroup;
-testImage:any;
+	drivers:any;
+	driversFilter:string = '';
 
 	constructor(private OrdersService:OrdersService,
 		private loderService: LoaderService,
@@ -46,6 +47,18 @@ testImage:any;
 
 	ngOnChanges(changes: SimpleChanges) {
 		this.getOrders();
+	}
+
+	search(e,type) {
+		if(type === 'drivers') {
+		  this.driversFilter = e;
+		}
+	}
+
+	getCompanyDrivers() {
+		this.OrdersService.getCompanyDrivers({}).subscribe((data) => {
+			this.drivers = data.result.driverItems;
+		});
 	}
 
 	initAcceptOrderForm() {
@@ -61,6 +74,9 @@ testImage:any;
 			Validators.compose([
 				Validators.required,
 			]),
+		  ],
+		  driverId: [
+			this.getDriver() || null
 		  ]
 		})
 	}
@@ -80,6 +96,9 @@ testImage:any;
 				Validators.compose([
 					Validators.required,
 				]),
+			],
+			driverId: [
+				this.getDriver() || null
 			]
 		})
 	}
@@ -173,6 +192,10 @@ testImage:any;
 		return this.gridData.find(item => item.id === this.orderId).expectedDeliveryDate;
 	}
 
+	getDriver() {
+		return this.gridData.find(item => item.id === this.orderId).driverId;
+	}
+
 	actionsEvent(event) {
 		this.orderId = event.rowId;
 		this.eventStatus = event?.type.toUpperCase();
@@ -208,6 +231,7 @@ testImage:any;
 			statusId: nextStatus,
 			id: this.orderId,
 			branchId: this.acceptOrderForm.controls.branchId.value,
+			driverId: this.acceptOrderForm.controls.driverId.value,
 			expectedDeliveryDate:  new Date(this.acceptOrderForm.controls.expectedDeliveryDate.value).toLocaleString('en')
 		}).subscribe((data) => {
 			this.toaster.success(data.result);
@@ -310,6 +334,7 @@ testImage:any;
 
 	ngOnInit() {
 		this.checkPermissions();
+		this.getCompanyDrivers();
 	}
 
 

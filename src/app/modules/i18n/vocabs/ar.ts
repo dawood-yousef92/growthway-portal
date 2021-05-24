@@ -277,7 +277,8 @@ export const locale = {
       LAST_WEEK: 'اسبوع',
       LAST_MONTH: 'شهر',
       LAST_YEAR: 'سنة',
-      ASSEIGN_USERS: 'ربط مستخدمين',
+      ASSEIGN_USERS: 'ربط مع المستخدمين',
+      ASSEIGN_DRIVER: 'تحديد السائق',
     },
 
     TITLE: {
@@ -328,6 +329,7 @@ export const locale = {
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',
+      EXPECTED_DELIVERY_DATE: 'تاريخ التوصيل المتوقع يجب ان لا يكون بالماضي',
     },
     LOOKUPS: {
       HOUR: 'ساعة',

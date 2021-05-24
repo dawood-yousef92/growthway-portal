@@ -20,4 +20,7 @@ export class OrdersService {
         return this.http.put<any>('Orders/UpdateOrder', dataForm);
     }
 
+    getCompanyDrivers(dataSettings): Observable<any> {
+        return this.http.post<any>('Driver/GetCompanyDrivers', dataSettings);
+    }
 }

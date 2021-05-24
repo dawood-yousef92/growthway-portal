@@ -280,6 +280,7 @@ export const locale = {
       LAST_MONTH: 'Last Month',
       LAST_YEAR: 'Last Year',
       ASSEIGN_USERS: 'Assign Users',
+      ASSEIGN_DRIVER: 'Assign Driver',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -329,6 +330,7 @@ export const locale = {
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',
+      EXPECTED_DELIVERY_DATE: 'Expected delivery date must be today or in futre',
     },
     LOOKUPS: {
       HOUR: 'Hour',

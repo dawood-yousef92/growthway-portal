@@ -430,3 +430,8 @@ mat-table.mat-table {
 .direction-ltr {
   direction: ltr;
 }
+.order-details-row {
+  max-height: calc(100vh - 600px);
+  overflow: auto;
+  min-height: 300px;
+}

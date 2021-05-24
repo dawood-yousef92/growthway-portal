@@ -13,7 +13,7 @@
         <form *ngIf="eventStatus === 'ACCEPT' || eventStatus === 'SEND'" class="form" [formGroup]="acceptOrderForm" novalidate="novalidate" (ngSubmit)="acceptOrder()">
             <div class="row">
                 <div class="col-12">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <mat-form-field class="w-100">
                             <mat-select class="py-1" formControlName="branchId" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}" required>
                                 <mat-option [value]="''">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
@@ -24,14 +24,31 @@
                         </mat-form-field>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="mb-1">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="driverId" placeholder="{{'INPUT.ASSEIGN_DRIVER' | translate }}">
+                                <mat-option>
+                                    <ngx-mat-select-search (keyup)="search($event.target.value,'drivers')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngFor="let driver of drivers" [value]="driver.driverId" [ngClass]="{'d-none': !driver?.driverName?.toLowerCase().includes(driversFilter?.toLowerCase())}">
+                                    <div class="d-flex align-items-center">
+                                        {{driver.driverName}}
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
                 <div class="col-12">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>{{'INPUT.CHOOSE_ESTIMATED_DELIVERY_DATE' | translate}}</mat-label>
                             <input matInput formControlName="expectedDeliveryDate" [min]="minDate" [matDatepicker]="dp3" disabled required>
                             <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                             <mat-datepicker #dp3 disabled="false"></mat-datepicker>
                         </mat-form-field>
+                        <mat-error *ngIf="acceptOrderForm.controls.expectedDeliveryDate.invalid">{{'VALIDATION.EXPECTED_DELIVERY_DATE' | translate}}</mat-error>
                     </div>
                 </div>
             </div>
@@ -39,7 +56,7 @@
         <form *ngIf="eventStatus === 'REJECT'" class="form" [formGroup]="rejectOrderForm" novalidate="novalidate" (ngSubmit)="rejectOrder()">
             <div class="row">
                 <div class="col-12">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <mat-form-field class="w-100">
                             <input class="py-1" type="text" matInput placeholder="{{'INPUT.REASON_OF_REJECT' | translate}}" formControlName="notes" />
                         </mat-form-field>
@@ -49,8 +66,24 @@
         </form>
         <form *ngIf="eventStatus === 'DELIVERED'" class="form" [formGroup]="sentOrderForm" novalidate="novalidate" (ngSubmit)="deliverOrder()">
             <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-1">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="driverId" placeholder="{{'INPUT.ASSEIGN_DRIVER' | translate }}">
+                                <mat-option>
+                                    <ngx-mat-select-search (keyup)="search($event.target.value,'drivers')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngFor="let driver of drivers" [value]="driver.driverId" [ngClass]="{'d-none': !driver?.driverName?.toLowerCase().includes(driversFilter?.toLowerCase())}">
+                                    <div class="d-flex align-items-center">
+                                        {{driver.driverName}}
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
                 <div class="col-12">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>{{'INPUT.CHOOSE_DELIVERY_DATE' | translate}}</mat-label>
                             <input matInput formControlName="deliveryDate" [min]="getCreatedOn()" [max]="minDate" [matDatepicker]="dp3" disabled required>
@@ -90,7 +123,7 @@
 </ng-template>
 
 <ng-template #orderDetailsView>
-    <div class="row">
+    <div class="row order-details-row">
         <div class="col-md-12 mb-3">
             <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ORDER_NUMBER' | translate}}</span>: {{orderDetails?.orderNumber || '----'}}</p>
         </div>
