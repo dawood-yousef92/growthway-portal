@@ -265,14 +265,14 @@ testImage:any;
    		if(this.permissions.includes('Orders.GetOrder')) {
 		  	this.customActions.push({name: 'View', icon:'flaticon-eye text-warning'})
 		}
-		if((this.permissions.includes('Orders.UpdateOrder') || true) && this.statusId === 'bd0a4950-4559-40ce-a6fe-4d081aa7a880') {
+		if((this.permissions.includes('Orders.UpdateOrder')) && this.statusId === 'bd0a4950-4559-40ce-a6fe-4d081aa7a880') {
 			this.customActions.push({name: 'Accept', icon:'flaticon2-check-mark text-success'});
 			this.customActions.push({name: 'Reject', icon:'flaticon2-cancel-music text-danger'});
 		}
-		if((this.permissions.includes('Orders.UpdateOrder') || true) && this.statusId === 'c91d4598-1bfd-42bb-abaf-c161151cb127') {
+		if((this.permissions.includes('Orders.UpdateOrder')) && this.statusId === 'c91d4598-1bfd-42bb-abaf-c161151cb127') {
 			this.customActions.push({name: 'Send', icon:'flaticon2-delivery-truck text-success'});
 		}
-		if((this.permissions.includes('Orders.UpdateOrder') || true) && this.statusId === '8ce0ae9c-511b-4992-84a0-b05fa61d1e78') {
+		if((this.permissions.includes('Orders.UpdateOrder')) && this.statusId === '8ce0ae9c-511b-4992-84a0-b05fa61d1e78') {
 			this.customActions.push({name: 'Delivered', icon:'flaticon2-box text-success'});
 		}
 		if(this.customActions.length > 0) {

@@ -54,7 +54,7 @@ export class AddBranchComponent implements OnInit {
         ]),
       ],
       assignedUsers: [
-        this.branch?.assignedUsers || null,
+        this.branch?.assignedUsers?.map(item => {return item.id}) || null,
         Validators.compose([
           Validators.required,
         ]),
