@@ -280,6 +280,7 @@ export const locale = {
       ASSEIGN_USERS: 'ربط مع المستخدمين',
       ASSEIGN_DRIVER: 'تحديد السائق',
       CLEAR: 'تفريغ',
+      RESET: 'اعادة',
     },
 
     TITLE: {
@@ -327,6 +328,8 @@ export const locale = {
       TOP_10_ITEMS: 'أفضل 10 منتجات',
       TOP_10_CUSTOMERS: 'أفضل 10 عملاء',
       EXPECTED_DELIVERED_ORDERS: 'الطلبات المفترض توصيلها',
+      RESET_ORDER: 'اعادة الطلب للطلبات الجديدة',
+      NOTES: 'ملاحظات',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',

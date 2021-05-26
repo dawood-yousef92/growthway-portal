@@ -282,6 +282,7 @@ export const locale = {
       ASSEIGN_USERS: 'Assign Users',
       ASSEIGN_DRIVER: 'Assign Driver',
       CLEAR: 'Clear',
+      RESET: 'Reset',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -328,6 +329,8 @@ export const locale = {
       TOP_10_ITEMS: 'Top 10 Items',
       TOP_10_CUSTOMERS: 'Top 10 Customers',
       EXPECTED_DELIVERED_ORDERS: 'Expected Delivered Orders',
+      RESET_ORDER: 'Reset Order',
+      NOTES: 'Notes',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',
