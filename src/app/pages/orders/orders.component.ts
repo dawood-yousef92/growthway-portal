@@ -4,10 +4,10 @@ import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { BranchesService } from '../branches/branches.service';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 const moment = _moment;
-
-
+  
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -24,18 +24,36 @@ export class OrdersComponent implements OnInit {
         {id: 5, name:'LAST_YEAR'}
     ]
     branchId:string = '';
-    dateFrom:string = null;
-    dateTo:string = null;
+    dateFrom:any = null;
+    dateTo:any = null;
     selectedDateFrom:string = null;
     selectedDateTo:string = null;
     durationType:number = null;
+    FilterForm: FormGroup;
 
-    constructor( private branchesService:BranchesService, private route: ActivatedRoute,) {}
+    constructor(private fb: FormBuilder,private branchesService:BranchesService, private route: ActivatedRoute,) {}
 
     changeActiveTab(e) {
         this.activeTab = e.index;
     }
 
+
+    initFilterForm() {
+		this.FilterForm = this.fb.group({
+		  branchId: [
+			this.branchId || null
+		  ],
+		  durationType: [
+			this.durationType || null
+		  ],
+		  dateFrom: [
+			this.dateFrom || null
+		  ],
+		  dateTo: [
+			this.dateTo || null
+		  ],
+		})
+	}
 
     getBranches() {
         this.branchesService.getBranches({}).subscribe((data) => {
@@ -74,17 +92,20 @@ export class OrdersComponent implements OnInit {
 
     changeDate(start,end) {
         if(end) {
+            this.FilterForm.get('durationType').setValue(null);
             this.selectedDateFrom = null;
             this.selectedDateTo = null;
+            this.durationType = null;
             this.dateFrom = start;
             this.dateTo = end;
-            this.durationType = null;
         }
     }
 
     changeFilterType(e) {
         if(e.value) {
           this.durationType = e.value;
+          this.FilterForm.get('dateFrom').setValue(null);
+          this.FilterForm.get('dateTo').setValue(null);
           this.dateFrom = null;
           this.dateTo = null;
         }
@@ -112,7 +133,25 @@ export class OrdersComponent implements OnInit {
         return moment(new Date(date), "DD/MM/YYYY");
     }
 
+    replaceAll(string, search, replace) {
+		return string.split(search).join(replace);
+	}
+
+    clear() {
+        this.selectedDateFrom = null;
+        this.selectedDateTo = null;
+        this.FilterForm.get('dateFrom').setValue(null);
+        this.FilterForm.get('dateTo').setValue(null);
+        this.FilterForm.get('durationType').setValue(null);
+        this.FilterForm.get('branchId').setValue(null);
+        this.dateTo = null;
+        this.dateFrom = null;
+        this.durationType = null;
+        this.branchId = null;
+    }
+
     ngOnInit() {
+        this.initFilterForm();
         this.getBranches();
         this.route.params.subscribe((data) => {
             this.type = data.type;
@@ -141,16 +180,19 @@ export class OrdersComponent implements OnInit {
                     break;
             }
 
-            console.log(filter);
-            if(!filter?.includes('|') && !filter?.includes('-')) {
+            if(!filter?.includes('to') && !filter?.includes('-')) {
                 this.durationType = Number(filter);
             }
-            else if(filter?.includes('|')) {
-                let arr = filter.split('|');
-                this.selectedDateFrom = this.getDateFormat(new Date(arr[0]));
-                this.dateFrom = this.getDateFormat(new Date(arr[0]));
-                this.selectedDateTo = this.getDateFormat(new Date(arr[1]));
-                this.dateTo = this.getDateFormat(new Date(arr[1]));
+            else if(filter?.includes('to')) {
+                let arr = filter.split('to');
+                arr[0] = this.replaceAll(arr[0],'-','/')
+                arr[1] = this.replaceAll(arr[1],'-','/')
+                console.log(arr[0]);
+                console.log(arr[1]);
+                this.selectedDateFrom = arr[0];
+                this.dateFrom =  arr[0];
+                this.selectedDateTo = arr[1];
+                this.dateTo = arr[1];
             }
         });
     }

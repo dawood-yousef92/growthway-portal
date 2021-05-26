@@ -1,44 +1,47 @@
 <div class="card card-custom example example-compact gutter-b">
     <div class="card-body">
-        <div class="row align-items-center">
-            <div class="col-md-3">
-                <mat-form-field class="w-100">
-                    <mat-select class="py-1" (selectionChange)="changeBranch($event)" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}">
-                        <mat-option [value]="''">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
-                        <mat-option *ngFor="let branch of branches" [value]="branch.id">
-                            {{branch.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-md-3">
-                <mat-form-field class="w-100">
-                    <mat-select (selectionChange)="changeFilterType($event)" [(value)]="durationType" class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
-                        <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
-                        <mat-option *ngFor="let item of filter" [value]="item.id">
-                            {{'INPUT.'+item.name | translate}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-md-3">
-                <mat-form-field appearance="fill" class="w-100">
-                    <mat-label *ngIf="!selectedDateFrom && !selectedDateTo">{{'INPUT.ENTER_DATE_RANE' | translate}}</mat-label>
-                    <mat-label *ngIf="selectedDateFrom && selectedDateTo">{{selectedDateFrom + ' - ' + selectedDateTo}}</mat-label>
-                    <mat-date-range-input [rangePicker]="picker">
-                      <input #matStartDate matStartDate disabled>
-                      <input #matEndDate matEndDate (dateChange)="changeDate(matStartDate.value,matEndDate.value)" placeholder="End date">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker></mat-date-range-picker>
-                </mat-form-field>
-            </div>
-            <div class="col-md-3">
-                <div class="mb-3 d-flex align-items-center">
-                    <button type="button" class="btn btn-secondary ml-2" (click)="printTable()">{{'INPUT.PRINT' | translate}}</button>
+        <form [formGroup]="FilterForm" novalidate="novalidate">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <mat-form-field class="w-100">
+                        <mat-select class="py-1" formControlName="branchId" (selectionChange)="changeBranch($event)" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}">
+                            <mat-option [value]="''">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
+                            <mat-option *ngFor="let branch of branches" [value]="branch.id">
+                                {{branch.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field class="w-100">
+                        <mat-select formControlName="durationType" (selectionChange)="changeFilterType($event)" class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
+                            <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
+                            <mat-option *ngFor="let item of filter" [value]="item.id">
+                                {{'INPUT.'+item.name | translate}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label *ngIf="!selectedDateFrom && !selectedDateTo">{{'INPUT.ENTER_DATE_RANE' | translate}}</mat-label>
+                        <mat-label *ngIf="selectedDateFrom && selectedDateTo">{{selectedDateFrom + ' - ' + selectedDateTo}}</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                          <input formControlName="dateFrom" #matStartDate matStartDate disabled>
+                          <input formControlName="dateTo" #matEndDate matEndDate (dateChange)="changeDate(matStartDate.value,matEndDate.value)" placeholder="End date">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3 d-flex align-items-center">
+                        <button type="button" class="btn btn-secondary ml-2" (click)="clear()">{{'INPUT.CLEAR' | translate}}</button>
+                        <button type="button" class="btn btn-secondary ml-2" (click)="printTable()">{{'INPUT.PRINT' | translate}}</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
         <mat-tab-group (selectedTabChange)="changeActiveTab($event)" [selectedIndex]="activeTab">
             <mat-tab label="{{'TITLE.NEW_ORDERS' | translate}}">
                 <app-orders-statuses *ngIf="activeTab === 0" [branches]="branches" [statusId]="'bd0a4950-4559-40ce-a6fe-4d081aa7a880'" [branchId]="branchId" [dateFrom]="dateFrom" [dateTo]="dateTo" [durationType]="durationType"></app-orders-statuses>

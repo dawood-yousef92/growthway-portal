@@ -8,7 +8,9 @@
         </button>
     </div>
     <div class="modal-body">
-        <div [ngTemplateOutlet]="orderDetailsView"></div>
+        <div class="order-details-row">
+            <div [ngTemplateOutlet]="orderDetailsView"></div>
+        </div>
         <hr/>
         <form *ngIf="eventStatus === 'ACCEPT' || eventStatus === 'SEND'" class="form" [formGroup]="acceptOrderForm" novalidate="novalidate" (ngSubmit)="acceptOrder()">
             <div class="row">
@@ -31,6 +33,7 @@
                                 <mat-option>
                                     <ngx-mat-select-search (keyup)="search($event.target.value,'drivers')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
                                 </mat-option>
+                                <mat-option [value]="''">{{'INPUT.ASSEIGN_DRIVER' | translate }}</mat-option>
                                 <mat-option *ngFor="let driver of drivers" [value]="driver.driverId" [ngClass]="{'d-none': !driver?.driverName?.toLowerCase().includes(driversFilter?.toLowerCase())}">
                                     <div class="d-flex align-items-center">
                                         {{driver.driverName}}
@@ -73,6 +76,7 @@
                                 <mat-option>
                                     <ngx-mat-select-search (keyup)="search($event.target.value,'drivers')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
                                 </mat-option>
+                                <mat-option [value]="''">{{'INPUT.ASSEIGN_DRIVER' | translate }}</mat-option>
                                 <mat-option *ngFor="let driver of drivers" [value]="driver.driverId" [ngClass]="{'d-none': !driver?.driverName?.toLowerCase().includes(driversFilter?.toLowerCase())}">
                                     <div class="d-flex align-items-center">
                                         {{driver.driverName}}
@@ -110,7 +114,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body order-details-row">
         <div id="contentToConvert">
             <div [ngTemplateOutlet]="orderDetailsView"></div>
         </div>
@@ -123,7 +127,7 @@
 </ng-template>
 
 <ng-template #orderDetailsView>
-    <div class="row order-details-row">
+    <div>
         <div class="col-md-12 mb-3">
             <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ORDER_NUMBER' | translate}}</span>: {{orderDetails?.orderNumber || '----'}}</p>
         </div>

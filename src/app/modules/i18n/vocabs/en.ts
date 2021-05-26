@@ -281,6 +281,7 @@ export const locale = {
       LAST_YEAR: 'Last Year',
       ASSEIGN_USERS: 'Assign Users',
       ASSEIGN_DRIVER: 'Assign Driver',
+      CLEAR: 'Clear',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',

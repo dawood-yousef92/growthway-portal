@@ -279,6 +279,7 @@ export const locale = {
       LAST_YEAR: 'سنة',
       ASSEIGN_USERS: 'ربط مع المستخدمين',
       ASSEIGN_DRIVER: 'تحديد السائق',
+      CLEAR: 'تفريغ',
     },
 
     TITLE: {

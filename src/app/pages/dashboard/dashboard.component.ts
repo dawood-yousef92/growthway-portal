@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LayoutService } from 'src/app/_metronic/core';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { DashboardService } from './dashboard.service';
@@ -54,9 +55,11 @@ export class DashboardComponent implements OnInit {
   durationType:number = null;
   dateFrom:string = null;
   dateTo:string = null;
+  FilterForm: FormGroup;
+  chartData:any;
 
 
-  constructor(private layout: LayoutService,private loderService: LoaderService,private dashboardService:DashboardService) {
+  constructor(private fb: FormBuilder,private layout: LayoutService,private loderService: LoaderService,private dashboardService:DashboardService) {
     this.colorsGrayGray100 = this.layout.getProp('js.colors.gray.gray100');
     this.colorsGrayGray700 = this.layout.getProp('js.colors.gray.gray700');
     this.colorsThemeBaseSuccess = this.layout.getProp(
@@ -69,6 +72,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initFilterForm();
     this.chartOptions = this.getChartOptions(70);
     this.getTotalOrdersGroupedByStatus({});
     this.getTopItems();
@@ -76,9 +80,25 @@ export class DashboardComponent implements OnInit {
     this.getExpectedDeliveryOrders();
   }
 
+  initFilterForm() {
+		this.FilterForm = this.fb.group({
+		  durationType: [
+			this.durationType || null
+		  ],
+		  dateFrom: [
+			this.dateFrom || null
+		  ],
+		  dateTo: [
+			this.dateTo || null
+		  ],
+		})
+	}
+
   changeFilterType(e) {
     let durationType = {};
     if(e.value) {
+      this.FilterForm.get('dateFrom').setValue(null);
+      this.FilterForm.get('dateTo').setValue(null);
       this.dateFrom = null;
       this.dateTo = null;
       this.durationType = e.value;
@@ -89,6 +109,7 @@ export class DashboardComponent implements OnInit {
 
   changeDate(start,end) {
     if(end) {
+      this.FilterForm.get('durationType').setValue(null);
       this.durationType = null;
       this.dateFrom = start;
       this.dateTo = end;
@@ -104,6 +125,7 @@ export class DashboardComponent implements OnInit {
   getTotalOrdersGroupedByStatus(filterData) {
     this.loderService.setIsLoading = true;
     this.dashboardService.getTotalOrdersGroupedByStatus(filterData).subscribe((data) => {
+      this.chartData = data.result.statusGroups;
       let total = data.result.statusGroups.Pending+
                   data.result.statusGroups.Accepted+
                   data.result.statusGroups.Sent+
@@ -239,12 +261,26 @@ export class DashboardComponent implements OnInit {
 		return new Date(date).toLocaleString();
 	}
 
+  clear() {
+    this.FilterForm.get('dateFrom').setValue(null);
+    this.FilterForm.get('dateTo').setValue(null);
+    this.FilterForm.get('durationType').setValue(null);
+    this.dateTo = null;
+    this.dateFrom = null;
+    this.durationType = null;
+    this.getTotalOrdersGroupedByStatus({});
+  }
+
+  replaceAll(string, search, replace) {
+		return string.split(search).join(replace);
+	}
+
   getFilterHeader() {
     if(this.durationType) {
       return this.durationType;
     }
     else if(this.dateFrom && this.dateTo){
-      return new Date(this.dateFrom) + '|' + new Date(this.dateTo);
+      return this.replaceAll(this.dateFrom, '/', '-') + 'to' + this.replaceAll(this.dateTo, '/', '-');
     }
     return '-'
   }

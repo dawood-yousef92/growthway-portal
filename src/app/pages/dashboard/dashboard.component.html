@@ -7,25 +7,28 @@
                         {{'TITLE.DASHBOARD_TIP' | translate}}
                     </p>
                 </div>
-              <div class="card-toolbar">
-                <mat-form-field appearance="fill" class="mr-3">
-                    <mat-label>{{'INPUT.ENTER_DATE_RANE' | translate}}</mat-label>
-                    <mat-date-range-input [rangePicker]="picker">
-                      <input #matStartDate matStartDate placeholder="Start date" disabled>
-                      <input #matEndDate matEndDate (dateChange)="changeDate(matStartDate.value,matEndDate.value)" placeholder="End date">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker></mat-date-range-picker>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-select (selectionChange)="changeFilterType($event)"[(value)]="durationType" class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
-                        <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
-                        <mat-option *ngFor="let item of filter" [value]="item.id">
-                            {{'INPUT.'+item.name | translate}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-              </div>
+                <form [formGroup]="FilterForm" novalidate="novalidate">
+                    <div class="card-toolbar">
+                        <mat-form-field appearance="fill" class="mr-3">
+                            <mat-label>{{'INPUT.ENTER_DATE_RANE' | translate}}</mat-label>
+                            <mat-date-range-input [rangePicker]="picker">
+                                <input formControlName="dateFrom" #matStartDate matStartDate placeholder="Start date" disabled>
+                                <input formControlName="dateTo" #matEndDate matEndDate (dateChange)="changeDate(matStartDate.value,matEndDate.value)" placeholder="End date">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-select formControlName="durationType" (selectionChange)="changeFilterType($event)" class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
+                                <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
+                                <mat-option *ngFor="let item of filter" [value]="item.id">
+                                    {{'INPUT.'+item.name | translate}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <button type="button" class="btn btn-secondary mb-2 ml-2" (click)="clear()">{{'INPUT.CLEAR' | translate}}</button>
+                    </div>
+                </form>
             </div>
             <div class="card-body charts-section py-5">
                 <div class="d-flex flex-wrap flex-grow-1 py-5 my-5">
@@ -48,7 +51,7 @@
                         <div class="chart-img">
                             <img class="w-75 mx-auto" src="../../../assets/images/new-order (1).svg" alt="New Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.NEW_ORDERS' | translate}}<br>{{newOrders}}%</h5>
+                        <h5 class="text-center">{{'TITLE.NEW_ORDERS' | translate}}<br>{{chartData?.Pending}}/{{totalOrders}}</h5>
                     </a>
                     <a routerLink="/orders/accepted/{{getFilterHeader()}}" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
@@ -69,7 +72,7 @@
                         <div class="chart-img">
                             <img class="w-75 mx-auto" src="../../../assets/images/Accepted (1).svg" alt="Accepted Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.ACCEPTED_ORDERS' | translate}}<br>{{acceptedOrders}}%</h5>
+                        <h5 class="text-center">{{'TITLE.ACCEPTED_ORDERS' | translate}}<br>{{chartData?.Accepted}}/{{totalOrders}}</h5>
                     </a>
                     <a routerLink="/orders/rejected/{{getFilterHeader()}}" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
@@ -90,7 +93,7 @@
                         <div class="chart-img">
                             <img class="w-75 mx-auto" src="../../../assets/images/Rejected.svg" alt="Rejected Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.REJECTED_ORDERS' | translate}}<br>{{rejectedOrders}}%</h5>
+                        <h5 class="text-center">{{'TITLE.REJECTED_ORDERS' | translate}}<br>{{chartData?.Rejected}}/{{totalOrders}}</h5>
                     </a>
                     <a routerLink="/orders/sent/{{getFilterHeader()}}" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
@@ -111,7 +114,7 @@
                         <div class="chart-img">
                             <img class="w-75 mx-auto" src="../../../assets/images/send-order.svg" alt="Sent Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.SENT_ORDERS' | translate}}<br>{{sentOrders}}%</h5>
+                        <h5 class="text-center">{{'TITLE.SENT_ORDERS' | translate}}<br>{{chartData?.Sent}}/{{totalOrders}}</h5>
                     </a>
                     <a routerLink="/orders/delivered/{{getFilterHeader()}}" class="flex-fill position-relative" style="height: 200px; width: 180px;">
                         <apx-chart
@@ -133,7 +136,7 @@
                         <div class="chart-img">
                             <img class="w-100" src="../../../assets/images/Delivered.svg" alt="Delivered Orders">
                         </div>
-                        <h5 class="text-center">{{'TITLE.DELIVERED_ORDERS' | translate}}<br>{{deliveredOrders}}%</h5>
+                        <h5 class="text-center">{{'TITLE.DELIVERED_ORDERS' | translate}}<br>{{chartData?.Delivered}}/{{totalOrders}}</h5>
                     </a>
                 </div>
                 <div class="row my-5 pt-5">

@@ -20,6 +20,7 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import { SplashScreenModule } from './_metronic/partials/layout/splash-screen/splash-screen.module';
 import { AuthInterceptor } from './modules/auth/auth.interseptor';
 import { ToastrModule } from 'ngx-toastr';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 /**
  * Import specific languages to avoid importing everything
@@ -61,6 +62,9 @@ export function getHighlightLanguages() {
       useClass: AuthInterceptor,
       multi: true,
     },
+    { provide: MAT_DATE_LOCALE,
+      useValue: 'en-GB'
+    }
   ],
   bootstrap: [AppComponent],
 })

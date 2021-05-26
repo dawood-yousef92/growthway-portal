@@ -11,6 +11,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslationModule } from 'src/app/modules/i18n/translation.module';
 import { GeneralModule } from 'src/app/_metronic/partials/layout/general/general.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -31,6 +32,8 @@ import { GeneralModule } from 'src/app/_metronic/partials/layout/general/general
     MatMomentDateModule,
     NgApexchartsModule,
     GeneralModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class DashboardModule {}
