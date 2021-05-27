@@ -283,6 +283,7 @@ export const locale = {
       ASSEIGN_DRIVER: 'Assign Driver',
       CLEAR: 'Clear',
       RESET: 'Reset',
+      SELECT_YOUR_DOCUMENTS: 'Select your documents',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -331,10 +332,14 @@ export const locale = {
       EXPECTED_DELIVERED_ORDERS: 'Expected Delivered Orders',
       RESET_ORDER: 'Reset Order',
       NOTES: 'Notes',
+      PREVIOUS_DOCUMENTS: 'Previous Documents',
+      UPLOAD_DOCUMENTS: 'Upload Documents',
+      DROP_FILE_HERE: 'Drag and drop files here',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',
       EXPECTED_DELIVERY_DATE: 'Expected delivery date must be today or in futre',
+      ALLOWED_DOCUMENTS: 'Allowed size for every file is 2M | Allowed formats are .doc, .docs, .pdf, .txt, .docx, .jpg, .jpeg, .png',
     },
     LOOKUPS: {
       HOUR: 'Hour',

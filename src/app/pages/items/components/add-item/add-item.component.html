@@ -264,7 +264,7 @@
                         <app-upload-documents [selectedFiles]="documents" (selectFiles)="selectFiles($event)" class="row"></app-upload-documents>
                         <div class="row" *ngIf="product?.documents.length > 0">
                             <div class="col-12 mb-4">
-                                <label for="" class="field-label mb-0">Previous Documents</label>
+                                <label for="" class="field-label mb-0">{{'TITLE.PREVIOUS_DOCUMENTS' | translate}}</label>
                             </div>
                             <div *ngFor="let file of product?.documents; let i = index" class="col-sm-3 col-4 mb-4">
                                 <div id="uploaded-image-holder" class="uploaded-file-holder">

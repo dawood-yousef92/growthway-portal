@@ -281,6 +281,7 @@ export const locale = {
       ASSEIGN_DRIVER: 'تحديد السائق',
       CLEAR: 'تفريغ',
       RESET: 'اعادة',
+      SELECT_YOUR_DOCUMENTS: 'اختر الملفات',
     },
 
     TITLE: {
@@ -330,10 +331,14 @@ export const locale = {
       EXPECTED_DELIVERED_ORDERS: 'الطلبات المفترض توصيلها',
       RESET_ORDER: 'اعادة الطلب للطلبات الجديدة',
       NOTES: 'ملاحظات',
+      PREVIOUS_DOCUMENTS: 'الوثائق السابقة',
+      UPLOAD_DOCUMENTS: 'الوثائق',
+      DROP_FILE_HERE: 'قم بسحب الملف هنا',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',
       EXPECTED_DELIVERY_DATE: 'تاريخ التوصيل المتوقع يجب ان لا يكون بالماضي',
+      ALLOWED_DOCUMENTS: 'حجم الملف يجب ان يكون اقل من 2 ميجابايت وان يكون امتداده واحد من الاتي .doc, .docs, .pdf, .txt, .docx, .jpg, .jpeg, .png',
     },
     LOOKUPS: {
       HOUR: 'ساعة',

@@ -40,5 +40,7 @@
 .dashboard-main-link .indecator img {
   transform: rotate(179deg);
 }
-    
-    
+.btn.delete-file {
+  right: auto;
+  left: -8px;
+}
