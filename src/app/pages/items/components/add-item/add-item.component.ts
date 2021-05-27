@@ -30,6 +30,7 @@ export class AddItemComponent implements OnInit {
   productId:string;
   product:any;
   allCats:any;
+  documents:File[] = [];
 
   categories:any = [];
   selectedCatName:string;
@@ -110,6 +111,30 @@ export class AddItemComponent implements OnInit {
         this.getStatus(this.product?.isActive),
       ],
     });
+  }
+
+  selectFiles(e) {
+    this.documents = e.documents;
+  }
+
+  getFileIcon(index) {
+    if(this.product?.documents[index]?.documentName.includes('pdf'))
+    {
+      return 'pdf.png';
+    }
+    else if(this.product?.documents[index]?.documentName.includes('text')) {
+      return 'txt.png';
+    }
+    else if(this.product?.documents[index]?.documentName.includes('doc') || this.product?.documents[index]?.documentName.includes('docs') || this.product?.documents[index]?.documentName.includes('docsx')) {
+      return 'doc.png';
+    }
+    else {
+      return 'default.png';
+    }
+  }
+
+  deleteFile(index) {
+    this.product?.documents?.splice(index, 1);
   }
 
   getStatus(status) {
@@ -355,6 +380,9 @@ export class AddItemComponent implements OnInit {
     formData.append('categoryId',this.itemForm.controls.categoryId.value);
     formData.append('minimumOrderQuantity',this.itemForm.controls.minimumOrderQuantity.value);
     formData.append('tags',this.tags?.join(','));
+    for(let i =0; i < this.documents.length; i++){
+      formData.append("productDocuments", this.documents[i] as File, this.documents[i]['name']);
+    }
     if(!this.productId) {
       formData.append('defaultImageIndex',this.itemForm.controls.defaultImageIndex.value);
       for(let i = 0; i < this.itemImages.length; i++) {
@@ -399,6 +427,9 @@ export class AddItemComponent implements OnInit {
         else {
           formData.append("productImagesIds", this.itemImages[i].base64.id);
         }
+      }
+      for(let i = 0; i < this.product.documents.length; i++) {
+        formData.append("productDecumentsIds", this.product.documents[i].id);
       }
       this.itemsService.updateProduct(formData).subscribe((data) => {
         this.toaster.success(data.result);

@@ -16,9 +16,10 @@ import { OfflineTableComponent } from './offline-table/offline-table.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MapComponent } from './map/map.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { UploadDocumentsComponent } from './upload-documents/upload-documents.component';
 
 @NgModule({
-  declarations: [DynamicTableComponent, OfflineTableComponent, MapComponent],
+  declarations: [DynamicTableComponent, OfflineTableComponent, MapComponent, UploadDocumentsComponent],
   imports: [
     CommonModule,
     MatTableModule,
@@ -36,6 +37,6 @@ import { GoogleMapsModule } from '@angular/google-maps';
     TranslateModule,
     GoogleMapsModule
   ],
-  exports: [DynamicTableComponent, OfflineTableComponent, MapComponent],
+  exports: [DynamicTableComponent, OfflineTableComponent, MapComponent, UploadDocumentsComponent],
 })
 export class GeneralModule { }
