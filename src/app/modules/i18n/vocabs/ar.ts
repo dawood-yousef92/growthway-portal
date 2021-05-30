@@ -316,7 +316,7 @@ export const locale = {
       ACCEPTED_ORDERS: 'الطلبات المقبولة',
       SENT_ORDERS: 'الطلبات المرسلة',
       REJECTED_ORDERS: 'الطلبات المرفوضة',
-      DELIVERED_ORDERS: 'الطلبات الموصلة',
+      DELIVERED_ORDERS: 'الطلبات المستلمة',
       DELIVERED_ORDER: 'تسليم الطلب',
       ALL_ORDERS: 'جميع الطلبات',
       ACCEPT_ORDER: 'قبول الطلب',

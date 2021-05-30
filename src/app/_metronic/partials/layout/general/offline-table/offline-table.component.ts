@@ -109,6 +109,11 @@ export class OfflineTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  pagingData:any = {
+    pageSize:20,
+    pageIndex:0
+  }
+
   public dataSource = new MatTableDataSource<any | Group>([]);
 
   _alldata: any[];
@@ -129,10 +134,13 @@ export class OfflineTableComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if(localStorage.getItem('pageSize')) {
+      this.pagingData.pageSize = localStorage.getItem('pageSize');
+      this.pagingData.pageIndex = localStorage.getItem('pageIndex');
+    }
     this._alldata = this.gridData;
     this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
     this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
-    // this.dataSource.filter = performance.now().toString();
     this.gridFilter = localStorage.getItem('gridFilter');
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -296,5 +304,10 @@ export class OfflineTableComponent implements OnInit {
   stop(e) {
     e.stopPropagation();
     e.preventDefault();
+  }
+
+  changePagination(e) {
+    localStorage.setItem('pageSize',e.pageSize)
+    localStorage.setItem('pageIndex',e.pageIndex)
   }
 }

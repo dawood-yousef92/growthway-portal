@@ -76,6 +76,8 @@
         <mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" (click)="groupHeaderClick(row)"> </mat-row>
       
       </mat-table>
-      <mat-paginator [pageSize]="'20'" [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+      <!-- <mat-paginator [pageSize]="'20'" [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator> -->
 
+    <mat-paginator #matPaginator (page)="changePagination($event)" [pageSize]="pagingData.pageSize" [pageIndex]="pagingData.pageIndex" [pageSizeOptions]="[5, 10, 20, 50, 100]">
+    </mat-paginator>
 </div>

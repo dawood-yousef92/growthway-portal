@@ -194,6 +194,9 @@ export class OrdersComponent implements OnInit {
                 this.selectedDateTo = arr[1];
                 this.dateTo = arr[1];
             }
+            localStorage.removeItem('gridFilter');
+            localStorage.removeItem('pageSize');
+            localStorage.removeItem('pageIndex');
         });
     }
 }

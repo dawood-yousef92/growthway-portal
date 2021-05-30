@@ -9,5 +9,7 @@ export class ItemsComponent implements OnInit {
 
   ngOnInit() {
     localStorage.removeItem('gridFilter');
+    localStorage.removeItem('pageSize');
+    localStorage.removeItem('pageIndex');
   }
 }

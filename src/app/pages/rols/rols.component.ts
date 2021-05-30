@@ -9,5 +9,7 @@ export class RolsComponent implements OnInit {
 
   ngOnInit() {
     localStorage.removeItem('gridFilter');
+    localStorage.removeItem('pageSize');
+    localStorage.removeItem('pageIndex');
   }
 }
