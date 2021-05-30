@@ -353,7 +353,8 @@ export class OrdersStatusesComponent implements OnInit {
 
 	getCreatedOn() {
 		if(this.orderId) {
-			return new Date(this.gridData?.find(item => item.id === this.orderId).createdOn);
+			let createdDate = this.gridData?.find(item => item.id === this.orderId).createdOn;
+			return new Date(Number(createdDate?.split('/')[2]),Number(createdDate?.split('/')[1]) -1,Number(createdDate?.split('/')[0]))
 		}
 	}
 
