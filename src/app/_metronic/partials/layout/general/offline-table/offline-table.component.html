@@ -78,6 +78,6 @@
       </mat-table>
       <!-- <mat-paginator [pageSize]="'20'" [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator> -->
 
-    <mat-paginator #matPaginator (page)="changePagination($event)" [pageSize]="pagingData.pageSize" [pageIndex]="pagingData.pageIndex" [pageSizeOptions]="[5, 10, 20, 50, 100]">
+    <mat-paginator #matPaginator [showFirstLastButtons]="true" (page)="changePagination($event)" [pageSize]="pagingData.pageSize" [pageIndex]="pagingData.pageIndex" [pageSizeOptions]="[5, 10, 20, 50, 100]">
     </mat-paginator>
 </div>

@@ -265,6 +265,7 @@ export class OrdersStatusesComponent implements OnInit {
 			statusId: '0d014e78-7887-4f53-ab63-94f9fad40193',
 			id: this.orderId,
 			deliveryDate: this.sentOrderForm.controls.deliveryDate.value,
+			driverId: this.sentOrderForm.controls.driverId.value,
 		}).subscribe((data) => {
 			this.toaster.success(data.result);
 			this.loderService.setIsLoading = false;
@@ -277,14 +278,21 @@ export class OrdersStatusesComponent implements OnInit {
 
 	resetOrder() {
 		this.loderService.setIsLoading = true;
+		let prevStatus = ''
+		if(this.statusId === 'c91d4598-1bfd-42bb-abaf-c161151cb127' || this.statusId === 'f18a701e-55a7-476a-bcaa-c7c894041a29') {
+			prevStatus = 'bd0a4950-4559-40ce-a6fe-4d081aa7a880';
+		}
+		else if(this.statusId === '8ce0ae9c-511b-4992-84a0-b05fa61d1e78'){
+			prevStatus = 'c91d4598-1bfd-42bb-abaf-c161151cb127';
+		}
+		else if(this.statusId === '0d014e78-7887-4f53-ab63-94f9fad40193'){
+			prevStatus = '8ce0ae9c-511b-4992-84a0-b05fa61d1e78';
+		}
 		this.OrdersService.updateOrder({
-			statusId: 'bd0a4950-4559-40ce-a6fe-4d081aa7a880',
+			statusId: prevStatus,
 			id: this.orderId,
 			notes: '',
 			deliveryDate: null,
-			branchId: null,
-			driverId: null,
-			expectedDeliveryDate: null
 		}).subscribe((data) => {
 			this.toaster.success(data.result);
 			this.loderService.setIsLoading = false;
@@ -353,7 +361,10 @@ export class OrdersStatusesComponent implements OnInit {
 
 	getCreatedOn() {
 		if(this.orderId) {
-			let createdDate = this.gridData?.find(item => item.id === this.orderId).createdOn;
+			let createdDate = this.gridData?.find(item => item.id === this.orderId)?.createdOn;
+			if(!createdDate) {
+				return;
+			}
 			return new Date(Number(createdDate?.split('/')[2]),Number(createdDate?.split('/')[1]) -1,Number(createdDate?.split('/')[0]))
 		}
 	}
