@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
+import { CustomersService } from '../../customers.service';
 
 @Component({
   selector: 'app-customers-list',
@@ -8,106 +12,61 @@ import { Component, OnInit } from '@angular/core';
 export class CustomersListComponent implements OnInit {
   permissions = localStorage.getItem('permissions');
   customActions:any[] = [];
-  selectedUserId:string;
+  selectedCustomerId:string;
   dataSettings:any = {
     selectedRolesIds: [],
     searchText: "",
     sortBy: "",
     pageNumber: 0,
-    rowsPerPage: 10,
+    rowsPerPage: null,
     selectedPageSize: 0
   }
 
-  displayedColumns: string[] = ['name', 'phone', 'email', 'country', 'city', 'classifications', 'status',];
+  displayedColumns: string[] = ['name', 'email', 'phoneNumber'];
   actions:any = [];
   pagingData:any = {length: 100, pageSize: 10, pageIndex: 1};
-  gridData:any[] = [
-    {
-      name:'AAAA',
-      phone:'07976363636',
-      email:'aaaa@aaaa.com',
-      country:'Jordan',
-      city:'Amman',
-      classifications:'VIP',
-      status:'<span class="label label-lg label-light-success label-inline">Certified</span>',
-    },
-    {
-      name:'AAAA',
-      phone:'07976363636',
-      email:'aaaa@aaaa.com',
-      country:'Jordan',
-      city:'Amman',
-      classifications:'VIP',
-      status:'<span class="label label-lg label-light-success label-inline">Certified</span>',
-    },
-    {
-      name:'AAAA',
-      phone:'07976363636',
-      email:'aaaa@aaaa.com',
-      country:'Jordan',
-      city:'Amman',
-      classifications:'VIP',
-      status:'<span class="label label-lg label-light-danger label-inline">Not Certified</span>',
-    },
-    {
-      name:'AAAA',
-      phone:'07976363636',
-      email:'aaaa@aaaa.com',
-      country:'Jordan',
-      city:'Amman',
-      classifications:'VIP',
-      status:'<span class="label label-lg label-light-danger label-inline">Not Certified</span>',
-    },
-    {
-      name:'AAAA',
-      phone:'07976363636',
-      email:'aaaa@aaaa.com',
-      country:'Jordan',
-      city:'Amman',
-      classifications:'VIP',
-      status:'<span class="label label-lg label-light-success label-inline">Certified</span>',
-    },
-    {
-      name:'AAAA',
-      phone:'07976363636',
-      email:'aaaa@aaaa.com',
-      country:'Jordan',
-      city:'Amman',
-      classifications:'VIP',
-      status:'<span class="label label-lg label-light-danger label-inline">Not Certified</span>',
-    },
-    {
-      name:'AAAA',
-      phone:'07976363636',
-      email:'aaaa@aaaa.com',
-      country:'Jordan',
-      city:'Amman',
-      classifications:'VIP',
-      status:'<span class="label label-lg label-light-success label-inline">Certified</span>',
-    },
-    {
-      name:'AAAA',
-      phone:'07976363636',
-      email:'aaaa@aaaa.com',
-      country:'Jordan',
-      city:'Amman',
-      classifications:'VIP',
-      status:'<span class="label label-lg label-light-success label-inline">Certified</span>',
-    },
-    {
-      name:'AAAA',
-      phone:'07976363636',
-      email:'aaaa@aaaa.com',
-      country:'Jordan',
-      city:'Amman',
-      classifications:'VIP',
-      status:'<span class="label label-lg label-light-success label-inline">Certified</span>',
-    },
-  ];
+  gridData:any[] = [];
+  
+  constructor(private customersService: CustomersService,
+              private loderService: LoaderService,
+              private toaster: ToastrService,
+              private router: Router) { }
 
-  constructor() { }
+  checkPermissions() {
+    if (this.permissions.includes('Orders.GetOrders')) {
+      this.customActions.push({ name: 'View Orders', icon: 'flaticon2-box text-primary' })
+    }
+    if (this.customActions.length > 0) {
+      this.displayedColumns.push('actions');
+    }
+  }
+
+  actionsEvent(event) {
+    this.selectedCustomerId = event.rowId;
+    if (event.type === 'View Orders') {
+      this.router.navigate([`/orders/all/${this.selectedCustomerId}`]);
+    }
+  }
+
+  getCustomers() {
+    this.loderService.setIsLoading = true;
+    this.customersService.getCustomers({
+      "searchText": "",
+      "sortBy": "",
+      "pageNumber": 0,
+      "rowsPerPage": 0,
+      "selectedPageSize": 0
+    }).subscribe((data) => {
+      this.gridData = data.result.item.items;
+      this.loderService.setIsLoading = false;
+    }, (error) => {
+      this.loderService.setIsLoading = false;
+    });
+  }
 
   ngOnInit(): void {
+    this.checkPermissions();
+    this.getCustomers();
   }
 
 }

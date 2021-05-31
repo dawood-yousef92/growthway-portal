@@ -19,6 +19,7 @@ export class OrdersStatusesComponent implements OnInit {
 	@ViewChild('orderDetailsModal', { static: false }) orderDetailsModal: ElementRef;
 	@Input() statusId:string;
 	@Input() branchId:any;
+	@Input() customerId:any;
 	@Input() durationType:any;
 	@Input() dateFrom:string;
 	@Input() dateTo:string;
@@ -344,6 +345,7 @@ export class OrdersStatusesComponent implements OnInit {
 			dateTo: new Date(Number(this.dateTo?.split('/')[2]),Number(this.dateTo?.split('/')[1]) -1,Number(this.dateTo?.split('/')[0]) + 1),
 			durationType: this.durationType,
 			branchId: this.branchId,
+			customerId: this.customerId,
 			statusId: this.statusId,
 			rowsPerPage: 5000000,}).subscribe((data) => {
 			data.result.orderItems.items.map((item) => {

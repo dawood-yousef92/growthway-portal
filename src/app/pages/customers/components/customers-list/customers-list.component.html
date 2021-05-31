@@ -8,6 +8,7 @@
       </div>
     </div>
     <div class="card-body">
-      <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"></app-dynamic-table>
+      <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+      <!-- <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"></app-dynamic-table> -->
     </div>
 </div>

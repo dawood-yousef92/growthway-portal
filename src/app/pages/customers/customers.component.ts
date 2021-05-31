@@ -7,5 +7,9 @@ import { Component, OnInit } from '@angular/core';
 export class CustomersComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    localStorage.removeItem('gridFilter');
+    localStorage.removeItem('pageSize');
+    localStorage.removeItem('pageIndex');
+  }
 }

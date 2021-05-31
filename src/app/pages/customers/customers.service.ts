@@ -6,9 +6,12 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-export class UsersService {
+export class CustomersService {
 
     baseUrl = environment.apiUrl;
     constructor(private http: HttpClient){}
 
+    getCustomers(dataSettings): Observable<any> {
+        return this.http.post<any>('Customers/GetCustomers', dataSettings);
+    }
 }

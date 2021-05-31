@@ -19,6 +19,15 @@ export const DynamicAsideMenuConfig = {
       page: "/users",
       permission: "Users.",
     },
+    {
+      title: "Customers",
+      root: true,
+      svg: "./assets/media/svg/icons/Communication/Group.svg",
+      bullet: "dot",
+      translate: "MENU.CUSTOMERS",
+      page: "/customers",
+      permission: "Customers.",
+    },
     // {
     //   title: "Customers",
     //   root: true,

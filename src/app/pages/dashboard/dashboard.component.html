@@ -19,7 +19,7 @@
                             <mat-date-range-picker #picker></mat-date-range-picker>
                         </mat-form-field>
                         <mat-form-field>
-                            <mat-select formControlName="durationType" (selectionChange)="changeFilterType($event)" class="py-1" placeholder="{{'INPUT.FILTER_BY' | translate}}">
+                            <mat-select formControlName="durationType" (selectionChange)="changeFilterType($event)" class="py-1" placeholder="{{'INPUT.SELECT_DURATION' | translate}}">
                                 <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
                                 <mat-option *ngFor="let item of filter" [value]="item.id">
                                     {{'INPUT.'+item.name | translate}}
@@ -153,7 +153,7 @@
                         </a>
                     </div>
                     <div class="px-5 mb-5 col-md-3">
-                        <a routerLink="/orders/all/-" class="dashboard-main-link">
+                        <a routerLink="/orders/all/{{getFilterHeader()}}" class="dashboard-main-link">
                             <span>
                                 <span class="num">{{totalOrders}}</span>
                                 {{'TITLE.TOTAL_ORDERS' | translate}}

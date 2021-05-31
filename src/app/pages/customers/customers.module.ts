@@ -28,24 +28,29 @@ import { AddClassificationComponent } from './components/add-classification/add-
     RouterModule.forChild([
       {
         path: '',
-        component: CustomersComponent,
+        // component: CustomersComponent,
+        component: CustomersListComponent,
+        canActivate: [RoleGuard], 
+        data: { 
+          expectedRole: 'Customers.GetCustomers'
+        },
         children: [
           {
             path: 'customers-list',
             component: CustomersListComponent,
-            // canActivate: [RoleGuard], 
-            // data: { 
-            //   expectedRole: 'Users.GetUsers'
-            // }
+            canActivate: [RoleGuard], 
+            data: { 
+              expectedRole: 'Customers.GetCustomers'
+            }
           },
-          {
-            path: 'classifications',
-            component: ClassificationsComponent,
-          },
-          {
-            path: 'classifications/add-classification',
-            component: AddClassificationComponent,
-          },
+          // {
+          //   path: 'classifications',
+          //   component: ClassificationsComponent,
+          // },
+          // {
+          //   path: 'classifications/add-classification',
+          //   component: AddClassificationComponent,
+          // },
         ]
       },
     ]),

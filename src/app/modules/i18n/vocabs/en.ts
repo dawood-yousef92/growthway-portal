@@ -173,6 +173,8 @@ export const locale = {
       AMOUNT: 'Amount',
       GROUP_BY_THIS_FIELD: 'Group by this field',
       UNGROUP: 'Ungroup',
+      PHONENUMBER: 'Phone Number',
+      ORDERS: 'Orders',
     },
     INPUT: {
       EMAIL: 'Email',
@@ -284,6 +286,8 @@ export const locale = {
       CLEAR: 'Clear',
       RESET: 'Reset',
       SELECT_YOUR_DOCUMENTS: 'Select your documents',
+      SELECT_CUSTOMER: 'Select Customer',
+      SELECT_DURATION: 'Select Duration Type',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',

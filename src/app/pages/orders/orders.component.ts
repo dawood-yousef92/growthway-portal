@@ -5,6 +5,7 @@ import { BranchesService } from '../branches/branches.service';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CustomersService } from '../customers/customers.service';
 
 const moment = _moment;
   
@@ -23,6 +24,7 @@ export class OrdersComponent implements OnInit {
         {id: 4, name:'LAST_MONTH'},
         {id: 5, name:'LAST_YEAR'}
     ]
+    customerId:string = '';
     branchId:string = '';
     dateFrom:any = null;
     dateTo:any = null;
@@ -30,8 +32,31 @@ export class OrdersComponent implements OnInit {
     selectedDateTo:string = null;
     durationType:number = null;
     FilterForm: FormGroup;
+    customers:any = [];
+    customersFilter:string = '';
 
-    constructor(private fb: FormBuilder,private branchesService:BranchesService, private route: ActivatedRoute,) {}
+    constructor(private fb: FormBuilder,
+                private branchesService:BranchesService,
+                private route: ActivatedRoute,
+                private customersService: CustomersService, ) {}
+
+    getCustomers() {
+        this.customersService.getCustomers({
+            "searchText": "",
+            "sortBy": "",
+            "pageNumber": 0,
+            "rowsPerPage": 0,
+            "selectedPageSize": 0
+        }).subscribe((data) => {
+            this.customers = data.result.item.items;
+        });
+    }
+
+    search(e,type) {
+        if(type === 'customers') {
+          this.customersFilter = e;
+        }
+    }
 
     changeActiveTab(e) {
         this.activeTab = e.index;
@@ -40,6 +65,9 @@ export class OrdersComponent implements OnInit {
 
     initFilterForm() {
 		this.FilterForm = this.fb.group({
+		  customerId: [
+			this.customerId || null
+		  ],
 		  branchId: [
 			this.branchId || null
 		  ],
@@ -63,6 +91,10 @@ export class OrdersComponent implements OnInit {
 
     changeBranch(e) {
         this.branchId = e.value;
+    }
+
+    changeCustomer(e) {
+        this.customerId = e.value;
     }
 
     printTable(): void {
@@ -144,15 +176,18 @@ export class OrdersComponent implements OnInit {
         this.FilterForm.get('dateTo').setValue(null);
         this.FilterForm.get('durationType').setValue(null);
         this.FilterForm.get('branchId').setValue(null);
+        this.FilterForm.get('customerId').setValue(null);
         this.dateTo = null;
         this.dateFrom = null;
         this.durationType = null;
         this.branchId = null;
+        this.customerId = null;
     }
 
     ngOnInit() {
         this.initFilterForm();
         this.getBranches();
+        this.getCustomers();
         this.route.params.subscribe((data) => {
             this.type = data.type;
             let filter = data.filter;
@@ -180,8 +215,11 @@ export class OrdersComponent implements OnInit {
                     break;
             }
 
-            if(!filter?.includes('to') && !filter?.includes('-')) {
+            if(!filter?.includes('to') && !filter?.includes('-') && filter?.length === 1) {
                 this.durationType = Number(filter);
+            }
+            else if(!filter?.includes('to') && filter?.length > 1) {
+                this.customerId = String(filter);
             }
             else if(filter?.includes('to')) {
                 let arr = filter.split('to');
@@ -194,9 +232,10 @@ export class OrdersComponent implements OnInit {
                 this.selectedDateTo = arr[1];
                 this.dateTo = arr[1];
             }
-            localStorage.removeItem('gridFilter');
-            localStorage.removeItem('pageSize');
-            localStorage.removeItem('pageIndex');
+            this.initFilterForm();
         });
+        localStorage.removeItem('gridFilter');
+        localStorage.removeItem('pageSize');
+        localStorage.removeItem('pageIndex');
     }
 }

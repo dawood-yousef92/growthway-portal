@@ -44,3 +44,6 @@
   right: auto;
   left: -8px;
 }
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: #b8e9a8;
+}

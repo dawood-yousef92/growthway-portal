@@ -172,6 +172,8 @@ export const locale = {
       AMOUNT: 'المبلغ',
       GROUP_BY_THIS_FIELD: 'انشاء مجموعة',
       UNGROUP: 'الغاء المجموعة',
+      PHONENUMBER: 'رقم الهاتف',
+      ORDERS: 'الطلبات',
     },
     INPUT: {
       EMAIL: 'البريد الالكتروني',
@@ -282,6 +284,8 @@ export const locale = {
       CLEAR: 'تفريغ',
       RESET: 'اعادة',
       SELECT_YOUR_DOCUMENTS: 'اختر الملفات',
+      SELECT_CUSTOMER: 'اختر العميل',
+      SELECT_DURATION: 'اختر الفترة الزمنية',
     },
 
     TITLE: {
