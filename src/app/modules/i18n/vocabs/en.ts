@@ -288,6 +288,7 @@ export const locale = {
       SELECT_YOUR_DOCUMENTS: 'Select your documents',
       SELECT_CUSTOMER: 'Select Customer',
       SELECT_DURATION: 'Select Duration Type',
+      VIEW_ALL_ORDERS: 'View All Orders'
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -316,6 +317,7 @@ export const locale = {
       EDIT_USER_PERMISON: 'Edit user permission',
       MAP: 'Map',
       ORDER_DETAILS: 'Order Details',
+      CUSTOMER_DETAILS: 'Customer Details',
       HI: 'Hi',
       NEW_ORDERS: 'New Orders',
       ACCEPTED_ORDERS: 'Accepted Orders',
@@ -339,6 +341,14 @@ export const locale = {
       PREVIOUS_DOCUMENTS: 'Previous Documents',
       UPLOAD_DOCUMENTS: 'Upload Documents',
       DROP_FILE_HERE: 'Drag and drop files here',
+      CUSTOMER_NAME: 'Customer Name',
+      CUSTOMER_PHONE: 'Customer Phone Number',
+      CUSTOMER_EMAIL: 'Customer Email',
+      CUSTOMER_SHIPPING_ADDRESSES: 'Customer Shipping Addresses',
+      CUSTOMER_STATUS: 'Customer Status',
+      CUSTOMER_DOCUMENTS: 'Customer Documents',
+      VERIFIED: 'Verified',
+      NOT_VERIFIED: 'Not Verified',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',

@@ -65,7 +65,7 @@ export class AddItemComponent implements OnInit {
         this.product?.nameAr || '',
         Validators.compose([
           Validators.required,
-          Validators.pattern("[a-zA-Zأ-ي0-9-_ ]+"),
+          Validators.pattern("[a-zA-Zأ-ي0-9-_ء ]+"),
         ]),
       ],
       descriptionEn: [

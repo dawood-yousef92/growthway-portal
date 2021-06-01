@@ -14,4 +14,8 @@ export class CustomersService {
     getCustomers(dataSettings): Observable<any> {
         return this.http.post<any>('Customers/GetCustomers', dataSettings);
     }
+
+    getCustomerById(data): Observable<any> {
+        return this.http.post<any>('Customers/GetCustomerById', data);
+    }
 }

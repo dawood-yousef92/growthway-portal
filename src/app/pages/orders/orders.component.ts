@@ -134,13 +134,11 @@ export class OrdersComponent implements OnInit {
     }
 
     changeFilterType(e) {
-        if(e.value) {
-          this.durationType = e.value;
-          this.FilterForm.get('dateFrom').setValue(null);
-          this.FilterForm.get('dateTo').setValue(null);
-          this.dateFrom = null;
-          this.dateTo = null;
-        }
+        this.durationType = e.value;
+        this.FilterForm.get('dateFrom').setValue(null);
+        this.FilterForm.get('dateTo').setValue(null);
+        this.dateFrom = null;
+        this.dateTo = null;
     }
 
     getDateFormat(date) {

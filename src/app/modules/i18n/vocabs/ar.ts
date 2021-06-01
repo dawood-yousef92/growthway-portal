@@ -286,6 +286,7 @@ export const locale = {
       SELECT_YOUR_DOCUMENTS: 'اختر الملفات',
       SELECT_CUSTOMER: 'اختر العميل',
       SELECT_DURATION: 'اختر الفترة الزمنية',
+      VIEW_ALL_ORDERS: 'مشاهدة جميع الطلبات'
     },
 
     TITLE: {
@@ -315,6 +316,7 @@ export const locale = {
       EDIT_USER_PERMISON: 'تحرير إذن المستخدم',
       MAP: 'الخريطة',
       ORDER_DETAILS: 'تفاصيل الطلب',
+      CUSTOMER_DETAILS: 'بيانات العميل',
       HI: 'اهلا',
       NEW_ORDERS: 'الطلبات الجديدة',
       ACCEPTED_ORDERS: 'الطلبات المقبولة',
@@ -338,6 +340,14 @@ export const locale = {
       PREVIOUS_DOCUMENTS: 'الوثائق السابقة',
       UPLOAD_DOCUMENTS: 'الوثائق',
       DROP_FILE_HERE: 'قم بسحب الملف هنا',
+      CUSTOMER_NAME: 'اسم العميل',
+      CUSTOMER_PHONE: 'رقم هاتف العميل',
+      CUSTOMER_EMAIL: 'البريد الالكتروني للعميل',
+      CUSTOMER_SHIPPING_ADDRESSES: 'عناوين الشحن',
+      CUSTOMER_STATUS: 'حالة العميل',
+      CUSTOMER_DOCUMENTS: 'وثائق العميل',
+      VERIFIED: 'موثق',
+      NOT_VERIFIED: 'غير موثق',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',

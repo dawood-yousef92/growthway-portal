@@ -1,14 +1,69 @@
 <div class="card card-custom example-preview">
-    <div class="card-header">
-      <div class="card-title">
-        <h3 class="card-label">{{ "MENU.CUSTOMERS_LIST" | translate }}</h3>
-      </div>
-      <div *ngIf="actions.includes('create')" class="d-flex align-items-center">
-        <a routerLink="add-user" class="btn btn-primary">{{ "MENU.ADD_USER" | translate }} <i class="flaticon2-plus icon-sm ml-2"></i></a>
-      </div>
-    </div>
-    <div class="card-body">
-      <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
-      <!-- <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"></app-dynamic-table> -->
-    </div>
+	<div class="card-header">
+		<div class="card-title">
+			<h3 class="card-label">{{ "MENU.CUSTOMERS_LIST" | translate }}</h3>
+		</div>
+		<div *ngIf="actions.includes('create')" class="d-flex align-items-center">
+			<a routerLink="add-user" class="btn btn-primary">{{ "MENU.ADD_USER" | translate }} <i class="flaticon2-plus icon-sm ml-2"></i></a>
+		</div>
+	</div>
+	<div class="card-body">
+		<app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+		<!-- <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"></app-dynamic-table> -->
+	</div>
 </div>
+
+<ng-template #viewCustomerModal let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title">{{"TITLE.CUSTOMER_DETAILS" | translate}}</h4>
+		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-6 mb-4">
+				<p class="font-weight-boldest mb-1">{{'TITLE.CUSTOMER_NAME' | translate}}:</p>
+				<p class="mb-0">{{customer?.name}}</p>
+			</div>
+			<div class="col-md-6 mb-4">
+				<p class="font-weight-boldest mb-1">{{'TITLE.CUSTOMER_EMAIL' | translate}}:</p>
+				<p class="mb-0">{{customer?.email}}</p>
+			</div>
+			<div class="col-md-6 mb-4">
+				<p class="font-weight-boldest mb-1">{{'TITLE.CUSTOMER_PHONE' | translate}}:</p>
+				<p class="mb-0">{{customer?.phoneNumber}}</p>
+			</div>
+			<div class="col-md-6 mb-4">
+				<p class="font-weight-boldest mb-1">{{'TITLE.CUSTOMER_STATUS' | translate}}:</p>
+				<span *ngIf="customer?.isVerified" class="label label-lg label-light-success label-inline">{{'TITLE.VERIFIED' | translate}}</span>
+				<span *ngIf="!customer?.isVerified" class="label label-lg label-light-danger label-inline">{{'TITLE.NOT_VERIFIED' | translate}}</span>
+			</div>
+			<div class="col-12 mb-4" *ngIf="customer?.customerDocumentFile?.length > 0">
+				<p class="font-weight-boldest mb-3">{{'TITLE.CUSTOMER_DOCUMENTS' | translate}}:</p>
+				<div class="row">
+					<div *ngFor="let file of customer?.customerDocumentFile" class="col-sm-2 col-3 mb-4">
+						<a href="{{file.path}}" target="_blank" download id="uploaded-image-holder" class="uploaded-file-holder">
+							<div class="w-100 text-center">
+								<img src="../../../../../assets/images/default.png" alt="default" class="file-img mb-1">
+								<span class="d-block file-name">{{file.name}}</span>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 mb-4" *ngIf="customer?.shippingAddresDtos?.length > 0">
+				<p class="font-weight-boldest mb-3">{{'TITLE.CUSTOMER_SHIPPING_ADDRESSES' | translate}}:</p>
+				<ul class="px-7">
+					<li *ngFor="let address of customer?.shippingAddresDtos">
+						<p class="mb-0">--</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a routerLink="/orders/all/{{selectedCustomerId}}" type="button" class="btn btn-primary" (click)="c('Close click')">{{"INPUT.VIEW_ALL_ORDERS" | translate}}</a>
+		<button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
+	</div>
+</ng-template>
