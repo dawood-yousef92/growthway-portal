@@ -269,6 +269,7 @@ export const locale = {
       QUANTITY: 'Quantity',
       LINE_TOTAL: 'Line Total',
       UNIT_PRICE_DISCOUNT: 'Unit Price Discount',
+      UNIT_PRICE: 'Unit Price',
       LATITUDE: 'Latitude',
       LONGITUDE: 'Longitude',
       DELIVERED: 'Delivered',

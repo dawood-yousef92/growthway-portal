@@ -168,18 +168,74 @@ export class OrdersStatusesComponent implements OnInit {
 
 	print(): void {
 		let printContents, popupWin;
+		let logo = (document.getElementById('company_logo') as HTMLElement).innerHTML;
+		logo = '<div class="logo-container">'+logo+'</div>'
+		let rtl = '';
+		if(document.getElementById('rtl-file')) {
+			rtl = 'body {direction: rtl;}';
+		}
 		printContents = document.getElementById('contentToConvert').innerHTML;
-		popupWin = window.open('', '_blank', 'top=0,left=0,height=1000px,width=1000px');
+		popupWin = window.open('', '_blank', 'top=0,left=0,height=900px,width=900px');
 		popupWin.document.open();
 		popupWin.document.write(`
 		  <html>
 			<head>
 			  <title>Order Details</title>
 			  <style>
-			  //........Customized style.......
+			  /*** print **/
+				@media print {
+					${rtl}
+					.row {
+						display: flex;
+						flex-wrap: wrap;
+					}
+					.col-md-6 {
+						flex: 0 0 50%;
+						padding: 0 10px;
+						margin-bottom: 3px;
+						box-sizing: border-box;
+					}
+					.col-md-3 {
+						flex: 0 0 25%;
+						padding: 0 10px;
+						margin-bottom: 3px;
+						box-sizing: border-box;
+					}
+					.col-md-11 {
+						flex: 0 0 100%;
+						padding: 0 10px;
+						margin-bottom: 3px;
+						box-sizing: border-box;
+					}
+					.col-md-6 p, .col-12 p, .col-md-3 p, .col-md-11 p {
+						margin-bottom: 0px;
+					}
+					.col-12 {
+						flex: 0 0 100%;
+						margin-bottom: 0px;
+					}
+					.font-weight-boldest {
+						font-weight: 700;
+					}
+					.company-logo {
+						width: 120px;
+						display: block;
+						margin-bottom: 5px;
+					}
+					.logo-container {
+						display: flex;
+						align-items: center;
+					}
+					.logo-container h6 {
+						font-size: 25px;
+						font-weight: 700;
+						margin: 0 10px;
+					}
+				}
+				/*** end print **/
 			  </style>
 			</head>
-			<body onload="window.print();window.close()">${printContents}</body>
+			<body onload="window.print();window.close()">${logo}${printContents}</body>
 		  </html>`
 		);
 		popupWin.document.close();
@@ -214,7 +270,7 @@ export class OrdersStatusesComponent implements OnInit {
 	}
 
 	openCentred(content) {
-		this.modalService.open(content, { centered: true } );
+		this.modalService.open(content, { centered: true, size: 'lg'} );
 	}
 
 	  

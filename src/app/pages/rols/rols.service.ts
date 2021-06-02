@@ -16,7 +16,7 @@ export class RolsService {
     }
     
     deleteRol(rolId:string): Observable<any> {
-        return this.http.delete<any>(`/Roles/DeleteRole?id=${rolId}`);
+        return this.http.delete<any>(`Roles/DeleteRole?id=${rolId}`);
     }
 
     createRole(rolData):Observable<any> {

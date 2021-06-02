@@ -267,6 +267,7 @@ export const locale = {
       QUANTITY: 'الكمية',
       LINE_TOTAL: 'السعر',
       UNIT_PRICE_DISCOUNT: 'السعر بعد الخصم',
+      UNIT_PRICE: 'سعر الصنف',
       LATITUDE: 'خط الطول',
       LONGITUDE: 'خط العرض',
       DELIVERED: 'تم التوصيل',
