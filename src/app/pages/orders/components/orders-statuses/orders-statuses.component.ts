@@ -8,6 +8,7 @@ import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-orders-statuses',
@@ -44,7 +45,8 @@ export class OrdersStatusesComponent implements OnInit {
 		private loderService: LoaderService,
 		private modalService: NgbModal,
 		private fb: FormBuilder,
-		private toaster: ToastrService,) {}
+		private toaster: ToastrService,
+		private translate: TranslateService,) {}
 
 	ngOnChanges(changes: SimpleChanges) {
 		this.getOrders();
@@ -134,32 +136,15 @@ export class OrdersStatusesComponent implements OnInit {
 	}
 
 	generatePDF() {
-		var data = (document.getElementById('contentToConvert').innerHTML as string);
 
-		const doc = new jsPDF('portrait', 'px', 'a4');
-		data = this.replaceAll(data, "<p", "<p style='width:700px; font-size:8px;line-height:5px;margin:0px;'");
-		data = this.replaceAll(data, "<span", "<span style='font-size:8px;line-height:5px;margin:0px;'");
-		data = this.replaceAll(data, "<div", "<div style='font-size:8px;line-height:5px;margin:0px;'");
-		data = this.replaceAll(data, '<hr ', "<p style='color:#aaa;width:700px; font-size:8px;line-height:8px;margin-top:8px;margin-bottom:0px;'>-----------------------------------------------------------</p><hr ");
-		doc.html(data, {x:10,y:10});
-		setTimeout(() => {
-			doc.save('Order.pdf');
-		}, 2000);
-
-		// html2canvas(data).then(canvas => {
-		// 	console.log(canvas);
-		//   var imgWidth = 100;
-		//   var imgHeight = canvas.height * imgWidth / canvas.width;
-		//   const contentDataURL = canvas.toDataURL('image/png')
-		//   console.log(contentDataURL);
-		//   this.testImage = contentDataURL;
-		//   let pdf = new jspdf.jsPDF('p', 'mm', 'a4');
-		//   var position = 0;
-		//   pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-		//   setTimeout(() => {
-		// 	  pdf.save('Order.pdf');
-		//   }, 1000);
-		// });
+		let data = document.getElementById('contentToConvert');  
+		let height = (data as HTMLElement).offsetHeight - 100;
+		html2canvas(data).then(canvas => {
+		  const contentDataURL = canvas.toDataURL('image/png')
+		  let pdf = new jsPDF('portrait', 'px', 'a4');
+		  pdf.addImage(contentDataURL, 'PNG', 10, 10, 400, height);  
+		  pdf.save(`order-${this.orderDetails?.orderNumber}.pdf`);   
+		}); 
 	}
 
 	replaceAll(string, search, replace) {
@@ -172,7 +157,10 @@ export class OrdersStatusesComponent implements OnInit {
 		logo = '<div class="logo-container">'+logo+'</div>'
 		let rtl = '';
 		if(document.getElementById('rtl-file')) {
-			rtl = 'body {direction: rtl;}';
+			rtl = 'body {direction: rtl;}.logo-container h6 {text-align: left;} .text-left{text-align: right;}';
+		}
+		else {
+			rtl = '.logo-container h6 {text-align: right;} .text-left{text-align: left;}';
 		}
 		printContents = document.getElementById('contentToConvert').innerHTML;
 		popupWin = window.open('', '_blank', 'top=0,left=0,height=900px,width=900px');
@@ -180,11 +168,14 @@ export class OrdersStatusesComponent implements OnInit {
 		popupWin.document.write(`
 		  <html>
 			<head>
-			  <title>Order Details</title>
+			  <title>${this.translate.instant('INPUT.ORDER_NUMBER')} ${this.orderDetails?.orderNumber}</title>
 			  <style>
 			  /*** print **/
 				@media print {
 					${rtl}
+					table.print-friendly tr td, table.print-friendly tr th, table.print-friendly tr, table.print-friendly {
+						page-break-inside: avoid;
+					}
 					.row {
 						display: flex;
 						flex-wrap: wrap;
@@ -192,7 +183,7 @@ export class OrdersStatusesComponent implements OnInit {
 					.col-md-6 {
 						flex: 0 0 50%;
 						padding: 0 10px;
-						margin-bottom: 3px;
+						margin-bottom: 1px;
 						box-sizing: border-box;
 					}
 					.col-md-3 {
@@ -230,6 +221,21 @@ export class OrdersStatusesComponent implements OnInit {
 						font-size: 25px;
 						font-weight: 700;
 						margin: 0 10px;
+						flex: 1 1 auto !important;
+					}
+					.table {
+						width: 100%;
+						margin-bottom: 1rem;
+						color: #3F4254;
+						background-color: transparent;
+					}
+					th, td, tr {
+						border: 1px solid #444;
+						padding: 3px;
+						text-align: center;
+					}
+					.d-none {
+						display: none;
 					}
 				}
 				/*** end print **/
@@ -251,6 +257,12 @@ export class OrdersStatusesComponent implements OnInit {
 
 	getDriver() {
 		return this.gridData.find(item => item.id === this.orderId).driverId;
+	}
+
+	getTotalQuantity(items) {
+		return items?.map((item) => {
+			return item.orderQuantity
+		}).reduce((a, b) => a + b, 0);
 	}
 
 	actionsEvent(event) {

@@ -267,6 +267,7 @@ export const locale = {
       ITEMS_LIST: 'Items List',
       ITEM_NAME: 'Item Name',
       QUANTITY: 'Quantity',
+      TOTAL_QUANTITIES: 'Total Quantities',
       LINE_TOTAL: 'Line Total',
       UNIT_PRICE_DISCOUNT: 'Unit Price Discount',
       UNIT_PRICE: 'Unit Price',

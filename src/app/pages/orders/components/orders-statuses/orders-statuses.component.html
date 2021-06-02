@@ -151,21 +151,61 @@
             <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.deliveryDate)}}</p>
         </div>
         <div class="col-md-6 mb-3">
-            <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.SUB_TOTAL_PRICE' | translate}}:</span> {{(orderDetails?.subTotalPrice.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</p>
-        </div>
-        <div class="col-md-6 mb-3">
-            <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TAX' | translate}}:</span> {{(orderDetails?.tax.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</p>
-        </div>
-        <div class="col-md-6 mb-3">
-            <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}:</span> {{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</p>
-        </div>
-        <div class="col-md-6 mb-3">
             <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TITLE.NOTES' | translate}}:</span> {{orderDetails?.statusNotes || '----'}}</p>
         </div>
         <div class="col-12 mb-0">
-            <p class="font-weight-boldest mt-3 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</p>
+            <p class="font-weight-boldest mt-3 mx-6 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</p>
         </div>
-        <div class="col-12" *ngFor="let item of orderDetails?.orderDetailItems">
+        <table class="table table-bordered print-friendly mx-6">
+            <!-- <thead>
+              <tr>
+                <th scope="col">{{'INPUT.ITEM_NAME' | translate}}</th>
+                <th scope="col">{{'INPUT.QUANTITY' | translate}}</th>
+                <th scope="col">{{'INPUT.UNIT_PRICE' | translate}} ({{orderDetails?.currencyName || '----'}})</th>
+                <th scope="col">{{'INPUT.LINE_TOTAL' | translate}} ({{orderDetails?.currencyName || '----'}})</th>
+              </tr>
+            </thead> -->
+            <tbody>
+                <tr>
+                    <td class="text-left font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}</td>
+                    <td class="text-center font-weight-boldest">{{'INPUT.QUANTITY' | translate}}</td>
+                    <td class="text-center font-weight-boldest">{{'INPUT.UNIT_PRICE' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
+                    <td class="text-center font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
+                </tr>
+                <tr  *ngFor="let item of orderDetails?.orderDetailItems">
+                    <td class="text-left">{{item?.productName || '----'}}, {{item?.productDescription}}</td>
+                    <td class="text-center">{{item?.orderQuantity}}</td>
+                    <td class="text-center">{{item?.lineTotal/item.orderQuantity || '----'}}</td>
+                    <td class="text-center">{{item?.lineTotal || '----'}}</td>
+                </tr>
+                <tr>
+                    <td class="text-center font-weight-boldest">{{'INPUT.TOTAL_QUANTITIES' | translate}}</td>
+                    <td class="text-center">{{getTotalQuantity(orderDetails?.orderDetailItems)}}</td>
+                    <td class="text-center font-weight-boldest">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</td>
+                    <td class="text-center">{{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <!-- <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="text-center" scope="col">{{'INPUT.SUB_TOTAL_PRICE' | translate}}</th>
+                <th class="text-center" scope="col">{{'INPUT.TAX' | translate}}</th>
+                <th class="text-center" scope="col">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</th>
+                <th class="text-center" scope="col">{{'INPUT.TOTAL_QUANTITIES' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">{{(orderDetails?.subTotalPrice.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
+                <td class="text-center">{{(orderDetails?.tax.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
+                <td class="text-center">{{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
+                <td class="text-center">{{getTotalQuantity(orderDetails?.orderDetailItems)}}</td>
+              </tr>
+            </tbody>
+        </table> -->
+        <!-- <div class="col-12 d-none" *ngFor="let item of orderDetails?.orderDetailItems">
             <hr class="my-2">
             <div class="row">
                 <div class="col-md-11 mb-3">
@@ -181,6 +221,6 @@
                     <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}}:</span> {{item?.lineTotal+' '+orderDetails.currencyName || '----'}}</p>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </ng-template>
