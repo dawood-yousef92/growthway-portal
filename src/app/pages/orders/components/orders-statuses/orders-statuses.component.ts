@@ -157,10 +157,10 @@ export class OrdersStatusesComponent implements OnInit {
 		logo = '<div class="logo-container">'+logo+'</div>'
 		let rtl = '';
 		if(document.getElementById('rtl-file')) {
-			rtl = 'body {direction: rtl;}.logo-container h6 {text-align: left;} .text-left{text-align: right;}';
+			rtl = 'body {direction: rtl;}.logo-container h6 {text-align: left;} .text-left{text-align: right;}.text-right{text-align: left;}';
 		}
 		else {
-			rtl = '.logo-container h6 {text-align: right;} .text-left{text-align: left;}';
+			rtl = '.logo-container h6 {text-align: right;} .text-left{text-align: left;}.text-right{text-align: right;}';
 		}
 		printContents = document.getElementById('contentToConvert').innerHTML;
 		popupWin = window.open('', '_blank', 'top=0,left=0,height=900px,width=900px');
@@ -168,7 +168,7 @@ export class OrdersStatusesComponent implements OnInit {
 		popupWin.document.write(`
 		  <html>
 			<head>
-			  <title>${this.translate.instant('INPUT.ORDER_NUMBER')} ${this.orderDetails?.orderNumber}</title>
+			  <title></title>
 			  <style>
 			  /*** print **/
 				@media print {
@@ -209,7 +209,7 @@ export class OrdersStatusesComponent implements OnInit {
 						font-weight: 700;
 					}
 					.company-logo {
-						width: 120px;
+						height: 60px;
 						display: block;
 						margin-bottom: 5px;
 					}
@@ -237,11 +237,17 @@ export class OrdersStatusesComponent implements OnInit {
 					.d-none {
 						display: none;
 					}
+					.no-border {
+						border: 0;
+					}
 				}
 				/*** end print **/
 			  </style>
 			</head>
-			<body onload="window.print();window.close()">${logo}${printContents}</body>
+			<body onload="window.print();window.close()">
+			<h5 style="margin-bottom:0!important; text-align:center; line-height: 5px;">${this.translate.instant('INPUT.ORDER_NUMBER')} ${this.orderDetails?.orderNumber}<h5>
+			${logo}${printContents}
+			</body>
 		  </html>`
 		);
 		popupWin.document.close();

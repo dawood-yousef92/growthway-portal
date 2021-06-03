@@ -122,7 +122,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
-        <button type="button" class="btn btn-secondary" (click)="generatePDF()">{{'INPUT.EXPORT_PDF' | translate}}</button>
+        <!-- <button type="button" class="btn btn-secondary" (click)="generatePDF()">{{'INPUT.EXPORT_PDF' | translate}}</button> -->
         <button type="button" class="btn btn-secondary" (click)="print()">{{'INPUT.PRINT' | translate}}</button>
     </div>
 </ng-template>
@@ -179,9 +179,9 @@
                     <td class="text-center">{{item?.lineTotal || '----'}}</td>
                 </tr>
                 <tr>
-                    <td class="text-center font-weight-boldest">{{'INPUT.TOTAL_QUANTITIES' | translate}}</td>
+                    <td class="text-right font-weight-boldest no-border">{{'INPUT.TOTAL_QUANTITIES' | translate}}</td>
                     <td class="text-center">{{getTotalQuantity(orderDetails?.orderDetailItems)}}</td>
-                    <td class="text-center font-weight-boldest">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</td>
+                    <td class="text-right font-weight-boldest no-border">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</td>
                     <td class="text-center">{{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
                 </tr>
             </tbody>
