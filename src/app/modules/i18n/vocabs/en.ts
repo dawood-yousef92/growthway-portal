@@ -341,7 +341,7 @@ export const locale = {
       RESET_ORDER: 'Reset Order',
       NOTES: 'Notes',
       PREVIOUS_DOCUMENTS: 'Previous Documents',
-      UPLOAD_DOCUMENTS: 'Upload Documents',
+      UPLOAD_DOCUMENTS: 'Item Catalog',
       DROP_FILE_HERE: 'Drag and drop files here',
       CUSTOMER_NAME: 'Customer Name',
       CUSTOMER_PHONE: 'Customer Phone Number',

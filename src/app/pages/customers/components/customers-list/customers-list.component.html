@@ -3,11 +3,30 @@
 		<div class="card-title">
 			<h3 class="card-label">{{ "MENU.CUSTOMERS_LIST" | translate }}</h3>
 		</div>
-		<div *ngIf="actions.includes('create')" class="d-flex align-items-center">
-			<a routerLink="add-user" class="btn btn-primary">{{ "MENU.ADD_USER" | translate }} <i class="flaticon2-plus icon-sm ml-2"></i></a>
-		</div>
 	</div>
 	<div class="card-body">
+		<form [formGroup]="FilterForm" novalidate="novalidate">
+			<div class="card-toolbar">
+				<mat-form-field appearance="fill" class="mr-3">
+					<mat-label>{{'INPUT.ENTER_DATE_RANE' | translate}}</mat-label>
+					<mat-date-range-input [rangePicker]="picker">
+						<input formControlName="dateFrom" #matStartDate matStartDate placeholder="Start date" disabled>
+						<input formControlName="dateTo" #matEndDate matEndDate (dateChange)="changeDate(matStartDate.value,matEndDate.value)" placeholder="End date">
+					</mat-date-range-input>
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-date-range-picker #picker></mat-date-range-picker>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-select formControlName="durationType" (selectionChange)="changeFilterType($event)" class="py-1" placeholder="{{'INPUT.SELECT_DURATION' | translate}}">
+						<mat-option [value]="null">{{'INPUT.FILTER_BY' | translate}}</mat-option>
+						<mat-option *ngFor="let item of filter" [value]="item.id">
+							{{'INPUT.'+item.name | translate}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<button type="button" class="btn btn-secondary mb-2 ml-2" (click)="clear()">{{'INPUT.CLEAR' | translate}}</button>
+			</div>
+		</form>
 		<app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
 		<!-- <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"></app-dynamic-table> -->
 	</div>

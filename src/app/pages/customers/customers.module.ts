@@ -15,6 +15,9 @@ import { CustomersComponent } from './customers.component';
 import { CustomersListComponent } from './components/customers-list/customers-list.component';
 import { ClassificationsComponent } from './components/classifications/classifications.component';
 import { AddClassificationComponent } from './components/add-classification/add-classification.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
 
@@ -60,7 +63,10 @@ import { AddClassificationComponent } from './components/add-classification/add-
     MatCheckboxModule,
     MatSelectModule,
     MatTabsModule,
-    GeneralModule
+    GeneralModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
 
   ],
   exports: [RouterModule],

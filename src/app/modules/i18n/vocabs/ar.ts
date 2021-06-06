@@ -340,7 +340,7 @@ export const locale = {
       RESET_ORDER: 'اعادة الطلب للطلبات الجديدة',
       NOTES: 'ملاحظات',
       PREVIOUS_DOCUMENTS: 'الوثائق السابقة',
-      UPLOAD_DOCUMENTS: 'الوثائق',
+      UPLOAD_DOCUMENTS: 'مواصفات المنتج',
       DROP_FILE_HERE: 'قم بسحب الملف هنا',
       CUSTOMER_NAME: 'اسم العميل',
       CUSTOMER_PHONE: 'رقم هاتف العميل',
