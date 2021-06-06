@@ -10,6 +10,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AuthComponent } from './auth.component';
 import {TranslationModule} from '../i18n/translation.module';
 import { ChangeLanguageComponent } from './change-language/change-language.component';
+import { EmailConfigComponent } from './email-config/email-config.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ChangeLanguageComponent } from './change-language/change-language.compo
     LogoutComponent,
     AuthComponent,
     ChangeLanguageComponent,
+    EmailConfigComponent
   ],
   imports: [
     CommonModule,

@@ -70,13 +70,10 @@ export class AuthService {
     );
   }
 
-  confirmEmail(userId:string,code:string): Observable<any> {
+  confirmEmail(data): Observable<any>{
     return this.httpClient.post(
       `Account/ConfirmEmail`,
-      {
-        userId,
-        code,
-      }
+      data
     );
   }
 

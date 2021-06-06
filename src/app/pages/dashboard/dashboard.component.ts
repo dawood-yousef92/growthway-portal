@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/_metronic/core';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { DashboardService } from './dashboard.service';
@@ -59,7 +60,7 @@ export class DashboardComponent implements OnInit {
   chartData:any;
 
 
-  constructor(private fb: FormBuilder,private layout: LayoutService,private loderService: LoaderService,private dashboardService:DashboardService) {
+  constructor(private router: Router, private fb: FormBuilder,private layout: LayoutService,private loderService: LoaderService,private dashboardService:DashboardService) {
     this.colorsGrayGray100 = this.layout.getProp('js.colors.gray.gray100');
     this.colorsGrayGray700 = this.layout.getProp('js.colors.gray.gray700');
     this.colorsThemeBaseSuccess = this.layout.getProp(
@@ -72,7 +73,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem('gridFilter');
+    localStorage.removeItem('pageSize');
+    localStorage.removeItem('pageIndex');
     this.initFilterForm();
+    this.checkPermissions();
     this.chartOptions = this.getChartOptions(70);
     this.getTotalOrdersGroupedByStatus({});
     this.getTopItems();
@@ -93,6 +98,13 @@ export class DashboardComponent implements OnInit {
 		  ],
 		})
 	}
+
+  checkPermissions() {
+    this.customActions.push({name: 'View', icon:'flaticon-eye text-warning'})
+    if (this.customActions.length > 0) {
+      this.displayedColumns.push('actions');
+    }
+  }
 
   changeFilterType(e) {
     let durationType = {};
@@ -152,7 +164,14 @@ export class DashboardComponent implements OnInit {
     return per;
   }
 
-  actionsEvent(e) { }
+  actionsEvent(event) { 
+    if (event.type === 'View') {
+      console.log(event);
+      let selectedItem = this.expectedDeliveredOrders.find(item => item.id === event.rowId);
+      console.log(selectedItem);
+      this.router.navigate([`/orders/${selectedItem?.statusId}/${selectedItem?.orderNumber}`]);
+    }
+  }
 
   getChartOptions(num) {
     const strokeColor = '#D13647';

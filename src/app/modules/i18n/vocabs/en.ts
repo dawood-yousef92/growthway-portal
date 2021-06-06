@@ -290,7 +290,8 @@ export const locale = {
       SELECT_YOUR_DOCUMENTS: 'Select your documents',
       SELECT_CUSTOMER: 'Select Customer',
       SELECT_DURATION: 'Select Duration Type',
-      VIEW_ALL_ORDERS: 'View All Orders'
+      VIEW_ALL_ORDERS: 'View All Orders',
+      BACK_TO_LOGIN: 'Back To Login',
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -351,6 +352,8 @@ export const locale = {
       CUSTOMER_DOCUMENTS: 'Customer Documents',
       VERIFIED: 'Verified',
       NOT_VERIFIED: 'Not Verified',
+      THANK_YOU_FOR_REGISTER: 'Thank You For Register With Us',
+      YOUR_EMAIL_IS_CONFIGURED: 'Your Email Is Configured',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',

@@ -288,7 +288,8 @@ export const locale = {
       SELECT_YOUR_DOCUMENTS: 'اختر الملفات',
       SELECT_CUSTOMER: 'اختر العميل',
       SELECT_DURATION: 'اختر الفترة الزمنية',
-      VIEW_ALL_ORDERS: 'مشاهدة جميع الطلبات'
+      VIEW_ALL_ORDERS: 'مشاهدة جميع الطلبات',
+      BACK_TO_LOGIN: 'تسجيل الدخول',
     },
 
     TITLE: {
@@ -350,6 +351,8 @@ export const locale = {
       CUSTOMER_DOCUMENTS: 'وثائق العميل',
       VERIFIED: 'موثق',
       NOT_VERIFIED: 'غير موثق',
+      THANK_YOU_FOR_REGISTER: 'شكرا لتسجيلكم معنا',
+      YOUR_EMAIL_IS_CONFIGURED: 'لقد تم تفعيل بريدك الالكتروني',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',

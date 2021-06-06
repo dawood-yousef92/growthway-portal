@@ -183,6 +183,9 @@ export class OrdersComponent implements OnInit {
     }
 
     ngOnInit() {
+        localStorage.removeItem('gridFilter');
+        localStorage.removeItem('pageSize');
+        localStorage.removeItem('pageIndex');
         this.initFilterForm();
         this.getBranches();
         this.getCustomers();
@@ -191,18 +194,23 @@ export class OrdersComponent implements OnInit {
             let filter = data.filter;
             switch (this.type) {
                 case 'new':
+                case 'bd0a4950-4559-40ce-a6fe-4d081aa7a880':
                     this.activeTab = 0;
                     break;
                 case 'accepted':
+                case 'c91d4598-1bfd-42bb-abaf-c161151cb127':
                     this.activeTab = 1;
                     break;
                 case 'rejected':
+                case 'f18a701e-55a7-476a-bcaa-c7c894041a29':
                     this.activeTab = 2;
                     break;
                 case 'sent':
-                        this.activeTab = 3;
-                        break;
+                case '8ce0ae9c-511b-4992-84a0-b05fa61d1e78':
+                    this.activeTab = 3;
+                    break;
                 case 'delivered':
+                case '0d014e78-7887-4f53-ab63-94f9fad40193':
                     this.activeTab = 4;
                     break;
                 case 'all':
@@ -216,8 +224,11 @@ export class OrdersComponent implements OnInit {
             if(!filter?.includes('to') && !filter?.includes('-') && filter?.length === 1) {
                 this.durationType = Number(filter);
             }
-            else if(!filter?.includes('to') && filter?.length > 1) {
+            else if(!filter?.includes('to') && filter?.includes('-') && filter?.length > 1) {
                 this.customerId = String(filter);
+            }
+            else if(!filter?.includes('to') && !filter?.includes('-') && filter?.length > 1) {
+                localStorage.setItem('gridFilter', filter);
             }
             else if(filter?.includes('to')) {
                 let arr = filter.split('to');
@@ -232,8 +243,5 @@ export class OrdersComponent implements OnInit {
             }
             this.initFilterForm();
         });
-        localStorage.removeItem('gridFilter');
-        localStorage.removeItem('pageSize');
-        localStorage.removeItem('pageIndex');
     }
 }
