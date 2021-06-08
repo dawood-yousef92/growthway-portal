@@ -35,4 +35,8 @@ export class ItemsService {
     getCategoriesByBusinessType(businessType,level): Observable<any> {
         return this.http.post<any>('Companies/GetCategoriesByBusinessType', {businessType:businessType,level: level});
     }
+
+    getTaxByTenant(): Observable<any> {
+        return this.http.post<any>('Companies/GetTaxByTenant', {});
+    }
 }

@@ -281,7 +281,7 @@ export class OrdersStatusesComponent implements OnInit {
 			this.initSentOrderForm();
 			this.openCentred(this.changeStatusModal);
 		}
-		if(event.type === 'View') {
+		if(event.type === 'View' || event.type === 'Edit') {
       		this.getOrder();
 			this.openCentred(this.orderDetailsModal);
 		}
@@ -389,10 +389,11 @@ export class OrdersStatusesComponent implements OnInit {
 	}
 
 	checkPermissions() {
-   		if(this.permissions.includes('Orders.GetOrder')) {
+   		if(this.permissions.includes('Orders.GetOrder') && this.statusId !== 'bd0a4950-4559-40ce-a6fe-4d081aa7a880') {
 		  	this.customActions.push({name: 'View', icon:'flaticon-eye text-warning'})
 		}
 		if((this.permissions.includes('Orders.UpdateOrder')) && this.statusId === 'bd0a4950-4559-40ce-a6fe-4d081aa7a880') {
+			this.customActions.push({name: 'Edit', icon:'flaticon-edit text-warning'});
 			this.customActions.push({name: 'Accept', icon:'flaticon2-check-mark text-success'});
 			this.customActions.push({name: 'Reject', icon:'flaticon2-cancel-music text-danger'});
 		}
@@ -405,7 +406,7 @@ export class OrdersStatusesComponent implements OnInit {
 			this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
 		}
 		if((this.permissions.includes('Orders.UpdateOrder')) && (this.statusId === '0d014e78-7887-4f53-ab63-94f9fad40193' || this.statusId === 'f18a701e-55a7-476a-bcaa-c7c894041a29' )) {
-			this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
+			// this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
 		}
 		if(this.customActions.length > 0) {
 		  	this.displayedColumns.push('actions');
@@ -450,5 +451,37 @@ export class OrdersStatusesComponent implements OnInit {
 		this.getCompanyDrivers();
 	}
 
+	getTax() {
+		return (this.orderDetails?.totalDueAmount.toFixed(2) - (this.orderDetails?.totalDueAmount.toFixed(2) / (1 + this.orderDetails?.tax/100))).toFixed(2);
+	}
 
+	changeQuantity(e,productId) {
+		if(Number(e.target.value) < 0) {
+			e.target.value = 0;
+		}
+		let index = this.orderDetails?.orderDetailItems.indexOf(this.orderDetails?.orderDetailItems.find(item => item.productId === productId));
+		this.orderDetails.orderDetailItems[index].orderQuantity = Number(e.target.value);
+		this.orderDetails.orderDetailItems[index].lineTotal = (Number(e.target.value) * Number(this.orderDetails.orderDetailItems[index].unitPrice)).toFixed(2);
+		this.setTotalDueAmount();
+	}
+
+	changeUnitPrice(e,productId) {
+		if(Number(e.target.value) < 0) {
+			e.target.value = 0;
+		}
+		let index = this.orderDetails?.orderDetailItems.indexOf(this.orderDetails?.orderDetailItems.find(item => item.productId === productId));
+		this.orderDetails.orderDetailItems[index].unitPrice = Number(e.target.value);
+		this.orderDetails.orderDetailItems[index].lineTotal = (Number(e.target.value) * Number(this.orderDetails.orderDetailItems[index].orderQuantity)).toFixed(2);
+		this.setTotalDueAmount();
+	}
+
+	setTotalDueAmount() {
+		this.orderDetails.totalDueAmount = this.orderDetails?.orderDetailItems.map((item) => {
+			return item.lineTotal;
+		}).reduce((a, b) => Number(a) + Number(b), 0);
+	}
+
+	updateOrderItems() {
+		alert('Saved');
+	}
 }

@@ -31,6 +31,7 @@ export class AddItemComponent implements OnInit {
   product:any;
   allCats:any;
   documents:File[] = [];
+  tax:number;
 
   categories:any = [];
   selectedCatName:string;
@@ -178,6 +179,7 @@ export class AddItemComponent implements OnInit {
     this.getUnitOfMeasurements();
     this.getShelfLifeTypes();
     this.getPackagingTypes();
+    this.getTaxByTenant();
     this.route.params.subscribe((data) => {
       this.productId = data.id;
       if(this.productId) {
@@ -304,6 +306,12 @@ export class AddItemComponent implements OnInit {
   getShelfLifeTypes() {
     this.generalService.getShelfLifeTypes().subscribe((data) => {
       this.shelfLifeTypes = data.result.shelfLifeTypeItem;
+    });
+  }
+
+  getTaxByTenant() {
+    this.itemsService.getTaxByTenant().subscribe((data) => {
+      this.tax = data.result.tax;
     });
   }
 

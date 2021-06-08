@@ -100,11 +100,11 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
         <button type="submit" [disabled]="acceptOrderForm.invalid" *ngIf="eventStatus === 'ACCEPT' || eventStatus === 'SEND'" class="btn btn-primary" (click)="acceptOrder()">{{"INPUT."+eventStatus | translate}}</button>
         <button type="submit" [disabled]="sentOrderForm.invalid" *ngIf="eventStatus === 'DELIVERED'" class="btn btn-primary" (click)="deliverOrder()">{{"INPUT."+eventStatus | translate}}</button>
         <button type="submit" [disabled]="rejectOrderForm.invalid" *ngIf="eventStatus === 'REJECT'"  class="btn btn-primary" (click)="rejectOrder()">{{"INPUT."+eventStatus | translate}}</button>
         <button type="button" *ngIf="eventStatus === 'RESET'"  class="btn btn-primary" (click)="resetOrder()">{{"INPUT."+eventStatus | translate}}</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
     </div>
 </ng-template>
 
@@ -121,9 +121,10 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
         <!-- <button type="button" class="btn btn-secondary" (click)="generatePDF()">{{'INPUT.EXPORT_PDF' | translate}}</button> -->
-        <button type="button" class="btn btn-secondary" (click)="print()">{{'INPUT.PRINT' | translate}}</button>
+        <button type="button" *ngIf="eventStatus === 'VIEW'" class="btn btn-secondary" (click)="print()">{{'INPUT.PRINT' | translate}}</button>
+        <button type="button" *ngIf="eventStatus === 'EDIT'" class="btn btn-primary" (click)="updateOrderItems()">{{"INPUT.SAVE" | translate}}</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
     </div>
 </ng-template>
 
@@ -157,14 +158,6 @@
             <p class="font-weight-boldest mt-3 mx-6 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</p>
         </div>
         <table class="table table-bordered print-friendly mx-6">
-            <!-- <thead>
-              <tr>
-                <th scope="col">{{'INPUT.ITEM_NAME' | translate}}</th>
-                <th scope="col">{{'INPUT.QUANTITY' | translate}}</th>
-                <th scope="col">{{'INPUT.UNIT_PRICE' | translate}} ({{orderDetails?.currencyName || '----'}})</th>
-                <th scope="col">{{'INPUT.LINE_TOTAL' | translate}} ({{orderDetails?.currencyName || '----'}})</th>
-              </tr>
-            </thead> -->
             <tbody>
                 <tr>
                     <td class="text-left font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}</td>
@@ -174,8 +167,10 @@
                 </tr>
                 <tr  *ngFor="let item of orderDetails?.orderDetailItems">
                     <td class="text-left">{{item?.productName || '----'}}, {{item?.productDescription}}</td>
-                    <td class="text-center">{{item?.orderQuantity}}</td>
-                    <td class="text-center">{{item?.lineTotal/item.orderQuantity || '----'}}</td>
+                    <td *ngIf="eventStatus !== 'EDIT'" class="text-center">{{item?.orderQuantity}}</td>
+                    <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeQuantity($event, item?.productId)" class="text-center w-70px" type="number" value="{{item?.orderQuantity}}"></td>
+                    <td *ngIf="eventStatus !== 'EDIT'" class="text-center">{{item?.unitPrice || '----'}}</td>
+                    <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeUnitPrice($event, item?.productId)" class="text-center w-70px" type="number" value="{{item?.unitPrice}}"></td>
                     <td class="text-center">{{item?.lineTotal || '----'}}</td>
                 </tr>
                 <tr>
@@ -186,41 +181,8 @@
                 </tr>
             </tbody>
         </table>
-        <br>
-        <!-- <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th class="text-center" scope="col">{{'INPUT.SUB_TOTAL_PRICE' | translate}}</th>
-                <th class="text-center" scope="col">{{'INPUT.TAX' | translate}}</th>
-                <th class="text-center" scope="col">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</th>
-                <th class="text-center" scope="col">{{'INPUT.TOTAL_QUANTITIES' | translate}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center">{{(orderDetails?.subTotalPrice.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
-                <td class="text-center">{{(orderDetails?.tax.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
-                <td class="text-center">{{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
-                <td class="text-center">{{getTotalQuantity(orderDetails?.orderDetailItems)}}</td>
-              </tr>
-            </tbody>
-        </table> -->
-        <!-- <div class="col-12 d-none" *ngFor="let item of orderDetails?.orderDetailItems">
-            <hr class="my-2">
-            <div class="row">
-                <div class="col-md-11 mb-3">
-                    <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}:</span> {{item?.productName || '----'}}, {{item?.productDescription}}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.QUANTITY' | translate}}:</span> {{item?.orderQuantity}}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.UNIT_PRICE' | translate}}:</span> {{item?.lineTotal/item.orderQuantity+' '+orderDetails.currencyName || '----'}}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <p class="mb-0"><span class="font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}}:</span> {{item?.lineTotal+' '+orderDetails.currencyName || '----'}}</p>
-                </div>
-            </div>
-        </div> -->
+        <div class="col-12 mb-0">
+            <p class="px-2">{{orderDetails?.tax.toFixed(2)}}% Tax added {{getTax()}} {{orderDetails?.currencyName}}</p>
+        </div>
     </div>
 </ng-template>

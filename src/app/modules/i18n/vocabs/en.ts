@@ -332,6 +332,7 @@ export const locale = {
       ACCEPT_ORDER: 'Accept Order',
       REJECT_ORDER: 'Reject Order',
       SEND_ORDER: 'Send Order',
+      EDIT_ORDER: 'Edit Order',
       EDIT_ITEM: 'Edit Item',
       DASHBOARD_TIP: 'Tip: All orders statistics is based on total orders count and the selected period, New orders not affected with the selected period',
       TOTAL_CUSTOMERS: 'Total Customers',

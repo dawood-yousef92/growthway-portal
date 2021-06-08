@@ -142,6 +142,7 @@
                                         control: itemForm.controls['unitPrice']
                                         }"></mat-error>
                                 </mat-form-field>
+                                <p *ngIf="itemForm.controls.unitPrice.value">{{(itemForm.controls.unitPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }} Tax by {{tax}}% and total will be {{(itemForm.controls.unitPrice.value + (itemForm.controls.unitPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }}</p>
                                 <mat-error *ngIf="checkPrice()" role="alert" class="mat-error ng-tns-c180-2 ng-star-inserted">
                                     <div class="fv-plugins-message-container">
                                         <div class="fv-help-block">{{'AUTH.VALIDATION.PRICE_FIELD' | translate }}</div>
@@ -155,6 +156,7 @@
                                     <span matSuffix class="ml-3">{{'INPUT.SAR' | translate }}</span>
                                     <input class="py-1" type="number" matInput placeholder="{{'INPUT.OFF_PRICE' | translate }}" formControlName="offerPrice" />
                                 </mat-form-field>
+                                <p *ngIf="itemForm.controls.offerPrice.value">{{(itemForm.controls.offerPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }} Tax by {{tax}}% and total will be {{(itemForm.controls.offerPrice.value + (itemForm.controls.offerPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }}</p>
                             </div>
                         </div>
                     </div>
