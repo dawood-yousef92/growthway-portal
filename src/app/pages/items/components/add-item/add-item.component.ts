@@ -36,6 +36,8 @@ export class AddItemComponent implements OnInit {
   categories:any = [];
   selectedCatName:string;
   closeResult = '';
+  sort:string;
+  filter:string;
 
   itemForm: FormGroup;
   constructor(private generalService:GeneralService,
@@ -172,6 +174,8 @@ export class AddItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filter = localStorage.getItem('gridFilter');
+    this.sort = localStorage.getItem('sort');
     // this.getCategoriesByBusinessType();
     this.getCountries();
     this.initForm();
@@ -190,7 +194,7 @@ export class AddItemComponent implements OnInit {
 
   getProduct() {
     this.loderService.setIsLoading = true;
-    this.itemsService.getProduct(this.productId).subscribe((data) => {
+    this.itemsService.getProduct({id:this.productId, orderBy: this.sort, searchText: this.filter}).subscribe((data) => {
       this.product = data.result.productForEdit;
       if(this.product.tags) {
         this.tags = this.product.tags?.split(',');
@@ -352,7 +356,6 @@ export class AddItemComponent implements OnInit {
   findNested(obj, value) {
     obj?.map((item) => {
       if(item.id === value) {
-        console.log(item.name);
         this.selectedCatName = item.name;
         return item.name;
       }

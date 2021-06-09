@@ -24,8 +24,8 @@ export class ItemsService {
         return this.http.delete<any>(`Products/DeleteProduct?id=${id}`);
     }
 
-    getProduct(id): Observable<any> {
-        return this.http.post<any>('Products/GetProduct', {id:id});
+    getProduct(filterData): Observable<any> {
+        return this.http.post<any>('Products/GetProduct', filterData);
     }
 
     updateProduct(formData): Observable<any> {

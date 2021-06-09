@@ -11,5 +11,6 @@ export class ItemsComponent implements OnInit {
     localStorage.removeItem('gridFilter');
     localStorage.removeItem('pageSize');
     localStorage.removeItem('pageIndex');
+    localStorage.removeItem('sort');
   }
 }

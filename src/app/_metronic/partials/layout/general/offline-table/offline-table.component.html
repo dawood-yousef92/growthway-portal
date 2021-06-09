@@ -34,11 +34,11 @@
 </mat-form-field>
 <div class="example-container mat-elevation-z8 mat-table-container">
 
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" (matSortChange)="sort($event)" matSort>
     
         <ng-container *ngFor="let column of columns; let i = index" matColumnDef="{{ column.field }}">
             <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isDisabledSort(column.field)">
-                <ng-container *ngIf="column.field !== 'actions'">
+                <ng-container *ngIf="column.field !== 'actions' && column.field !== 'imagePath'">
                     <button (click)="stop($event)" class="btn btn-default p-0 h-20px mr-1 grid-view-header-menu" mat-icon-button [matMenuTriggerFor]="menu" >
                         <mat-icon class="h-20px">menu</mat-icon>
                     </button>

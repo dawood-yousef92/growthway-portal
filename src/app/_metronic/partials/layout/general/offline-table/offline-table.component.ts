@@ -107,7 +107,7 @@ export class OfflineTableComponent implements OnInit {
   
   @Output() actionsEvent: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort7: MatSort;
 
   pagingData:any = {
     pageSize:20,
@@ -143,7 +143,7 @@ export class OfflineTableComponent implements OnInit {
     this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
     this.gridFilter = localStorage.getItem('gridFilter');
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort7;
     if(this.gridFilter &&  this.dataSource) {
       this.applyFilter(this.gridFilter);
     }
@@ -275,10 +275,12 @@ export class OfflineTableComponent implements OnInit {
     })
     this.dataSource = new MatTableDataSource(a);
     this.loderService.setIsLoading = false;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort7;
   }
 
   isDisabledSort(col) {
-    if(col === 'createdOn') {
+    if(col === 'createdOn' || col === 'imagePath') {
       return true;
     }
     else {
@@ -309,5 +311,10 @@ export class OfflineTableComponent implements OnInit {
   changePagination(e) {
     localStorage.setItem('pageSize',e.pageSize)
     localStorage.setItem('pageIndex',e.pageIndex)
+  }
+
+  sort(e) {
+    let sort = e.active +'|'+e.direction;
+    localStorage.setItem('sort', sort)
   }
 }
