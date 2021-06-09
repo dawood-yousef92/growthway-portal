@@ -355,6 +355,9 @@ export const locale = {
       NOT_VERIFIED: 'Not Verified',
       THANK_YOU_FOR_REGISTER: 'Thank You For Register With Us',
       YOUR_EMAIL_IS_CONFIGURED: 'Your Email Is Configured',
+      TAX_VALUE: 'Tax value',
+      PRICE_AFTER_TAX: 'Price after tax',
+      OFFER_PRICE_AFTER_TAX: 'Offer price after tax',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',

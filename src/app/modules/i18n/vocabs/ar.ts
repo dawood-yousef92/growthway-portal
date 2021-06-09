@@ -354,6 +354,9 @@ export const locale = {
       NOT_VERIFIED: 'غير موثق',
       THANK_YOU_FOR_REGISTER: 'شكرا لتسجيلكم معنا',
       YOUR_EMAIL_IS_CONFIGURED: 'لقد تم تفعيل بريدك الالكتروني',
+      TAX_VALUE: 'قيمة الضريبة',
+      PRICE_AFTER_TAX: 'السعر بعد الضريبة',
+      OFFER_PRICE_AFTER_TAX: 'سعر العرض بعد الضريبة',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',

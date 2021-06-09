@@ -33,6 +33,7 @@ export class OrdersStatusesComponent implements OnInit {
 	orderId:string;
 	eventStatus:string;
 	orderDetails:any;
+	originalOrderDetailsItems:any;
 	minDate:Date = new Date();
 
 	acceptOrderForm: FormGroup;
@@ -382,6 +383,7 @@ export class OrdersStatusesComponent implements OnInit {
 		this.loderService.setIsLoading = true;
 		this.OrdersService.getOrder(this.orderId).subscribe((data) => {
 			this.orderDetails = data.result.orderItemForEdit;
+			this.originalOrderDetailsItems = data.result.orderItemForEdit.orderDetailItems.map(item => item.unitPrice);
 			this.loderService.setIsLoading = false;
 		}, (error) => {
 			this.loderService.setIsLoading = false;
@@ -470,6 +472,9 @@ export class OrdersStatusesComponent implements OnInit {
 			e.target.value = 0;
 		}
 		let index = this.orderDetails?.orderDetailItems.indexOf(this.orderDetails?.orderDetailItems.find(item => item.productId === productId));
+		if(Number(e.target.value) > this.originalOrderDetailsItems[index]) {
+			e.target.value = this.originalOrderDetailsItems[index];
+		}
 		this.orderDetails.orderDetailItems[index].unitPrice = Number(e.target.value);
 		this.orderDetails.orderDetailItems[index].lineTotal = (Number(e.target.value) * Number(this.orderDetails.orderDetailItems[index].orderQuantity)).toFixed(2);
 		this.setTotalDueAmount();
