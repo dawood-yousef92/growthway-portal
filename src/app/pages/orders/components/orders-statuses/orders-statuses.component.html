@@ -173,9 +173,9 @@
                     <td *ngIf="eventStatus !== 'EDIT'" class="text-center">{{item?.quantity}}</td>
                     <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeQuantity($event, item?.productId)" class="text-center w-70px" type="number" value="{{item?.quantity}}"></td>
                     <td *ngIf="eventStatus !== 'EDIT'" class="text-center">{{item?.postTaxPrice?.toFixed(2) || '----'}}</td>
-                    <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{item?.preTaxPrice?.toFixed(2)}}</td>
-                    <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{((item?.preTaxPrice * (item?.tax/100)) * item.quantity)?.toFixed(2)}} ({{item.tax}}%)</td>
-                    <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeUnitPrice($event, item?.productId)" class="text-center w-70px" type="number"></td>
+                    <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{(item?.preTaxPrice - item?.unitPriceDiscount).toFixed(2)}}</td>
+                    <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{(((item?.preTaxPrice - item?.unitPriceDiscount) * (item?.tax/100)) * item.quantity)?.toFixed(2)}} ({{item.tax}}%)</td>
+                    <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeUnitPrice($event, item?.productId)" class="text-center w-70px" value="{{item?.unitPriceDiscount}}" type="number"></td>
                     <td class="text-center">{{item?.postTaxLineTotal || '----'}}</td>
                 </tr>
                 <tr>

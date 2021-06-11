@@ -478,8 +478,9 @@ export class OrdersStatusesComponent implements OnInit {
 			e.target.value = this.originalOrderDetailsItems[index];
 		}
 		this.orderDetails.orderDetailItems[index].unitPriceDiscount = Number(e.target.value);
-		this.orderDetails.orderDetailItems[index].preTaxPrice = this.originalOrderDetailsItems[index] - Number(e.target.value);
-		this.orderDetails.orderDetailItems[index].postTaxLineTotal = ((this.orderDetails.orderDetailItems[index].preTaxPrice + (this.orderDetails.orderDetailItems[index].preTaxPrice * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
+		// this.orderDetails.orderDetailItems[index].preTaxPrice = this.originalOrderDetailsItems[index] - Number(e.target.value);
+		let newPrice = this.originalOrderDetailsItems[index] - Number(e.target.value);
+		this.orderDetails.orderDetailItems[index].postTaxLineTotal = ((newPrice + (newPrice * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
 		this.setTotalDueAmount();
 	}
 
@@ -492,14 +493,15 @@ export class OrdersStatusesComponent implements OnInit {
 	updateOrderItems() {
 		this.loderService.setIsLoading = true;
 		let orderLines = this.orderDetails?.orderDetailItems?.map(item => {
-			return {productId: item.productId, quantity: item.quantity, discount: item.unitPriceDiscount}
+			return {id: item.id, quantity: item.quantity, discount: item.unitPriceDiscount}
 		});
 
 		let data = {
 			id: this.orderDetails?.id,
 			orderLines: orderLines
 		}
-		this.OrdersService.updateOrder(data).subscribe((data) => {
+		this.OrdersService.calculateOrder(data).subscribe((data) => {
+			this.toaster.success(data.result);
 			this.getOrders();
 			this.modalService.dismissAll();
 		}, (error) => {
