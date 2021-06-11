@@ -493,7 +493,7 @@ export class OrdersStatusesComponent implements OnInit {
 	updateOrderItems() {
 		this.loderService.setIsLoading = true;
 		let orderLines = this.orderDetails?.orderDetailItems?.map(item => {
-			return {id: item.id, quantity: item.quantity, discount: item.unitPriceDiscount}
+			return {id: item.id, productId: item.productId, quantity: item.quantity, discount: item.unitPriceDiscount}
 		});
 
 		let data = {
