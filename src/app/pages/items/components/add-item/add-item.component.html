@@ -134,16 +134,16 @@
                         <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.PRICE' | translate }}" formControlName="unitPrice" required />
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.PRICE' | translate }}" formControlName="preTaxUnitPrice" required />
                                     <span matSuffix class="ml-3">{{'INPUT.SAR' | translate }}</span>
                                     <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
                                         message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
-                                        control: itemForm.controls['unitPrice']
+                                        control: itemForm.controls['preTaxUnitPrice']
                                         }"></mat-error>
                                 </mat-form-field>
-                                <p class="mb-0" *ngIf="itemForm.controls.unitPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%) ({{(itemForm.controls.unitPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
-                                <p class="mb-0" *ngIf="itemForm.controls.unitPrice.value">{{'TITLE.PRICE_AFTER_TAX' | translate}}: ({{(itemForm.controls.unitPrice.value + (itemForm.controls.unitPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                                <p class="mb-0" *ngIf="itemForm.controls.preTaxUnitPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%) ({{(itemForm.controls.preTaxUnitPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                                <p class="mb-0" *ngIf="itemForm.controls.preTaxUnitPrice.value">{{'TITLE.PRICE_AFTER_TAX' | translate}}: ({{(itemForm.controls.preTaxUnitPrice.value + (itemForm.controls.preTaxUnitPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
                                 <mat-error *ngIf="checkPrice()" role="alert" class="mat-error ng-tns-c180-2 ng-star-inserted">
                                     <div class="fv-plugins-message-container">
                                         <div class="fv-help-block">{{'AUTH.VALIDATION.PRICE_FIELD' | translate }}</div>
@@ -155,10 +155,10 @@
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
                                     <span matSuffix class="ml-3">{{'INPUT.SAR' | translate }}</span>
-                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.OFF_PRICE' | translate }}" formControlName="offerPrice" />
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.OFF_PRICE' | translate }}" formControlName="preTaxOfferPrice" />
                                 </mat-form-field>
-                                <p class="mb-0" *ngIf="itemForm.controls.offerPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%) ({{(itemForm.controls.offerPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
-                                <p class="mb-0" *ngIf="itemForm.controls.offerPrice.value">{{'TITLE.OFFER_PRICE_AFTER_TAX' | translate}}: ({{(itemForm.controls.offerPrice.value + (itemForm.controls.offerPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                                <p class="mb-0" *ngIf="itemForm.controls.preTaxOfferPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%) ({{(itemForm.controls.preTaxOfferPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                                <p class="mb-0" *ngIf="itemForm.controls.preTaxOfferPrice.value">{{'TITLE.OFFER_PRICE_AFTER_TAX' | translate}}: ({{(itemForm.controls.preTaxOfferPrice.value + (itemForm.controls.preTaxOfferPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
                             </div>
                         </div>
                     </div>

@@ -211,7 +211,7 @@ export class OfflineTableComponent implements OnInit {
 
   groupHeaderClick(row) {
     row.expanded = !row.expanded;
-    this.dataSource.filter = performance.now().toString();  // bug here need to fix
+    this.dataSource.filter = performance.now().toString();
   }
 
   addGroups(data: any[], groupByColumns: string[]): any[] {
@@ -277,6 +277,9 @@ export class OfflineTableComponent implements OnInit {
     this.loderService.setIsLoading = false;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort7;
+    this._alldata = a;
+    this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
+    this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
   }
 
   isDisabledSort(col) {

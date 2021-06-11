@@ -268,7 +268,7 @@ export class OrdersStatusesComponent implements OnInit {
 
 	getTotalQuantity(items) {
 		return items?.map((item) => {
-			return item.orderQuantity
+			return item.quantity
 		}).reduce((a, b) => a + b, 0);
 	}
 
@@ -289,7 +289,7 @@ export class OrdersStatusesComponent implements OnInit {
 	}
 
 	openCentred(content) {
-		this.modalService.open(content, { centered: true, size: 'lg'} );
+		this.modalService.open(content, { centered: true, size: 'xl'} );
 	}
 
 	  
@@ -383,7 +383,7 @@ export class OrdersStatusesComponent implements OnInit {
 		this.loderService.setIsLoading = true;
 		this.OrdersService.getOrder(this.orderId).subscribe((data) => {
 			this.orderDetails = data.result.orderItemForEdit;
-			this.originalOrderDetailsItems = data.result.orderItemForEdit.orderDetailItems.map(item => item.unitPrice);
+			this.originalOrderDetailsItems = data.result.orderItemForEdit.orderDetailItems.map(item => item.preTaxPrice);
 			this.loderService.setIsLoading = false;
 		}, (error) => {
 			this.loderService.setIsLoading = false;
@@ -454,7 +454,9 @@ export class OrdersStatusesComponent implements OnInit {
 	}
 
 	getTax() {
-		return (this.orderDetails?.totalDueAmount.toFixed(2) - (this.orderDetails?.totalDueAmount.toFixed(2) / (1 + this.orderDetails?.tax/100))).toFixed(2);
+		return this.orderDetails?.orderDetailItems.map((item) => {
+			return ((item?.preTaxPrice * (item?.tax/100)) * item.quantity)?.toFixed(2);
+		}).reduce((a, b) => Number(a) + Number(b), 0)?.toFixed(2);
 	}
 
 	changeQuantity(e,productId) {
@@ -462,8 +464,8 @@ export class OrdersStatusesComponent implements OnInit {
 			e.target.value = 0;
 		}
 		let index = this.orderDetails?.orderDetailItems.indexOf(this.orderDetails?.orderDetailItems.find(item => item.productId === productId));
-		this.orderDetails.orderDetailItems[index].orderQuantity = Number(e.target.value);
-		this.orderDetails.orderDetailItems[index].lineTotal = (Number(e.target.value) * Number(this.orderDetails.orderDetailItems[index].unitPrice)).toFixed(2);
+		this.orderDetails.orderDetailItems[index].quantity = Number(e.target.value);
+		this.orderDetails.orderDetailItems[index].postTaxLineTotal = ((this.orderDetails.orderDetailItems[index].preTaxPrice + (this.orderDetails.orderDetailItems[index].preTaxPrice * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
 		this.setTotalDueAmount();
 	}
 
@@ -475,18 +477,33 @@ export class OrdersStatusesComponent implements OnInit {
 		if(Number(e.target.value) > this.originalOrderDetailsItems[index]) {
 			e.target.value = this.originalOrderDetailsItems[index];
 		}
-		this.orderDetails.orderDetailItems[index].unitPrice = Number(e.target.value);
-		this.orderDetails.orderDetailItems[index].lineTotal = (Number(e.target.value) * Number(this.orderDetails.orderDetailItems[index].orderQuantity)).toFixed(2);
+		this.orderDetails.orderDetailItems[index].unitPriceDiscount = Number(e.target.value);
+		this.orderDetails.orderDetailItems[index].preTaxPrice = this.originalOrderDetailsItems[index] - Number(e.target.value);
+		this.orderDetails.orderDetailItems[index].postTaxLineTotal = ((this.orderDetails.orderDetailItems[index].preTaxPrice + (this.orderDetails.orderDetailItems[index].preTaxPrice * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
 		this.setTotalDueAmount();
 	}
 
 	setTotalDueAmount() {
 		this.orderDetails.totalDueAmount = this.orderDetails?.orderDetailItems.map((item) => {
-			return item.lineTotal;
+			return item.postTaxLineTotal;
 		}).reduce((a, b) => Number(a) + Number(b), 0);
 	}
 
 	updateOrderItems() {
-		alert('Saved');
+		this.loderService.setIsLoading = true;
+		let orderLines = this.orderDetails?.orderDetailItems?.map(item => {
+			return {productId: item.productId, quantity: item.quantity, discount: item.unitPriceDiscount}
+		});
+
+		let data = {
+			id: this.orderDetails?.id,
+			orderLines: orderLines
+		}
+		this.OrdersService.updateOrder(data).subscribe((data) => {
+			this.getOrders();
+			this.modalService.dismissAll();
+		}, (error) => {
+			this.loderService.setIsLoading = false;
+		});
 	}
 }

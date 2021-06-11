@@ -77,14 +77,14 @@ export class AddItemComponent implements OnInit {
       descriptionAr: [
         this.product?.descriptionAr || ''
       ],
-      unitPrice: [
-        this.product?.unitPrice || null,
+      preTaxUnitPrice: [
+        this.product?.preTaxUnitPrice || null,
         Validators.compose([
           Validators.required,
         ]),
       ],
-      offerPrice: [
-        this.product?.offerPrice || null
+      preTaxOfferPrice: [
+        this.product?.preTaxOfferPrice || null
       ],
       originCountryId: [
         this.product?.originCountryId || null,
@@ -150,7 +150,7 @@ export class AddItemComponent implements OnInit {
   }
   
   checkPrice() {
-    if(Number(this.itemForm && this.itemForm?.get('unitPrice').value) < Number(this.itemForm?.get('offerPrice').value)) {
+    if(Number(this.itemForm && this.itemForm?.get('preTaxUnitPrice').value) < Number(this.itemForm?.get('preTaxOfferPrice').value)) {
       return true;
     }
     else {
@@ -194,7 +194,12 @@ export class AddItemComponent implements OnInit {
 
   getProduct() {
     this.loderService.setIsLoading = true;
-    this.itemsService.getProduct({id:this.productId, orderBy: this.sort, searchText: this.filter}).subscribe((data) => {
+    let filterData = {
+      id:this.productId,
+      // orderBy: this.sort,
+      // searchText: this.filter
+    }
+    this.itemsService.getProduct(filterData).subscribe((data) => {
       this.product = data.result.productForEdit;
       if(this.product.tags) {
         this.tags = this.product.tags?.split(',');
@@ -380,8 +385,8 @@ export class AddItemComponent implements OnInit {
     formData.append('nameAr',this.itemForm.controls.nameAr.value);
     formData.append('descriptionEn',this.itemForm.controls.descriptionEn.value);
     formData.append('descriptionAr',this.itemForm.controls.descriptionAr.value);
-    formData.append('unitPrice',this.itemForm.controls.unitPrice.value);
-    formData.append('offerPrice',this.itemForm.controls.offerPrice.value);
+    formData.append('preTaxUnitPrice',this.itemForm.controls.preTaxUnitPrice.value);
+    formData.append('preTaxOfferPrice',this.itemForm.controls.preTaxOfferPrice.value);
     formData.append('originCountryId',this.itemForm.controls.originCountryId.value);
     formData.append('shelfLifeDuration',this.itemForm.controls.shelfLifeDuration.value);
     formData.append('shelfLifeType',this.itemForm.controls.shelfLifeType.value);
@@ -390,6 +395,7 @@ export class AddItemComponent implements OnInit {
     formData.append('isActive',this.itemForm.controls.isActive.value);
     formData.append('categoryId',this.itemForm.controls.categoryId.value);
     formData.append('minimumOrderQuantity',this.itemForm.controls.minimumOrderQuantity.value);
+    formData.append('isCountryBasedTax','true');
     formData.append('tags',this.tags?.join(','));
     for(let i =0; i < this.documents.length; i++){
       formData.append("productDocuments", this.documents[i] as File, this.documents[i]['name']);

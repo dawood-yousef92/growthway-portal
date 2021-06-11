@@ -23,7 +23,7 @@ export class ItemsListComponent implements OnInit {
     selectedPageSize: 0
   }
 
-  displayedColumns: string[] = ['imagePath', 'name', 'category', 'unitPrice', 'offerPrice', 'originCountry',];
+  displayedColumns: string[] = ['imagePath', 'name', 'category', 'postTaxUnitPrice', 'postTaxOfferPrice', 'originCountry',];
   actions:any = [];
   gridData:any[] = [];
   @ViewChild('deleteModal', { static: false }) deleteModal: ElementRef;
@@ -72,12 +72,12 @@ export class ItemsListComponent implements OnInit {
       console.log(data);
       this.gridData = data.result.products.items.map((item) => {
         item.imagePath = `<img src="${item.imagePath || './assets/images/default-img.png'}" class="img-table-col"/>`;
-        item.unitPrice = item.unitPrice +'  '+item.currency;
-        if(item.offerPrice) {
-          item.offerPrice =  item.offerPrice+'  '+item.currency;
+        item.postTaxUnitPrice = item.postTaxUnitPrice?.toFixed(2)+'  '+item.currency;
+        if(item.postTaxOfferPrice) {
+          item.postTaxOfferPrice =  item.postTaxOfferPrice?.toFixed(2)+'  '+item.currency;
         }
         else {
-          item.offerPrice = '----';
+          item.postTaxOfferPrice = '----';
         }
         return item;
       })

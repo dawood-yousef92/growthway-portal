@@ -151,6 +151,8 @@ export const locale = {
       CATEGORY: 'الفئة',
       UNITPRICE: 'سعر الوحده',
       OFFERPRICE: 'سعر العرض',
+      POSTTAXUNITPRICE: 'سعر الوحده',
+      POSTTAXOFFERPRICE: 'سعر العرض',
       ORIGINCOUNTRY: 'بلد المنشأ',
       ADDRESS: 'العنوان',
       ADDRESSAR: 'العنوان بالعربي',
@@ -174,6 +176,8 @@ export const locale = {
       UNGROUP: 'الغاء المجموعة',
       PHONENUMBER: 'رقم الهاتف',
       ORDERS: 'الطلبات',
+      DISCOUNT: 'الخصم',
+      TAX: 'نسبة الضريبة'
     },
     INPUT: {
       EMAIL: 'البريد الالكتروني',

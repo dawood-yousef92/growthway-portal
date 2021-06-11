@@ -152,6 +152,8 @@ export const locale = {
       CATEGORY: 'Category',
       UNITPRICE: 'Unit price',
       OFFERPRICE: 'Offer price',
+      POSTTAXUNITPRICE: 'Unit price',
+      POSTTAXOFFERPRICE: 'Offer price',
       ORIGINCOUNTRY: 'Origin country',
       ADDRESS: 'Address',
       ADDRESSAR: 'Address Arabic',
@@ -175,6 +177,8 @@ export const locale = {
       UNGROUP: 'Ungroup',
       PHONENUMBER: 'Phone Number',
       ORDERS: 'Orders',
+      DISCOUNT: 'Discount',
+      TAX: 'Tax'
     },
     INPUT: {
       EMAIL: 'Email',
