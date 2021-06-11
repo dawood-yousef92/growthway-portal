@@ -465,7 +465,7 @@ export class OrdersStatusesComponent implements OnInit {
 		}
 		let index = this.orderDetails?.orderDetailItems.indexOf(this.orderDetails?.orderDetailItems.find(item => item.productId === productId));
 		this.orderDetails.orderDetailItems[index].quantity = Number(e.target.value);
-		this.orderDetails.orderDetailItems[index].postTaxLineTotal = ((this.orderDetails.orderDetailItems[index].preTaxPrice + (this.orderDetails.orderDetailItems[index].preTaxPrice * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
+		this.orderDetails.orderDetailItems[index].postTaxLineTotal = (((this.orderDetails.orderDetailItems[index].preTaxPrice - this.orderDetails.orderDetailItems[index].quantity) + ((this.orderDetails.orderDetailItems[index].preTaxPrice - this.orderDetails.orderDetailItems[index].quantity) * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
 		this.setTotalDueAmount();
 	}
 
