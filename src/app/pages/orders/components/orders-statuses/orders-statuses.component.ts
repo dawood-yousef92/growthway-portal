@@ -455,7 +455,7 @@ export class OrdersStatusesComponent implements OnInit {
 
 	getTax() {
 		return this.orderDetails?.orderDetailItems.map((item) => {
-			return ((item?.preTaxPrice * (item?.tax/100)) * item.quantity)?.toFixed(2);
+			return (((item?.preTaxPrice - item?.unitPriceDiscount) * (item?.tax/100)) * item.quantity)?.toFixed(2);
 		}).reduce((a, b) => Number(a) + Number(b), 0)?.toFixed(2);
 	}
 
@@ -465,7 +465,7 @@ export class OrdersStatusesComponent implements OnInit {
 		}
 		let index = this.orderDetails?.orderDetailItems.indexOf(this.orderDetails?.orderDetailItems.find(item => item.productId === productId));
 		this.orderDetails.orderDetailItems[index].quantity = Number(e.target.value);
-		this.orderDetails.orderDetailItems[index].postTaxLineTotal = (((this.orderDetails.orderDetailItems[index].preTaxPrice - this.orderDetails.orderDetailItems[index].quantity) + ((this.orderDetails.orderDetailItems[index].preTaxPrice - this.orderDetails.orderDetailItems[index].quantity) * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
+		this.orderDetails.orderDetailItems[index].postTaxPriceLineTotalAfterDiscount = (((this.orderDetails.orderDetailItems[index].preTaxPrice - this.orderDetails.orderDetailItems[index].unitPriceDiscount) + ((this.orderDetails.orderDetailItems[index].preTaxPrice - this.orderDetails.orderDetailItems[index].unitPriceDiscount) * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
 		this.setTotalDueAmount();
 	}
 
@@ -480,13 +480,13 @@ export class OrdersStatusesComponent implements OnInit {
 		this.orderDetails.orderDetailItems[index].unitPriceDiscount = Number(e.target.value);
 		// this.orderDetails.orderDetailItems[index].preTaxPrice = this.originalOrderDetailsItems[index] - Number(e.target.value);
 		let newPrice = this.originalOrderDetailsItems[index] - Number(e.target.value);
-		this.orderDetails.orderDetailItems[index].postTaxLineTotal = ((newPrice + (newPrice * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
+		this.orderDetails.orderDetailItems[index].postTaxPriceLineTotalAfterDiscount = ((newPrice + (newPrice * (this.orderDetails.orderDetailItems[index].tax / 100))) * Number(this.orderDetails.orderDetailItems[index].quantity)).toFixed(2);
 		this.setTotalDueAmount();
 	}
 
 	setTotalDueAmount() {
 		this.orderDetails.totalDueAmount = this.orderDetails?.orderDetailItems.map((item) => {
-			return item.postTaxLineTotal;
+			return item.postTaxPriceLineTotalAfterDiscount;
 		}).reduce((a, b) => Number(a) + Number(b), 0);
 	}
 
