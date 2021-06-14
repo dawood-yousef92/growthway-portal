@@ -178,7 +178,8 @@ export const locale = {
       PHONENUMBER: 'Phone Number',
       ORDERS: 'Orders',
       DISCOUNT: 'Discount',
-      TAX: 'Tax'
+      TAX: 'Tax',
+      TOTAL_PRICE: 'Total Price'
     },
     INPUT: {
       EMAIL: 'Email',

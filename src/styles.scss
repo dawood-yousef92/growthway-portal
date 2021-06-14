@@ -431,8 +431,8 @@ mat-table.mat-table {
   direction: ltr;
 }
 .order-details-row {
-  max-height: calc(100vh - 680px);
-  overflow: auto;
+  max-height: calc(100vh - 280px);
+  overflow: hidden auto;
   min-height: 270px;
 }
 .order-details-view {

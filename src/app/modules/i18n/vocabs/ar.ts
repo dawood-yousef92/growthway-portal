@@ -177,7 +177,8 @@ export const locale = {
       PHONENUMBER: 'رقم الهاتف',
       ORDERS: 'الطلبات',
       DISCOUNT: 'الخصم',
-      TAX: 'نسبة الضريبة'
+      TAX: 'نسبة الضريبة',
+      TOTAL_PRICE: 'مجموع السعر'
     },
     INPUT: {
       EMAIL: 'البريد الالكتروني',
@@ -270,7 +271,7 @@ export const locale = {
       ITEM_NAME: 'اسم المنتج',
       QUANTITY: 'الكمية',
       TOTAL_QUANTITIES: 'مجموع الكميات',
-      LINE_TOTAL: 'مجموع السعر',
+      LINE_TOTAL: 'مجموع السعر شامل الضريبة',
       UNIT_PRICE_DISCOUNT: 'السعر بعد الخصم',
       UNIT_PRICE: 'سعر الصنف',
       LATITUDE: 'خط الطول',
