@@ -241,6 +241,12 @@ export class OrdersStatusesComponent implements OnInit {
 					.no-border {
 						border: 0;
 					}
+					input.w-70px {
+						display: none;
+					}
+					input.w-70px + span.d-none {
+						display: block;
+					}
 				}
 				/*** end print **/
 			  </style>

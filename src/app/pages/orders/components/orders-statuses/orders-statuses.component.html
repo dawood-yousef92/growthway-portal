@@ -122,8 +122,8 @@
     </div>
     <div class="modal-footer">
         <!-- <button type="button" class="btn btn-secondary" (click)="generatePDF()">{{'INPUT.EXPORT_PDF' | translate}}</button> -->
-        <button type="button" *ngIf="eventStatus === 'VIEW'" class="btn btn-secondary" (click)="print()">{{'INPUT.PRINT' | translate}}</button>
         <button type="button" *ngIf="eventStatus === 'EDIT'" class="btn btn-primary" (click)="updateOrderItems()">{{"INPUT.SAVE" | translate}}</button>
+        <button type="button" *ngIf="eventStatus === 'VIEW' || eventStatus === 'EDIT'" class="btn btn-secondary" (click)="print()">{{'INPUT.PRINT' | translate}}</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
     </div>
 </ng-template>
@@ -164,6 +164,7 @@
                         <td class="text-center font-weight-boldest">{{'INPUT.QUANTITY' | translate}}</td>
                         <td class="text-center font-weight-boldest">{{'INPUT.UNIT_PRICE' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
                         <td *ngIf="eventStatus === 'EDIT'" class="text-center font-weight-boldest">{{'TABLE.DISCOUNT' | translate}}</td>
+                        <td *ngIf="eventStatus === 'EDIT'" class="text-center font-weight-boldest">{{'INPUT.UNIT_PRICE_AFTER_DISCOUNT' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
                         <td *ngIf="eventStatus === 'EDIT'" class="text-center font-weight-boldest">{{'TABLE.TOTAL_PRICE' | translate}}</td>
                         <td class="text-center font-weight-boldest">{{'TABLE.TAX' | translate}}</td>
                         <td class="text-center font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
@@ -171,13 +172,13 @@
                     <tr  *ngFor="let item of orderDetails?.orderDetailItems">
                         <td class="text-left">{{item?.productName || '----'}}, {{item?.productDescription}}</td>
                         <td *ngIf="eventStatus !== 'EDIT'" class="text-center">{{item?.quantity}}</td>
-                        <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeQuantity($event, item?.productId)" class="text-center w-70px" type="number" value="{{item?.quantity}}"></td>
+                        <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeQuantity($event, item?.productId)" class="text-center w-70px" type="number" value="{{item?.quantity}}"><span class="d-none">{{item?.quantity}}</span></td>
                         <td *ngIf="eventStatus !== 'EDIT'" class="text-center">{{(item?.preTaxPrice - item?.unitPriceDiscount).toFixed(2) || '----'}}</td>
-                        <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{(item?.preTaxPrice - item?.unitPriceDiscount).toFixed(2)}}</td>
-                        <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeUnitPrice($event, item?.productId)" class="text-center w-70px" value="{{item?.unitPriceDiscount}}" type="number"></td>
+                        <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{(item?.preTaxPrice).toFixed(2)}}</td>
+                        <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeUnitPrice($event, item?.productId)" class="text-center w-70px" value="{{item?.unitPriceDiscount}}" type="number"><span class="d-none">{{item?.unitPriceDiscount}}</span></td>
+                        <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{(item?.preTaxPrice - item?.unitPriceDiscount).toFixed(2)}}</td>  
                         <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{((item?.preTaxPrice - item?.unitPriceDiscount) * item?.quantity).toFixed(2)}}</td>
                         <td class="text-center">{{(((item?.preTaxPrice - item?.unitPriceDiscount) * (item?.tax/100)) * item?.quantity)?.toFixed(2)}} ({{item.tax}}%)</td>
-                        <!-- <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{item?.postTaxLineTotal || '----'}}</td> -->
                         <td class="text-center">{{item?.postTaxPriceLineTotalAfterDiscount || '----'}}</td>
                     </tr>
                     <tr>

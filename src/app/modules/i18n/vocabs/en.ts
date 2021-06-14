@@ -276,6 +276,7 @@ export const locale = {
       LINE_TOTAL: 'Line Total',
       UNIT_PRICE_DISCOUNT: 'Unit Price Discount',
       UNIT_PRICE: 'Unit Price',
+      UNIT_PRICE_AFTER_DISCOUNT: 'Unit Price After Discount',
       LATITUDE: 'Latitude',
       LONGITUDE: 'Longitude',
       DELIVERED: 'Delivered',

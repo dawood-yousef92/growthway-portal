@@ -274,6 +274,7 @@ export const locale = {
       LINE_TOTAL: 'مجموع السعر شامل الضريبة',
       UNIT_PRICE_DISCOUNT: 'السعر بعد الخصم',
       UNIT_PRICE: 'سعر الصنف',
+      UNIT_PRICE_AFTER_DISCOUNT: 'سعر الصنف بعد الخصم',
       LATITUDE: 'خط الطول',
       LONGITUDE: 'خط العرض',
       DELIVERED: 'تم التوصيل',
