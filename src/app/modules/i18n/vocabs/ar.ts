@@ -363,6 +363,7 @@ export const locale = {
       TAX_VALUE: 'قيمة الضريبة',
       PRICE_AFTER_TAX: 'السعر بعد الضريبة',
       OFFER_PRICE_AFTER_TAX: 'سعر العرض بعد الضريبة',
+      FILE_TAX_NUMBER: 'رقم الملف الضريبي',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',

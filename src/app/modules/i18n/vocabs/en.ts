@@ -364,6 +364,7 @@ export const locale = {
       TAX_VALUE: 'Tax value',
       PRICE_AFTER_TAX: 'Price after tax',
       OFFER_PRICE_AFTER_TAX: 'Offer price after tax',
+      FILE_TAX_NUMBER: 'File Tax Number',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',

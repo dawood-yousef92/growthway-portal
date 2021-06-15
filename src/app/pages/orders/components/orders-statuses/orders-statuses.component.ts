@@ -155,7 +155,8 @@ export class OrdersStatusesComponent implements OnInit {
 	print(): void {
 		let printContents, popupWin;
 		let logo = (document.getElementById('company_logo') as HTMLElement).innerHTML;
-		logo = '<div class="logo-container">'+logo+'</div>'
+		let taxNumber = `<p class="text-right">${this.translate.instant('TITLE.FILE_TAX_NUMBER')}: ${this.orderDetails?.taxFileNumber || '-----'}</p>`
+		logo = '<div class="logo-container">'+logo+taxNumber+'</div>'
 		let rtl = '';
 		if(document.getElementById('rtl-file')) {
 			rtl = 'body {direction: rtl;}.logo-container h6 {text-align: left;} .text-left{text-align: right;}.text-right{text-align: left;}';
@@ -221,6 +222,10 @@ export class OrdersStatusesComponent implements OnInit {
 					.logo-container h6 {
 						font-size: 25px;
 						font-weight: 700;
+						margin: 0 10px;
+						flex: 1 1 auto !important;
+					}
+					.logo-container p {
 						margin: 0 10px;
 						flex: 1 1 auto !important;
 					}
