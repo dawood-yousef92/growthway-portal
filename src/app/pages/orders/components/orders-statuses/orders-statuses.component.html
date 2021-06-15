@@ -184,7 +184,7 @@
                     <tr>
                         <td class="text-right font-weight-boldest no-border">{{'INPUT.TOTAL_QUANTITIES' | translate}}</td>
                         <td class="text-center">{{getTotalQuantity(orderDetails?.orderDetailItems)}}</td>
-                        <td *ngIf="eventStatus === 'EDIT'" class="text-right font-weight-boldest no-border" colspan="4">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</td>
+                        <td *ngIf="eventStatus === 'EDIT'" class="text-right font-weight-boldest no-border" colspan="5">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</td>
                         <td *ngIf="eventStatus !== 'EDIT'" class="text-right font-weight-boldest no-border" colspan="2">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</td>
                         <td class="text-center">{{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
                     </tr>
