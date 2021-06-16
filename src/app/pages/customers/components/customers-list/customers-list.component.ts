@@ -130,7 +130,7 @@ export class CustomersListComponent implements OnInit {
     this.loderService.setIsLoading = true;
     this.customersService.getCustomers(filterData).subscribe((data) => {
       this.gridData = data.result.item.items.map((item) => {
-        item.logo = `<img src="${item.logo || './assets/images/default-img.png'}" class="img-table-col"/>`;
+        item.logo = `<img src="${item.logo || './assets/images/default-img.png'}" class="img-table-col border"/>`;
         if(item.isVerified) {
           item.isVerified =  '<span class="label label-lg label-light-success label-inline">' + this.translate.instant('TITLE.VERIFIED') + '</span>';
         }

@@ -41,6 +41,13 @@
 	</div>
 	<div class="modal-body">
 		<div class="row">
+			<div class="col-12 mb-4">
+				<div class="row">
+					<div class="col-md-2 col-3">
+						<img [src]="customer?.imagePath || './assets/images/default-img.png'" alt="customer logo" class="w-100 border">
+					</div>
+				</div>
+			</div>
 			<div class="col-md-6 mb-4">
 				<p class="font-weight-boldest mb-1">{{'TITLE.CUSTOMER_NAME' | translate}}:</p>
 				<p class="mb-0">{{customer?.name}}</p>
@@ -61,11 +68,11 @@
 			<div class="col-12 mb-4" *ngIf="customer?.customerDocumentFile?.length > 0">
 				<p class="font-weight-boldest mb-3">{{'TITLE.CUSTOMER_DOCUMENTS' | translate}}:</p>
 				<div class="row">
-					<div *ngFor="let file of customer?.customerDocumentFile" class="col-sm-2 col-3 mb-4">
-						<a href="{{file.path}}" target="_blank" download id="uploaded-image-holder" class="uploaded-file-holder">
+					<div *ngFor="let file of customer?.customerDocumentFile" class="col-lg-2 col-sm-3 col-6 mb-4">
+						<a href="{{file.documentPath}}" target="_blank" download id="uploaded-image-holder" class="uploaded-file-holder">
 							<div class="w-100 text-center">
 								<img src="../../../../../assets/images/default.png" alt="default" class="file-img mb-1">
-								<span class="d-block file-name">{{file.name}}</span>
+								<span class="d-block file-name">{{file.documentName}}</span>
 							</div>
 						</a>
 					</div>
