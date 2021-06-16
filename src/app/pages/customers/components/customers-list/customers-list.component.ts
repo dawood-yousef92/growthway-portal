@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { CustomersService } from '../../customers.service';
@@ -33,7 +34,7 @@ export class CustomersListComponent implements OnInit {
     selectedPageSize: 0
   }
 
-  displayedColumns: string[] = ['name', 'email', 'phoneNumber'];
+  displayedColumns: string[] = ['logo', 'name', 'email', 'isVerified', 'phoneNumber'];
   actions:any = [];
   pagingData:any = {length: 100, pageSize: 10, pageIndex: 1};
   gridData:any[] = [];
@@ -48,7 +49,8 @@ export class CustomersListComponent implements OnInit {
               private router: Router,
               private modalService: NgbModal,
               private fb: FormBuilder,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private translate: TranslateService,) { }
 
   checkPermissions() {
     this.customActions.push({name: 'View', icon:'flaticon-eye text-warning'})
@@ -127,6 +129,18 @@ export class CustomersListComponent implements OnInit {
   getCustomers(filterData) {
     this.loderService.setIsLoading = true;
     this.customersService.getCustomers(filterData).subscribe((data) => {
+      this.gridData = data.result.item.items.map((item) => {
+        item.logo = `<img src="${item.logo || './assets/images/default-img.png'}" class="img-table-col"/>`;
+        if(item.isVerified) {
+          item.isVerified =  '<span class="label label-lg label-light-success label-inline">' + this.translate.instant('TITLE.VERIFIED') + '</span>';
+        }
+        else {
+          item.isVerified = '<span class="label label-lg label-light-danger label-inline">' + this.translate.instant('TITLE.NOT_VERIFIED') + '</span>';
+        }
+        return item;
+      })
+      this.gridData = data.result.item.items;
+      this.loderService.setIsLoading = false;
       this.gridData = data.result.item.items;
       this.loderService.setIsLoading = false;
     }, (error) => {

@@ -142,6 +142,8 @@ export const locale = {
       CREATEDON: "تاريخ الانشاء",
       CREATEDTIME: "وقت الانشاء",
       VERIFIED: "تم التحقق",
+      ISVERIFIED: "موثق",
+      LOGO: 'الشعار',
       FILTER: "فلتر",
       ACTIONS: 'الخيارات',
       ISDEFAULT: 'الحالة الافتراضية',

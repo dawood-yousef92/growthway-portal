@@ -69,7 +69,6 @@ export class ItemsListComponent implements OnInit {
   getProducts() {
     this.loderService.setIsLoading = true;
     this.itemsService.getProducts(this.dataSettings).subscribe((data) => {
-      console.log(data);
       this.gridData = data.result.products.items.map((item) => {
         item.imagePath = `<img src="${item.imagePath || './assets/images/default-img.png'}" class="img-table-col"/>`;
         item.postTaxUnitPrice = item.postTaxUnitPrice?.toFixed(2)+'  '+item.currency;

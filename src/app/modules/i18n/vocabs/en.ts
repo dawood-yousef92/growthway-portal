@@ -143,6 +143,8 @@ export const locale = {
       CREATEDON: "Created On",
       CREATEDTIME: "Created Time",
       VERIFIED: "Verified",
+      ISVERIFIED: "Verified",
+      LOGO: 'Logo',
       FILTER: "Filter",
       ACTIONS: 'Actions',
       ISDEFAULT: 'Is default',
