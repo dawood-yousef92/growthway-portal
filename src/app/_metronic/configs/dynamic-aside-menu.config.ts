@@ -56,6 +56,15 @@ export const DynamicAsideMenuConfig = {
       page: "/items",
       permission: "Products.",
     },
+    // {
+    //   title: "Services",
+    //   root: true,
+    //   svg: "./assets/media/svg/icons/Shopping/Bag1.svg",
+    //   bullet: "dot",
+    //   translate: "MENU.SERVICES",
+    //   page: "/services",
+    //   permission: "noPermission",
+    // },
     {
       title: "Branches",
       root: true,

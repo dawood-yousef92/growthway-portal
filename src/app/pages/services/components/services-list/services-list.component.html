@@ -1,0 +1,32 @@
+<div class="card card-custom example-preview">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">{{ "MENU.ITEMS_LIST" | translate }}</h3>
+        </div>
+        <div *ngIf="permissions.includes('Products.CreateProduct')" class="d-flex align-items-center">
+            <a routerLink="add-item" class="btn btn-primary">{{ "MENU.ADD_ITEM" | translate }} <i
+                    class="flaticon2-plus icon-sm ml-2"></i></a>
+        </div>
+    </div>
+    <div class="card-body">
+        <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+    </div>
+</div>
+
+<ng-template #deleteModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{"TITLE.WARNING_TITLE" | translate}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            {{"TITLE.WARING" | translate}}
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{"INPUT.CLOSE" | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="confirmDelete()">{{"INPUT.DELETE_ITEM" | translate}}</button>
+    </div>
+</ng-template>

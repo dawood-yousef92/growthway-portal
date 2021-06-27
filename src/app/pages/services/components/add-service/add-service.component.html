@@ -1,0 +1,386 @@
+<div class="card card-custom example-preview">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 *ngIf="!productId" class="card-label">{{ "MENU.ADD_ITEM" | translate }}</h3>
+            <h3 *ngIf="productId" class="card-label">{{ "TITLE.EDIT_ITEM" | translate }}</h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <form class="form" [formGroup]="itemForm" novalidate="novalidate" (ngSubmit)="submit()">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.CODE' | translate }}" formControlName="code" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- <div class="col-md-6 mb-4">
+                    <button type="button" class="btn btn-primary" (click)="openModal(catModal)">Select Category</button>
+                    <span class="mx-2 label label-xl label-light-primary label-inline" *ngIf="itemForm.controls.categoryId.value">
+                        {{selectedCatName}}
+                    </span>
+                </div> -->
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="categoryId" placeholder="{{'INPUT.CATEGORY' | translate }}" (selectionChange)="categoriesFilter =
+                                ''" required>
+                                <mat-option>
+                                    <ngx-mat-select-search (keyup)="search($event.target.value,'categories')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
+                                </mat-option>
+                                <!-- <div class="p-2 filter">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <input matInput (keyup)="search($event.target.value,'categories')" (keydown)="$event.stopPropagation()" class="w-100">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div> -->
+                                <mat-option *ngFor="let cat of categories" [value]="cat.id" [ngClass]="{'d-none': !cat?.name?.toLowerCase().includes(categoriesFilter?.toLowerCase())}">
+                                    <div class="d-flex align-items-center">
+                                        {{cat.name}}
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                control: itemForm.controls['categoryId']
+                                }"></mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="text" matInput placeholder="{{'INPUT.NAMEEN' | translate }}" formControlName="nameEn" required />
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                        validation: 'required',
+                                        message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                        control: itemForm.controls['nameEn']
+                                        }"></mat-error>
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                        validation: 'pattern',
+                                        message: 'AUTH.VALIDATION.INVALID_FIELD' | translate,
+                                        control: itemForm.controls['nameEn']
+                                        }"></mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="text" matInput placeholder="{{'INPUT.NAMEAR' | translate }}" formControlName="nameAr" required />
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                        validation: 'required',
+                                        message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                        control: itemForm.controls['nameAr']
+                                        }"></mat-error>
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                        validation: 'pattern',
+                                        message: 'AUTH.VALIDATION.INVALID_FIELD' | translate,
+                                        control: itemForm.controls['nameAr']
+                                        }"></mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" formControlName="originCountryId" placeholder="{{'INPUT.ORIGN_COUNTRY' | translate }}" (selectionChange)="countriesFilter = ''" required>
+                                <mat-option>
+                                    <ngx-mat-select-search (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
+                                </mat-option>
+                                <!-- <div class="p-2 filter">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <input matInput (keyup)="search($event.target.value,'countries')" (keydown)="$event.stopPropagation()" class="w-100">
+                                        <mat-icon matSuffix>search</mat-icon>
+                                    </mat-form-field>
+                                </div> -->
+                                <mat-option *ngFor="let country of countries" [value]="country.id" [ngClass]="{'d-none': !country?.name?.toLowerCase().includes(countriesFilter?.toLowerCase())}">
+                                    <div class="d-flex align-items-center">
+                                        <span class="symbol symbol-20 mr-3"><img
+                                                [src]="country.flag"></span>{{country.name}}
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                validation: 'required',
+                                message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                control: itemForm.controls['originCountryId']
+                                }"></mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.DESCRIPTION' | translate }}" formControlName="descriptionEn" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.DESCRIPTIONAR' | translate }}" formControlName="descriptionAr" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.PRICE' | translate }}" formControlName="preTaxUnitPrice" required />
+                                    <span matSuffix class="ml-3">{{'INPUT.SAR' | translate }}</span>
+                                    <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                        validation: 'required',
+                                        message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
+                                        control: itemForm.controls['preTaxUnitPrice']
+                                        }"></mat-error>
+                                </mat-form-field>
+                                <p class="mb-0" *ngIf="itemForm.controls.preTaxUnitPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%) ({{(itemForm.controls.preTaxUnitPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                                <p class="mb-0" *ngIf="itemForm.controls.preTaxUnitPrice.value">{{'TITLE.PRICE_AFTER_TAX' | translate}}: ({{(itemForm.controls.preTaxUnitPrice.value + (itemForm.controls.preTaxUnitPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                                <mat-error *ngIf="checkPrice()" role="alert" class="mat-error ng-tns-c180-2 ng-star-inserted">
+                                    <div class="fv-plugins-message-container">
+                                        <div class="fv-help-block">{{'AUTH.VALIDATION.PRICE_FIELD' | translate }}</div>
+                                    </div>
+                                </mat-error>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <span matSuffix class="ml-3">{{'INPUT.SAR' | translate }}</span>
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.OFF_PRICE' | translate }}" formControlName="preTaxOfferPrice" />
+                                </mat-form-field>
+                                <p class="mb-0" *ngIf="itemForm.controls.preTaxOfferPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%) ({{(itemForm.controls.preTaxOfferPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                                <p class="mb-0" *ngIf="itemForm.controls.preTaxOfferPrice.value">{{'TITLE.OFFER_PRICE_AFTER_TAX' | translate}}: ({{(itemForm.controls.preTaxOfferPrice.value + (itemForm.controls.preTaxOfferPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <mat-select class="py-1" placeholder="{{'INPUT.SH_LIFE_TYPES' | translate }}" formControlName="shelfLifeType">
+                                        <mat-option [value]="null">{{'INPUT.SH_LIFE_TYPES' | translate }}</mat-option>
+                                        <mat-option *ngFor="let item of shelfLifeTypes" [value]="item.id">
+                                            {{'LOOKUPS.'+(item.name | uppercase) | translate}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.SH_LIFE_DUR' | translate }} " formControlName="shelfLifeDuration" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <mat-select class="py-1" placeholder="{{'INPUT.UNIT_OF_MEASUR' | translate }}" formControlName="unitOfMeasurementId">
+                                        <mat-option [value]="null">{{'INPUT.UNIT_OF_MEASUR' | translate }}</mat-option>
+                                        <mat-option *ngFor="let item of unitOfMeasurements" [value]="item.id">
+                                            {{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.MIN_ORDER_QUA' | translate }}" formControlName="minimumOrderQuantity" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" placeholder="{{'INPUT.PACK_TYPES' | translate }}" formControlName="packagingTypeId">
+                                <mat-option [value]="null">{{'INPUT.PACK_TYPES' | translate }}</mat-option>
+                                <mat-option *ngFor="let item of packagingTypes" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <div class="d-flex align-items-start">
+                            <mat-form-field class="w-100">
+                                <input id="tagInput" class="py-1" type="text" matInput placeholder="{{'INPUT.TAGS' | translate }}" />
+                            </mat-form-field>
+                            <button type="button" class="btn btn-primary px-3 py-2" (click)="addTag()">
+                                <h2 class="mb-0">+</h2>
+                            </button>
+                        </div>
+                        <div class="d-flex flex-wrap">
+                            <span class="mr-2 mb-2 label label-lg label-light-primary label-inline" *ngFor="let tag of tags">
+                                {{tag}}
+                                <button type="button"
+                                    class="ml-2 label label-lg label-light-primary label-inline border-0 p-1 text-bold"
+                                    (click)="removeTag(tag)">
+                                    <i class="c-primary flaticon-circle"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-4">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <input id="select-file" class="d-none" type="file" (change)="fileChangeEvent($event)" onclick="this.value = null" accept="image/png, image/jpeg, image/jpg" />
+                            <button [disabled]="itemImages.length > 3" (click)="selectFile()" type="button" class="btn btn-primary">{{'INPUT.ADD_PHOTO' | translate }}<i
+                                    class="flaticon-upload-1 text-white ml-2"></i></button>
+                        </div>
+                        <div class="col-md-4 mb-3" *ngFor="let img of itemImages; let i = index">
+                            <div class="selected-item-images position-relative">
+                                <button type="button" class="make-primary" (click)="itemForm.get('defaultImageIndex').setValue(i)">
+                                    <i *ngIf="i !== itemForm.controls.defaultImageIndex.value" class="far fa-star"></i>
+                                    <i *ngIf="i === itemForm.controls.defaultImageIndex.value" class="fas fa-star"></i>
+                                </button>
+                                <button type="button" class="delete-item" (click)="deleteImg(img)"><i
+                                        class="flaticon-circle"></i></button>
+                                <img [src]="img.base64.imagePath || img.base64" class="cursor-pointer" (click)="itemForm.get('defaultImageIndex').setValue(i)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <app-upload-documents [selectedFiles]="documents" (selectFiles)="selectFiles($event)" class="row"></app-upload-documents>
+                        <div class="row" *ngIf="product?.documents.length > 0">
+                            <div class="col-12 mb-4">
+                                <label for="" class="field-label mb-0">{{'TITLE.PREVIOUS_DOCUMENTS' | translate}}</label>
+                            </div>
+                            <div *ngFor="let file of product?.documents; let i = index" class="col-sm-3 col-4 mb-4">
+                                <div id="uploaded-image-holder" class="uploaded-file-holder">
+                                    <button type="button" (click)="deleteFile(i)" class="btn delete-file sub">
+                                        <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-times fa-w-10 fa-3x"><path fill="#fff" d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z" class=""></path></svg>
+                                    </button>
+                                    <div class="w-100 text-center">
+                                        <img src="../../../../../assets/images/{{getFileIcon(i)}}" alt="default" class="file-img mb-1">
+                                        <a href="{{file.documentUri}}" class="d-block file-name" target="_blank" download>{{file.documentName}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-4">
+                        <mat-checkbox formControlName="isActive">{{'INPUT.ISACTIVE' | translate }}</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" [disabled]="itemForm.invalid || checkPrice()">
+                    {{'INPUT.SAVE' | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ng-template #cropModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{'TITLE.CROP_ITEM_IMG' | translate }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">
+            {{'INPUT.CLOSE' | translate }}</button>
+        <button type="button" class="btn btn-primary" (click)="addCroppedImage(croppedImage)">
+            {{'INPUT.CROP_IMAGE' | translate }}
+        </button>
+        <div class="fv-plugins-message-container ng-star-inserted w-100 text-center" *ngIf="errorImg">
+            <div class="fv-help-block">{{'AUTH.VALIDATION.IMG_SIZE' | translate }}</div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #subCat let-categories="categories">
+    <ng-container *ngIf="categories?.length > 0">
+        <ng-container *ngFor="let cat of categories">
+            <mat-expansion-panel *ngIf="cat.categories?.length > 0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{cat?.name}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
+                </div>
+            </mat-expansion-panel>
+            <mat-panel-title *ngIf="cat.categories?.length === 0" class="mat-expansion-panel-header-title noSub">
+                <mat-radio-button [checked]="itemForm.controls.categoryId.value === cat?.id" (change)="selectCat($event)" [value]="cat?.id">{{cat?.name}}</mat-radio-button>
+            </mat-panel-title>
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #catModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title mb-0">{{'INPUT.SELECT_CAT' | translate }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span class="d-block c-black" aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body categories-modal-body">
+        <mat-radio-group>
+            <mat-accordion class="custom-tree">
+                <ng-container *ngFor="let cat of categories">
+                    <mat-expansion-panel *ngIf="cat.categories?.length > 0">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{cat.name}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div *ngIf="cat.categories?.length > 0" [ngTemplateOutlet]="subCat" [ngTemplateOutletContext]="{categories:cat.categories}">
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-panel-title *ngIf="cat.categories?.length === 0" class="mat-expansion-panel-header-title noSub">
+                        <mat-radio-button (change)="selectCat($event)" [value]="cat?.id">{{cat?.name}}
+                        </mat-radio-button>
+                    </mat-panel-title>
+                </ng-container>
+            </mat-accordion>
+        </mat-radio-group>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">
+            {{'INPUT.DONE' | translate }}</button>
+    </div>
+</ng-template>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+    <mat-error *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+        <div class="fv-plugins-message-container">
+            <div class="fv-help-block">
+                {{ message }}
+            </div>
+        </div>
+    </mat-error>
+</ng-template>
