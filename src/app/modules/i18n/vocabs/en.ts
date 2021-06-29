@@ -300,6 +300,8 @@ export const locale = {
       SELECT_DURATION: 'Select Duration Type',
       VIEW_ALL_ORDERS: 'View All Orders',
       BACK_TO_LOGIN: 'Back To Login',
+      FIRST_NAME: 'First Name',
+      LAST_NAME: 'Last Name'
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',

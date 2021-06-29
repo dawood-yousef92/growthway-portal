@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="permissions.includes('Dashboard.GetTotalOrdersGroupedByStatus')">
     <div class="col-12">
         <div class="card card-custom card-stretch gutter-b">
             <div class="card-header align-items-top border-0 mt-4">
@@ -170,7 +170,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6 mb-3">
+    <div class="col-md-6 mb-3" *ngIf="permissions.includes('Dashboard.GetTopItem')">
         <div class="card card-custom card-stretch gutter-b">
             <div class="card-header border-0 py-0 border-bottom">
                 <h3 class="card-title d-flex align-items-center">
@@ -236,7 +236,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 mb-3">
+    <div class="col-md-6 mb-3" *ngIf="permissions.includes('Dashboard.GetTopCustomers')">
         <div class="card card-custom card-stretch gutter-b">
             <div class="card-header border-0 py-0 border-bottom">
                 <h3 class="card-title d-flex align-items-center">
@@ -304,7 +304,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="permissions.includes('Dashboard.GetExpectedDeliveryOrders')">
     <div class="col-12">
         <div class="card card-custom card-stretch gutter-b">
             <div class="card-header border-0 py-0 border-bottom">

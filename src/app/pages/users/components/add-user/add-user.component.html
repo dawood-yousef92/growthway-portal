@@ -32,16 +32,6 @@
                                 <div class="col-md-4">
                                     <div class="mb-4">
                                         <mat-form-field class="w-100">
-                                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.USER_NAME' | translate}}" formControlName="name" />
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="mb-4">
-                                        <mat-form-field class="w-100">
-                                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.FULL_NAME' | translate}}" formControlName="surname" />
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="mb-4">
-                                        <mat-form-field class="w-100">
                                             <input class="py-1" type="text" matInput placeholder="{{'INPUT.EMAIL' | translate}}" formControlName="email" />
                                         </mat-form-field>
                                         <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
@@ -49,6 +39,16 @@
                                             message:'AUTH.VALIDATION.EMAIL_MSG' | translate,
                                             control: addUser.controls['email']
                                             }"></mat-error>
+                                    </div>
+                                    <div class="mb-4">
+                                        <mat-form-field class="w-100">
+                                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.FIRST_NAME' | translate}}" formControlName="name" />
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="mb-4">
+                                        <mat-form-field class="w-100">
+                                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.LAST_NAME' | translate}}" formControlName="surname" />
+                                        </mat-form-field>
                                     </div>
                                     <div class="mb-4">
                                         <mat-form-field class="w-100">

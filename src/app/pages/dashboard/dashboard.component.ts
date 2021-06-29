@@ -11,6 +11,7 @@ import { DashboardService } from './dashboard.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  permissions = localStorage.getItem('permissions');
   colorsGrayGray100: string;
   colorsGrayGray700: string;
   colorsThemeBaseSuccess: string;

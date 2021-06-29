@@ -298,6 +298,8 @@ export const locale = {
       SELECT_DURATION: 'اختر الفترة الزمنية',
       VIEW_ALL_ORDERS: 'مشاهدة جميع الطلبات',
       BACK_TO_LOGIN: 'تسجيل الدخول',
+      FIRST_NAME: 'الاسم الاول',
+      LAST_NAME: 'اسم العائلة'
     },
 
     TITLE: {

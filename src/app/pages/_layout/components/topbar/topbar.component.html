@@ -13,9 +13,9 @@
         <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px" ngbDropdownToggle>
             <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2">
                 <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">{{'TITLE.HI' | translate}},</span>
-                <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ _user.username }}</span>
+                <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ _user.name }}</span>
                 <span class="symbol symbol-35 symbol-light-success">
-                    <span class="symbol-label font-size-h5 font-weight-bold">{{ _user.username | firstLetter}}</span>
+                    <span class="symbol-label font-size-h5 font-weight-bold">{{ _user.name | firstLetter}}</span>
                 </span>
             </div>
         </div>
@@ -28,13 +28,13 @@
                     <div class="d-flex align-items-center p-8 rounded-top">
                         <!--begin::Symbol-->
                         <div class="symbol symbol-md bg-light-primary mr-3 flex-shrink-0">
-                            <img src="./assets/media/users/300_21.jpg" alt="" />
+                            <img [src]="_user.avatarUri || './assets/media/users/300_21.jpg'" alt="" />
                         </div>
                         <!--end::Symbol-->
 
                         <!--begin::Text-->
                         <div class="text-dark m-0 flex-grow-1 mr-3">
-                            {{ _user.username }}<br> {{ _user.email }}<br> {{ _user.phoneNumber }}
+                            {{ _user.name }}<br> {{ _user.email }}<br> {{ _user.phoneNumber }}
                         </div>
                         <!--end::Text-->
                     </div>
