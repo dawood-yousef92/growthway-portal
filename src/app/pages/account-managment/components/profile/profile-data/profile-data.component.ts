@@ -118,10 +118,7 @@ export class ProfileDataComponent implements OnInit {
     if(this.changeProfileImage) {
       formData.append('avatar', this.changeProfileImage as any, this.changeProfileImage['name']);
     }
-    else {
-      formData.append('avatar', null);
-    }
-    if(this.oldAvatarUri) {
+    if(this.oldAvatarUri && this.changeProfileImage) {
       formData.append('avatarUri', this.oldAvatarUri);
     }
     this.manageAccountServise.updateUserProfile(formData).subscribe((data) => {
