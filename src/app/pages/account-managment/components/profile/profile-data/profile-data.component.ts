@@ -26,21 +26,28 @@ export class ProfileDataComponent implements OnInit {
     private loderService: LoaderService,
     private toaster: ToastrService,) { }
 
-  initForm() {
-    this.userForm = this.fb.group({
-      phone: [
-        this.userData?.phoneNumber || '',
-        Validators.compose([
-          Validators.pattern("[0-9]+"),
-          Validators.maxLength(11),
-        ]),
-      ],
-      username: [
-        this.userData?.username || 'sss',
-      ],
-    });
-  }
-
+    initForm() {
+      this.userForm = this.fb.group(
+      {
+        email: [
+          this.userData?.email || '',
+        ],
+        name: [
+          this.userData?.name || '',
+        ],
+        surname: [
+          this.userData?.surname || '',
+        ],
+        phoneNumber: [
+          this.userData?.phoneNumber || '',
+          Validators.compose([
+            Validators.pattern("[0-9]+"),
+            Validators.maxLength(11),
+          ]),
+        ],
+      });
+    }
+  
   
   changePhoto() {
     document.getElementById('photoInput').click();
@@ -83,6 +90,9 @@ export class ProfileDataComponent implements OnInit {
     this.initForm();
     this.auth.getUserByToken().subscribe((data) => {
       this.userData = data.result;
+      if(data.result.avatarUri) {
+        this.selectedImageUrl = data.result.avatarUri;
+      }
       this.initForm();
     });
 
@@ -90,7 +100,21 @@ export class ProfileDataComponent implements OnInit {
 
   submit() {
     this.loderService.setIsLoading = true;
-    this.manageAccountServise.updateUserProfile({phoneNumber:this.userForm.controls.phone.value}).subscribe((data) => {
+    var formData: FormData = new FormData();
+    formData.append('name', this.userForm.controls.name.value);
+    formData.append('surname', this.userForm.controls.surname.value);
+    formData.append('phoneNumber', this.userForm.controls.phoneNumber.value);
+    if(this.changeProfileImage) {
+      formData.append('avatar', this.changeProfileImage as any, this.changeProfileImage['name']);
+      formData.append('isAvatarAdded', 'true');
+    }
+    else {
+      formData.append('isAvatarAdded', 'false');
+    }
+    if(this.selectedImageUrl && !this.changeProfileImage) {
+      formData.append('avatarUri', this.selectedImageUrl);
+    }
+    this.manageAccountServise.updateUserProfile(formData).subscribe((data) => {
       this.auth.getUserByToken().subscribe(data => {
         this.auth.currentUserDetails =  data.result;
       });

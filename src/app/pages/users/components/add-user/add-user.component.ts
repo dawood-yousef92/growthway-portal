@@ -94,7 +94,7 @@ export class AddUserComponent implements OnInit {
     this.addUser = this.fb.group(
     {
       name: [
-        this.userData?.userName || '',
+        this.userData?.name || '',
       ],
       surname: [
         this.userData?.surname || '',

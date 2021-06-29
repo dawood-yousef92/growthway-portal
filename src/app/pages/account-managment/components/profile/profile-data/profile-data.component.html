@@ -2,97 +2,49 @@
     <div class="col-12" *ngIf="userData">
         <form class="form" [formGroup]="userForm" novalidate="novalidate" (ngSubmit)="submit()">
             <div class="row">
-                <!-- <div class="col-md-12 mb-9">
-                    <div class="d-flex align-items-center flex-wrap">
-                        <div class="my-profile-img" style="background-image: url('{{selectedImageUrl || defaultImage}}');"></div>
-                        <div>
-                            <button type="button" (click)="changePhoto()" class="btn btn-default mx-sm-4 mx-3 c-white border-white d-block mb-3">Change Photo</button>
-                            <button *ngIf="selectedImageUrl" type="button" (click)="removePhoto()" class="btn btn-default mx-sm-4 mx-3 c-white border-white">Remove Photo</button>
+                <div class="col-md-12">
+                    <div class=" mb-md-5 mb-3 d-flex align-items-center flex-wrap">
+                        <div class="my-profile-img" style="background-image: url('{{selectedImageUrl || defaultImage}}');">
                         </div>
-                        <input id="photoInput" type="file" accept=".PNG,.JPEG,.jpg" (change)="readURL($event)" class="d-none" placeholder="Enter photo">
-                        <p *ngIf="errorImageSize" class="c-red mb-0">Please select photo whith size less than 2M</p>
+                        <div>
+                            <button type="button" (click)="changePhoto()" class="btn btn-default mx-sm-4 mx-3 c-white border-white d-block
+                                mb-3">{{'INPUT.CHANGE_PHOTO' | translate}}</button>
+                            <button *ngIf="selectedImageUrl" type="button" (click)="removePhoto()" class="btn btn-default mx-sm-4 mx-3 c-white
+                                border-white">{{'INPUT.REMOVE_PHOTO' | translate}}</button>
+                        </div>
+                        <input id="photoInput" type="file" accept=".PNG,.JPEG,.jpg" (change)="readURL($event)" class="d-none" placeholder="{{'INPUT.ENTERPHOTO' | translate}} ">
+                        <p *ngIf="errorImageSize" class="c-red mb-0">
+                            {{'VALIDATION.IMG_VAL_FIELD' | translate}}
+                        </p>
                     </div>
-                </div> -->
-                <!-- <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <input matInput placeholder="Email Address" [value]="userData.email" disabled>
-                    </mat-form-field>
-                </div> -->
-                <!-- <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <input matInput placeholder="Company Name"/>    
-                    </mat-form-field>
-                </div> -->
-                <!-- <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <input matInput placeholder="Full Name" formControlName="username"/>    
-                    </mat-form-field>
-                </div> -->
-                <!-- <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <mat-select placeholder="Profession">
-                            <mat-option *ngFor="let currency of ['Profession', 'representative']" [value]="currency">{{currency}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
                 </div>
-                <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <mat-select placeholder="Country">
-                            <mat-option *ngFor="let country of ['Jordan', 'KSA']" [value]="country">{{country}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                <div class="col-md-4">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.EMAIL' | translate}}" formControlName="email" readonly/>
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.FIRST_NAME' | translate}}" formControlName="name" />
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.LAST_NAME' | translate}}" formControlName="surname" />
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.PHONE_NUMBER' | translate}}" formControlName="phoneNumber" />
+                            <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                                validation: 'pattern',
+                               message:'AUTH.VALIDATION.PHONE_MSG' | translate,
+                                control: userForm.controls['phoneNumber']
+                                }"></mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <mat-select placeholder="City">
-                            <mat-option *ngFor="let city of ['Amman', 'Irbid']" [value]="city">{{city}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div> -->
-                <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <input matInput placeholder="{{ 'INPUT.PHONE_NUMBER' | translate }}" formControlName="phone" />
-                        <!-- <span matPrefix class="mr-4">+962</span>   -->
-                        <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-                            validation: 'pattern',
-                            message: 'Phone is invalid',
-                            control: userForm.controls['phone']
-                            }"></mat-error>
-                    </mat-form-field>
-                </div>
-                <!-- <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <input matInput placeholder="Mobile" formControlName="phone"/>
-                        <span matPrefix class="mr-4">+962</span>  
-                        <mat-error
-                            [ngTemplateOutlet]="formError"
-                            [ngTemplateOutletContext]="{
-                            validation: 'pattern',
-                            message: 'Phone is invalid',
-                            control: userForm.controls['phone']
-                            }"
-                        ></mat-error>
-                    </mat-form-field>
-                </div> -->
-                <!-- <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <mat-select placeholder="Currency">
-                            <mat-option *ngFor="let currency of ['JOD', 'SAR']" [value]="currency">{{currency}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <input matInput placeholder="Address"/>    
-                    </mat-form-field>
-                </div>
-                <div class="col-md-6 mb-6">
-                    <mat-form-field class="w-100">
-                        <mat-select placeholder="Other Data Language">
-                            <mat-option *ngFor="let language of ['Arabic', 'English']" [value]="language">{{language}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div> -->
             </div>
             <div>
                 <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">

@@ -11,8 +11,8 @@ export class ManageAccountServise {
     baseUrl = environment.apiUrl;
     constructor(private http: HttpClient){}
 
-    updateUserProfile(phoneNumber:any): Observable<any> {
-        return this.http.put<any>('Manage/UpdateUserProfile', phoneNumber);
+    updateUserProfile(data): Observable<any> {
+        return this.http.put<any>('Manage/UpdateUserProfile', data);
     }
 
     changePassword(data:any): Observable<any> {
