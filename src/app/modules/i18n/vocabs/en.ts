@@ -374,6 +374,7 @@ export const locale = {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',
       EXPECTED_DELIVERY_DATE: 'Expected delivery date must be today or in futre',
       ALLOWED_DOCUMENTS: 'Allowed size for every file is 2M | Allowed formats are .doc, .docs, .pdf, .txt, .docx, .jpg, .jpeg, .png',
+      IMG_VAL_FIELD: 'Allowed size is 2M | Allowed formats are .jpg, .jpeg, .png'
     },
     LOOKUPS: {
       HOUR: 'Hour',

@@ -373,6 +373,8 @@ export const locale = {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',
       EXPECTED_DELIVERY_DATE: 'تاريخ التوصيل المتوقع يجب ان لا يكون بالماضي',
       ALLOWED_DOCUMENTS: 'حجم الملف يجب ان يكون اقل من 2 ميجابايت وان يكون امتداده واحد من الاتي .doc, .docs, .pdf, .txt, .docx, .jpg, .jpeg, .png',
+      IMG_VAL_FIELD: 'حجم الصورة يجب ان يكون اقل من 2 ميجابايت وان يكون امتداده واحد من الاتي .jpg, .jpeg, .png'
+
     },
     LOOKUPS: {
       HOUR: 'ساعة',
