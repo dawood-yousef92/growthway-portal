@@ -16,6 +16,7 @@ export class ProfileDataComponent implements OnInit {
   defaultImage = './assets/media/users/blank.png';
   selectedImageName:string;
   changeProfileImage:File;
+  oldAvatarUri:string;
 
   userData: any;
   userForm: FormGroup;
@@ -97,6 +98,7 @@ export class ProfileDataComponent implements OnInit {
       this.changeProfileImage = null;
       if(data.result.avatarUri) {
         this.selectedImageUrl = data.result.avatarUri;
+        this.oldAvatarUri = data.result.avatarUri;
       }
       this.initForm();
       this.loderService.setIsLoading = false;
@@ -117,12 +119,7 @@ export class ProfileDataComponent implements OnInit {
     else {
       formData.append('avatar', null);
     }
-    if(this.selectedImageUrl && !this.changeProfileImage) {
-      formData.append('avatarUri', this.selectedImageUrl);
-    }
-    else {
-      formData.append('avatarUri', null);
-    }
+    formData.append('avatarUri', this.oldAvatarUri);
     this.manageAccountServise.updateUserProfile(formData).subscribe((data) => {
       this.auth.getUserByToken().subscribe(data => {
         this.auth.currentUserDetails =  data.result;
