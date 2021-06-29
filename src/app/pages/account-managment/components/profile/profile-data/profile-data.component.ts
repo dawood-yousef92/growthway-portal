@@ -87,15 +87,22 @@ export class ProfileDataComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initForm();
+    this.getUser();
+  }
+
+  getUser() {
+    this.loderService.setIsLoading = true;
     this.auth.getUserByToken().subscribe((data) => {
       this.userData = data.result;
+      this.changeProfileImage = null;
       if(data.result.avatarUri) {
         this.selectedImageUrl = data.result.avatarUri;
       }
       this.initForm();
+      this.loderService.setIsLoading = false;
+    }, () => {
+      this.loderService.setIsLoading = false;
     });
-
   }
 
   submit() {
@@ -106,18 +113,21 @@ export class ProfileDataComponent implements OnInit {
     formData.append('phoneNumber', this.userForm.controls.phoneNumber.value);
     if(this.changeProfileImage) {
       formData.append('avatar', this.changeProfileImage as any, this.changeProfileImage['name']);
-      formData.append('isAvatarAdded', 'true');
     }
     else {
-      formData.append('isAvatarAdded', 'false');
+      formData.append('avatar', null);
     }
     if(this.selectedImageUrl && !this.changeProfileImage) {
       formData.append('avatarUri', this.selectedImageUrl);
+    }
+    else {
+      formData.append('avatarUri', null);
     }
     this.manageAccountServise.updateUserProfile(formData).subscribe((data) => {
       this.auth.getUserByToken().subscribe(data => {
         this.auth.currentUserDetails =  data.result;
       });
+      this.getUser();
       this.loderService.setIsLoading = false;
       this.toaster.success(data.result);
     },(error) => {
