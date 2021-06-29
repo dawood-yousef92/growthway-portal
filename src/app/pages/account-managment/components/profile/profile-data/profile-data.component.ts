@@ -16,7 +16,7 @@ export class ProfileDataComponent implements OnInit {
   defaultImage = './assets/media/users/blank.png';
   selectedImageName:string;
   changeProfileImage:File;
-  oldAvatarUri:string;
+  oldAvatarUri:string = null;
 
   userData: any;
   userForm: FormGroup;
@@ -98,7 +98,9 @@ export class ProfileDataComponent implements OnInit {
       this.changeProfileImage = null;
       if(data.result.avatarUri) {
         this.selectedImageUrl = data.result.avatarUri;
-        this.oldAvatarUri = data.result.avatarUri;
+        if(data.result.avatarUri) {
+          this.oldAvatarUri = data.result.avatarUri;
+        }
       }
       this.initForm();
       this.loderService.setIsLoading = false;
