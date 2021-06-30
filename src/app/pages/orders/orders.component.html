@@ -8,7 +8,7 @@
                             <mat-option>
                                 <ngx-mat-select-search (keyup)="search($event.target.value,'customers')" (keydown)="$event.stopPropagation()"></ngx-mat-select-search>
                             </mat-option> 
-                            <mat-option [value]="''">{{'INPUT.FILTER_BY' | translate }}</mat-option>
+                            <mat-option [value]="null">{{'INPUT.FILTER_BY' | translate }}</mat-option>
                             <mat-option *ngFor="let customer of customers" [value]="customer.id"  [ngClass]="{'d-none': !customer?.name?.toLowerCase().includes(customersFilter?.toLowerCase())}">
                                 {{customer.name}}
                             </mat-option>
@@ -18,7 +18,7 @@
                 <div class="col-md-2">
                     <mat-form-field class="w-100">
                         <mat-select class="py-1" formControlName="branchId" (selectionChange)="changeBranch($event)" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}">
-                            <mat-option [value]="''">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
+                            <mat-option [value]="null">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
                             <mat-option *ngFor="let branch of branches" [value]="branch.id">
                                 {{branch.name}}
                             </mat-option>

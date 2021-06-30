@@ -24,8 +24,8 @@ export class OrdersComponent implements OnInit {
         {id: 4, name:'LAST_MONTH'},
         {id: 5, name:'LAST_YEAR'}
     ]
-    customerId:string = '';
-    branchId:string = '';
+    customerId:string = null;
+    branchId:string = null;
     dateFrom:any = null;
     dateTo:any = null;
     selectedDateFrom:string = null;
