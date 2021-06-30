@@ -300,7 +300,7 @@ export const locale = {
       BACK_TO_LOGIN: 'تسجيل الدخول',
       FIRST_NAME: 'الاسم الاول',
       LAST_NAME: 'اسم العائلة',
-      BUYER_COMPANY_NAME: 'اسم شركة المشتري'
+      BUYER_COMPANY_NAME: 'اسم شركة العميل'
     },
 
     TITLE: {

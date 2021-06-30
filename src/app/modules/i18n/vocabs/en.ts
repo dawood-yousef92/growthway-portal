@@ -302,7 +302,7 @@ export const locale = {
       BACK_TO_LOGIN: 'Back To Login',
       FIRST_NAME: 'First Name',
       LAST_NAME: 'Last Name',
-      BUYER_COMPANY_NAME: 'Buyer Company Name'
+      BUYER_COMPANY_NAME: 'Customer Company Name'
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
