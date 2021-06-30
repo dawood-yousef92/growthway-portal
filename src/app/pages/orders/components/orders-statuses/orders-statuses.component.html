@@ -19,7 +19,7 @@
                         <mat-form-field class="w-100">
                             <mat-select class="py-1" formControlName="branchId" placeholder="{{'INPUT.SELECT_BRANCH' | translate }}" required>
                                 <mat-option [value]="''">{{'INPUT.SELECT_BRANCH' | translate }}</mat-option>
-                                <mat-option *ngFor="let branch of branches" [value]="branch.id">
+                                <mat-option *ngFor="let branch of branches" [value]="branch.branchId">
                                     {{branch.name}}
                                 </mat-option>
                             </mat-select>
