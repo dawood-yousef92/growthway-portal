@@ -299,7 +299,8 @@ export const locale = {
       VIEW_ALL_ORDERS: 'مشاهدة جميع الطلبات',
       BACK_TO_LOGIN: 'تسجيل الدخول',
       FIRST_NAME: 'الاسم الاول',
-      LAST_NAME: 'اسم العائلة'
+      LAST_NAME: 'اسم العائلة',
+      BUYER_COMPANY_NAME: 'اسم شركة المشتري'
     },
 
     TITLE: {

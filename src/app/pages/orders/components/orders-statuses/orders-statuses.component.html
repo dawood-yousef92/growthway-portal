@@ -134,6 +134,9 @@
             <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ORDER_NUMBER' | translate}}</span>: {{orderDetails?.orderNumber || '----'}}</p>
         </div>
         <div class="col-md-6 mb-3">
+            <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.BUYER_COMPANY_NAME' | translate}}:</span><img *ngIf="orderDetails?.buyerCompanyLogo" src="{{orderDetails?.buyerCompanyLogo}}" class="buyer-logo" alt="">{{orderDetails?.buyerCompanyName || '----'}}</p>
+        </div>
+        <div class="col-md-6 mb-3">
             <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_NAME' | translate}}:</span> {{orderDetails?.name || '----'}}</p>
         </div>
         <div class="col-md-6 mb-3">
@@ -143,7 +146,7 @@
             <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_PHONE_NUMBER' | translate}}:</span> {{orderDetails?.phone || '----'}}</p>
         </div>
         <div class="col-md-6 mb-3">
-            <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TABLE.CREATEDON' | translate}}:</span> {{getDateTimeFormat(orderDetails?.createdOn)}}</p>
+            <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TABLE.CREATEDON' | translate}}:</span> {{getDateFormat(orderDetails?.createdOn)}} {{getDateTimeFormat(orderDetails?.createdOn)}}</p>
         </div>
         <div class="col-md-6 mb-3">
             <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ESTIMATED_DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.expectedDeliveryDate)}}</p>

@@ -252,6 +252,11 @@ export class OrdersStatusesComponent implements OnInit {
 					input.w-70px + span.d-none {
 						display: block;
 					}
+					.buyer-logo {
+						height: 35px;
+						margin: 0 10px;
+						vertical-align: middle;
+					}
 				}
 				/*** end print **/
 			  </style>

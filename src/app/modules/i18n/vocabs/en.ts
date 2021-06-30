@@ -301,7 +301,8 @@ export const locale = {
       VIEW_ALL_ORDERS: 'View All Orders',
       BACK_TO_LOGIN: 'Back To Login',
       FIRST_NAME: 'First Name',
-      LAST_NAME: 'Last Name'
+      LAST_NAME: 'Last Name',
+      BUYER_COMPANY_NAME: 'Buyer Company Name'
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
