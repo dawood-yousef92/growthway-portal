@@ -84,7 +84,7 @@ export class OrdersComponent implements OnInit {
 	}
 
     getBranches() {
-        this.branchesService.getBranches({}).subscribe((data) => {
+        this.branchesService.getBranchesByUser({}).subscribe((data) => {
             this.branches = data.result.branches.items;
         });
     }

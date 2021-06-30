@@ -11,6 +11,10 @@ export class BranchesService {
     getBranches(dataSettings): Observable<any> {
         return this.http.post<any>('Branches/GetBranches', dataSettings);
     }
+
+    getBranchesByUser(dataSettings): Observable<any> {
+        return this.http.post<any>('Branches/GetBranchesByUser', dataSettings);
+    }
     
     deleteBranch(id): Observable<any> {
         return this.http.delete<any>(`Branches/DeleteBranch?id=${id}`);
