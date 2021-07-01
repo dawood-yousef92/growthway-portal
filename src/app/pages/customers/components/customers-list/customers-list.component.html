@@ -80,11 +80,28 @@
 			</div>
 			<div class="col-12 mb-4" *ngIf="customer?.shippingAddresDtos?.length > 0">
 				<p class="font-weight-boldest mb-3">{{'TITLE.CUSTOMER_SHIPPING_ADDRESSES' | translate}}:</p>
-				<ul class="px-7">
-					<li *ngFor="let address of customer?.shippingAddresDtos">
-						<p class="mb-0">--</p>
-					</li>
-				</ul>
+				<div class="border mb-3 p-4" *ngFor="let address of customer?.shippingAddresDtos">
+					<div class="row">
+						<div class="col-sm-6">
+							<p class="mb-0"><span class="font-weight-boldest mb-3">{{'TITLE.COUNTRY' | translate}}:</span> {{address?.country?.nameEn}}, {{address?.country?.nameAr}}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="mb-0"><span class="font-weight-boldest mb-3">{{'TITLE.CITY' | translate}}:</span> {{address?.city?.nameEn}}, {{address?.city?.nameAr}}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="mb-0"><span class="font-weight-boldest mb-3">{{'TITLE.ADDRESS_LINE_1' | translate}}:</span> {{address?.addressLine1 || '----'}}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="mb-0"><span class="font-weight-boldest mb-3">{{'TITLE.ADDRESS_LINE_2' | translate}}:</span> {{address?.addressLine2 || '----'}}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="mb-0"><span class="font-weight-boldest mb-3">{{'INPUT.NAME' | translate}}:</span> {{address?.firstName}} {{address?.lastName}}</p>
+						</div>
+						<div class="col-sm-6">
+							<p class="mb-0"><span class="font-weight-boldest mb-3">{{'INPUT.PHONE_NUMBER' | translate}}:</span> {{address?.phoneNumber || '----'}}</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

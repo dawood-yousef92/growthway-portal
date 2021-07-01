@@ -15,7 +15,7 @@ import { BranchesService } from '../../branches.service';
 })
 export class AddBranchComponent implements OnInit {
   branchForm: FormGroup;
-  branchtId = null;
+  branchId = null;
   countriesFilter:string = '';
   usersFilter:string = '';
   countries:any[] = [];
@@ -24,6 +24,7 @@ export class AddBranchComponent implements OnInit {
   pastLocation:any;
   fullAddressText:string;
   users:any[];
+  oldDefault:boolean;
 
   constructor(
     private generalService:GeneralService,
@@ -78,21 +79,12 @@ export class AddBranchComponent implements OnInit {
         this.branch?.addressAr || '',
       ],
       isActive: [
-        this.getStatus(this.branch?.isActive),
+        this.branch?.isActive || true,
       ],
       isDefault: [
-        this.getStatus(this.branch?.isDefault),
+        this.branch?.isDefault || false,
       ],
     });
-  }
-
-  getStatus(status) {
-    if(status === false) {
-      return false;
-    }
-    else {
-      return true;
-    }
   }
 
   getUsers() {
@@ -130,11 +122,12 @@ export class AddBranchComponent implements OnInit {
 
   getBranch() {
     this.loderService.setIsLoading = true;
-    this.branchesService.getBranch(this.branchtId).subscribe((data) => {
+    this.branchesService.getBranch(this.branchId).subscribe((data) => {
       this.branch = data.result.branchForEdit;
       this.getCities({value:this.branch?.countryId});
       this.initForm();
       this.pastLocation = {lat: this.branch?.latitude, lng: this.branch?.longitude};
+      this.oldDefault = data.result.branchForEdit.isDefault;
       setTimeout(() => {
         this.getFullAddressName();
       },500);
@@ -183,7 +176,7 @@ export class AddBranchComponent implements OnInit {
     }
     formData.append('isActive',this.branchForm.controls.isActive.value);
     formData.append('isDefault',this.branchForm.controls.isDefault.value);
-    if(!this.branchtId) {
+    if(!this.branchId) {
       this.branchesService.createBranch(formData).subscribe((data) => {
         this.toaster.success(data.result.successMessage);
         this.loderService.setIsLoading = false;
@@ -193,7 +186,7 @@ export class AddBranchComponent implements OnInit {
       });
     }
     else {
-      formData.append('id',this.branchtId);
+      formData.append('id',this.branchId);
       this.branchesService.updateBranch(formData).subscribe((data) => {
         this.toaster.success(data.result);
         this.loderService.setIsLoading = false;
@@ -213,8 +206,8 @@ export class AddBranchComponent implements OnInit {
     this.getCountries();
     this.initForm();
     this.route.params.subscribe((data) => {
-      this.branchtId = data.id;
-      if(this.branchtId) {
+      this.branchId = data.id;
+      if(this.branchId) {
         this.getBranch();
       }
     });

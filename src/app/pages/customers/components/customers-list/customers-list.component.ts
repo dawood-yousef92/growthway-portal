@@ -34,7 +34,7 @@ export class CustomersListComponent implements OnInit {
     selectedPageSize: 0
   }
 
-  displayedColumns: string[] = ['logo', 'name', 'email', 'isVerified', 'phoneNumber'];
+  displayedColumns: string[] = ['logo', 'name', 'createdOn', 'email', 'isVerified', 'phoneNumber'];
   actions:any = [];
   pagingData:any = {length: 100, pageSize: 10, pageIndex: 1};
   gridData:any[] = [];
@@ -75,6 +75,23 @@ export class CustomersListComponent implements OnInit {
 			this.dateTo || null
 		  ],
 		})
+	}
+
+  getDateFormat(date) {
+		if(!date)
+		   return '----';
+
+		var d = new Date(date),
+			month = '' + (d.getMonth() + 1),
+			day = '' + (d.getDate()),
+			year = d.getFullYear();
+			
+		if (month.length < 2) 
+			month = '0' + month;
+		if (day.length < 2) 
+			day = '0' + day;
+	
+		return [ day, month, year,].join('/');
 	}
 
   changeFilterType(e) {
@@ -137,6 +154,7 @@ export class CustomersListComponent implements OnInit {
         else {
           item.isVerified = '<span class="label label-lg label-light-danger label-inline">' + this.translate.instant('TITLE.NOT_VERIFIED') + '</span>';
         }
+        item.createdOn = this.getDateFormat(item.createdOn);
         return item;
       })
       this.gridData = data.result.item.items;

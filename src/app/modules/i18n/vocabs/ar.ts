@@ -371,6 +371,11 @@ export const locale = {
       PRICE_AFTER_TAX: 'السعر بعد الضريبة',
       OFFER_PRICE_AFTER_TAX: 'سعر العرض بعد الضريبة',
       FILE_TAX_NUMBER: 'رقم الملف الضريبي',
+      COUNTRY: 'الدولة',
+      CITY: 'المدينة',
+      ADDRESS_LINE_1: 'تفاصيل العنوان 1',
+      ADDRESS_LINE_2: 'تفاصيل العنوان 2',
+      BRANCH: 'الفرع',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',

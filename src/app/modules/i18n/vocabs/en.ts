@@ -372,6 +372,11 @@ export const locale = {
       PRICE_AFTER_TAX: 'Price after tax',
       OFFER_PRICE_AFTER_TAX: 'Offer price after tax',
       FILE_TAX_NUMBER: 'File Tax Number',
+      COUNTRY: 'Country',
+      CITY: 'City',
+      ADDRESS_LINE_1: 'Address Line 1',
+      ADDRESS_LINE_2: 'Address Line 2',
+      BRANCH: 'Branch',
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',

@@ -358,6 +358,8 @@ export class OrdersStatusesComponent implements OnInit {
 			id: this.orderId,
 			deliveryDate: this.sentOrderForm.controls.deliveryDate.value,
 			driverId: this.sentOrderForm.controls.driverId.value,
+			expectedDeliveryDate: this.orderDetails?.expectedDeliveryDate,
+			branchId: this.orderDetails?.branchId,
 		}).subscribe((data) => {
 			this.toaster.success(data.result);
 			this.loderService.setIsLoading = false;
@@ -407,24 +409,40 @@ export class OrdersStatusesComponent implements OnInit {
 	}
 
 	checkPermissions() {
-   		if(this.permissions.includes('Orders.GetOrder') && this.statusId !== 'bd0a4950-4559-40ce-a6fe-4d081aa7a880') {
+   		if(this.permissions.includes('Orders.GetOrder"') && this.statusId !== 'bd0a4950-4559-40ce-a6fe-4d081aa7a880') {
 		  	this.customActions.push({name: 'View', icon:'flaticon-eye text-warning'})
 		}
 		if((this.permissions.includes('Orders.UpdateOrder')) && this.statusId === 'bd0a4950-4559-40ce-a6fe-4d081aa7a880') {
-			this.customActions.push({name: 'Edit', icon:'flaticon-edit text-warning'});
-			this.customActions.push({name: 'Accept', icon:'flaticon2-check-mark text-success'});
-			this.customActions.push({name: 'Reject', icon:'flaticon2-cancel-music text-danger'});
+			if(this.permissions.includes('Orders.CalculateOrder')) {
+				this.customActions.push({name: 'Edit', icon:'flaticon-edit text-warning'});
+			}
+			if(this.permissions.includes('Orders.Accept')){
+				this.customActions.push({name: 'Accept', icon:'flaticon2-check-mark text-success'});
+			}
+			if(this.permissions.includes('Orders.Reject')){
+				this.customActions.push({name: 'Reject', icon:'flaticon2-cancel-music text-danger'});
+			}
 		}
 		if((this.permissions.includes('Orders.UpdateOrder')) && this.statusId === 'c91d4598-1bfd-42bb-abaf-c161151cb127') {
-			this.customActions.push({name: 'Send', icon:'flaticon2-delivery-truck text-success'});
-			this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
+			if(this.permissions.includes('Orders.Send')){
+				this.customActions.push({name: 'Send', icon:'flaticon2-delivery-truck text-success'});
+			}
+			if(this.permissions.includes('Orders.Reset')){
+				this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
+			}
 		}
 		if((this.permissions.includes('Orders.UpdateOrder')) && this.statusId === '8ce0ae9c-511b-4992-84a0-b05fa61d1e78') {
-			this.customActions.push({name: 'Delivered', icon:'flaticon2-box text-success'});
-			this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
+			if(this.permissions.includes('Orders.Delivered')){
+				this.customActions.push({name: 'Delivered', icon:'flaticon2-box text-success'});
+			}
+			if(this.permissions.includes('Orders.Reset')){
+				this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
+			}
 		}
 		if((this.permissions.includes('Orders.UpdateOrder')) && (this.statusId === '0d014e78-7887-4f53-ab63-94f9fad40193' || this.statusId === 'f18a701e-55a7-476a-bcaa-c7c894041a29' )) {
-			// this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
+			// if(this.permissions.includes('Orders.Reset')){
+			// 	this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
+			// }
 		}
 		if(this.customActions.length > 0) {
 		  	this.displayedColumns.push('actions');
@@ -467,6 +485,7 @@ export class OrdersStatusesComponent implements OnInit {
 	ngOnInit() {
 		this.checkPermissions();
 		this.getCompanyDrivers();
+		console.log(this.permissions);
 	}
 
 	getTax() {
