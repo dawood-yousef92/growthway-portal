@@ -27,7 +27,7 @@ export class OrdersStatusesComponent implements OnInit {
 	@Input() branches:any[];
 	permissions = localStorage.getItem('permissions');
 	customActions:any[] = [];
-	displayedColumns: string[] = ['orderNumber', 'createdOn', 'createdTime', 'customerName', 'customerPhone', 'status', 'totalDueAmount'];
+	displayedColumns: string[] = ['orderNumber', 'createdOn', 'createdTime', 'branchName', 'companyName', 'status', 'totalDueAmount'];
 	actions:any = [];
 	gridData:any[] = [];
 	orderId:string;
@@ -256,6 +256,9 @@ export class OrdersStatusesComponent implements OnInit {
 						height: 35px;
 						margin: 0 10px;
 						vertical-align: middle;
+					}
+					.border {
+						border: 1px solid #444;
 					}
 				}
 				/*** end print **/

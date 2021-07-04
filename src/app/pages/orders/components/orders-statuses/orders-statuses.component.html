@@ -160,6 +160,28 @@
         <div class="col-md-6 mb-3">
             <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TITLE.BRANCH' | translate}}:</span> {{orderDetails?.branchName || '----'}}</p>
         </div>
+        <div class="col-md-12 mb-3">
+            <p class="font-weight-boldest mb-1">{{'TITLE.CUSTOMER_SHIPPING_ADDRESS' | translate}}:</p>
+            <div class="border mb-3 px-4 pt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-2"><span class="font-weight-boldest mb-3">{{'TABLE.NAME' | translate}}:</span> {{orderDetails?.shippingAddress?.firstName}} {{orderDetails?.shippingAddress?.lastName}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-2"><span class="font-weight-boldest mb-3">{{'INPUT.PHONE_NUMBER' | translate}}:</span> {{orderDetails?.shippingAddress?.phoneNumber || '----'}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-2"><span class="font-weight-boldest mb-3">{{'TITLE.ADDRESS_LINE_1' | translate}}:</span> {{orderDetails?.shippingAddress?.addressLine1 || '----'}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-2"><span class="font-weight-boldest mb-3">{{'TITLE.ADDRESS_LINE_2' | translate}}:</span> {{orderDetails?.shippingAddress?.addressLine2 || '----'}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-0"><span class="font-weight-boldest mb-3">{{'TITLE.CITY' | translate}}:</span> {{orderDetails?.shippingAddress?.cityName || '----'}}</p>
+                    </div>
+                </div>
+                <br>
+            </div>        </div>
         <div class="col-12 mb-0">
             <p class="font-weight-boldest mt-3 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</p>
             <table class="table table-bordered print-friendly">

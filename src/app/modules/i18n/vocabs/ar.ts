@@ -180,7 +180,8 @@ export const locale = {
       ORDERS: 'الطلبات',
       DISCOUNT: 'الخصم',
       TAX: 'نسبة الضريبة',
-      TOTAL_PRICE: 'مجموع السعر'
+      TOTAL_PRICE: 'مجموع السعر',
+      COMPANYNAME: 'اسم الشركة',
     },
     INPUT: {
       EMAIL: 'البريد الالكتروني',
@@ -345,8 +346,8 @@ export const locale = {
       EDIT_ORDER: 'تعديل الطلب',
       EDIT_ITEM: 'تعديل بطاقة الصنف',
       DASHBOARD_TIP: 'ملاحظة: تستند جميع إحصائيات الطلبات إلى إجمالي عدد الطلبات والفترة المحددة و لا تتأثر الطلبات الجديدة بالفترة المحددة',
-      DASHBOARD_CUSTOMERS_TIP: 'ملاحظة: يتم اظهار أهم العملاء فقط بناءً على الطلبات التي تم تسليمها فقط',
-      DASHBOARD_ITEMS_TIP: 'ملاحظة: يتم اظهار أهم الاصناف فقط بناءً على الطلبات التي تم تسليمها فقط',
+      DASHBOARD_CUSTOMERS_TIP: 'ملاحظة: يتم اظهار أهم العملاء بناءً على الطلبات التي تم تسليمها فقط ويمكنك التصفية حسب شهر التسليم',
+      DASHBOARD_ITEMS_TIP: 'ملاحظة: يتم اظهار أهم الاصناف بناءً على الطلبات التي تم تسليمها فقط ويمكنك التصفية حسب شهر التسليم',
       TOTAL_CUSTOMERS: 'جميع العملاء',
       TOTAL_ORDERS: 'جميع الطلبات',
       TOP_10_ITEMS: 'أفضل 10 منتجات',
@@ -361,6 +362,7 @@ export const locale = {
       CUSTOMER_PHONE: 'رقم هاتف العميل',
       CUSTOMER_EMAIL: 'البريد الالكتروني للعميل',
       CUSTOMER_SHIPPING_ADDRESSES: 'عناوين الشحن',
+      CUSTOMER_SHIPPING_ADDRESS: 'عنوان الشحن',
       CUSTOMER_STATUS: 'حالة العميل',
       CUSTOMER_DOCUMENTS: 'وثائق العميل',
       VERIFIED: 'موثق',

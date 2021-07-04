@@ -204,7 +204,7 @@ export class OfflineTableComponent implements OnInit {
   }
 
   isDisabledSort(col) {
-    if(col === 'createdOn' || col === 'imagePath') {
+    if(col === 'createdOn' || col === 'imagePath' || col === 'actions' ) {
       return true;
     }
     else {

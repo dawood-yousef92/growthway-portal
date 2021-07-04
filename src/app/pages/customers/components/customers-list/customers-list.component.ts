@@ -195,10 +195,7 @@ export class CustomersListComponent implements OnInit {
           this.durationType = Number(filter);
           this.getCustomers({
             "durationType": this.durationType,
-            "sortBy": "",
-            "pageNumber": 0,
-            "rowsPerPage": 0,
-            "selectedPageSize": 0
+            totalRowsPerPage: 5000000
           });
       }
       else if(filter?.includes('to')) {

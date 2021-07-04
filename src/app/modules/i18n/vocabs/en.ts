@@ -181,7 +181,8 @@ export const locale = {
       ORDERS: 'Orders',
       DISCOUNT: 'Discount',
       TAX: 'Tax',
-      TOTAL_PRICE: 'Total Price'
+      TOTAL_PRICE: 'Total Price',
+      COMPANYNAME: 'Company Name',
     },
     INPUT: {
       EMAIL: 'Email',
@@ -346,8 +347,8 @@ export const locale = {
       EDIT_ORDER: 'Edit Order',
       EDIT_ITEM: 'Edit Item',
       DASHBOARD_TIP: 'Note: All orders statistics is based on total orders count and the selected period, New orders not affected with the selected period',
-      DASHBOARD_CUSTOMERS_TIP: 'Note: Top customers only retrieved based on delivered orders only',
-      DASHBOARD_ITEMS_TIP: 'Note: Top items only retrieved based on delivered orders only',
+      DASHBOARD_CUSTOMERS_TIP: 'Note: Top customers retrieved based on delivered orders only and you can filter by delivery month',
+      DASHBOARD_ITEMS_TIP: 'Note: Top items retrieved based on delivered orders only and you can filter by delivery month',
       TOTAL_CUSTOMERS: 'Total Customers',
       TOTAL_ORDERS: 'Total Orders',
       TOP_10_ITEMS: 'Top 10 Items',
@@ -362,6 +363,7 @@ export const locale = {
       CUSTOMER_PHONE: 'Customer Phone Number',
       CUSTOMER_EMAIL: 'Customer Email',
       CUSTOMER_SHIPPING_ADDRESSES: 'Customer Shipping Addresses',
+      CUSTOMER_SHIPPING_ADDRESS: 'Customer Shipping Address',
       CUSTOMER_STATUS: 'Customer Status',
       CUSTOMER_DOCUMENTS: 'Customer Documents',
       VERIFIED: 'Verified',
