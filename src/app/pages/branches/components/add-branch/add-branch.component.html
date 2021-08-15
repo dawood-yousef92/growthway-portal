@@ -112,6 +112,20 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.PHONE' | translate }}" formControlName="phone" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <input class="py-1" type="text" matInput placeholder="{{'INPUT.MOBILE' | translate }}" formControlName="mobile" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
                         <button type="button" class="btn btn-primary mb-2" (click)="openCentred(mapModal)">{{'INPUT.SELECT_BRANCH_LOCATION' | translate}}</button>
                         <p class="mb-0">{{fullAddressText}}</p>
                         <p class="mb-0">{{'INPUT.LATITUDE' | translate}}: {{pastLocation?.lat || '----'}}</p>

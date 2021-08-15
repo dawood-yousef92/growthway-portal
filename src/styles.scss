@@ -507,3 +507,7 @@ mat-table.mat-table {
 .mat-cell, .mat-footer-cell {
   font-size: 12px;
 }
+.custom-tree .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+  display: block;
+  width: 100%;
+}

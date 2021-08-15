@@ -235,7 +235,7 @@ export const locale = {
       CODE1: 'كود',
       ADDRESSAR: 'العنوان بالعربي',
       ADDRESSEN: ' العنوان بالإنجليزي',
-      COUNTRYNA: 'دولة',
+      COUNTRYNA: 'الدولة',
       CITYNA: 'المدينة',
       CONFIRM_EMAIL: 'أدخل بريدك الإلكتروني الجديد',
       DELETE: 'حذف',
@@ -301,7 +301,10 @@ export const locale = {
       BACK_TO_LOGIN: 'تسجيل الدخول',
       FIRST_NAME: 'الاسم الاول',
       LAST_NAME: 'اسم العائلة',
-      BUYER_COMPANY_NAME: 'اسم شركة العميل'
+      BUYER_COMPANY_NAME: 'اسم شركة العميل',
+      SELECT_CAT: "اختر الفئة",
+      PHONE: "الهاتف",
+      MOBILE: "الموبايل",
     },
 
     TITLE: {

@@ -303,7 +303,10 @@ export const locale = {
       BACK_TO_LOGIN: 'Back To Login',
       FIRST_NAME: 'First Name',
       LAST_NAME: 'Last Name',
-      BUYER_COMPANY_NAME: 'Customer Company Name'
+      BUYER_COMPANY_NAME: 'Customer Company Name',
+      SELECT_CAT: "Select Category",
+      PHONE: "Phone",
+      MOBILE: "Mobile",
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',

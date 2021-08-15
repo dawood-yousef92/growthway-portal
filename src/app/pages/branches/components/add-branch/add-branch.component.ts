@@ -78,6 +78,12 @@ export class AddBranchComponent implements OnInit {
       addressAr: [
         this.branch?.addressAr || '',
       ],
+      phone: [
+        this.branch?.phone || '',
+      ],
+      mobile: [
+        this.branch?.mobile || '',
+      ],
       isActive: [
         this.branch?.isActive || true,
       ],
@@ -163,6 +169,8 @@ export class AddBranchComponent implements OnInit {
     formData.append('nameAr',this.branchForm.controls.nameAr.value);
     formData.append('addressEn',this.branchForm.controls.addressEn.value);
     formData.append('addressAr',this.branchForm.controls.addressAr.value);
+    formData.append('phone',this.branchForm.controls.phone.value);
+    formData.append('mobile',this.branchForm.controls.mobile.value);
     if(this.branchForm.controls.assignedUsers.value) {
       for (var i = 0; i < this.branchForm.controls.assignedUsers.value.length; i++) {
         formData.append('assignedUsers[]', this.branchForm.controls.assignedUsers.value[i]);
