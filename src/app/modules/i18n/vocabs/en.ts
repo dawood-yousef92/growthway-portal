@@ -307,6 +307,7 @@ export const locale = {
       SELECT_CAT: "Select Category",
       PHONE: "Phone",
       MOBILE: "Mobile",
+      CAPACITY: "Capacity per",
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -340,7 +341,7 @@ export const locale = {
       NEW_ORDERS: 'New Orders',
       ACCEPTED_ORDERS: 'Accepted Orders',
       SENT_ORDERS: 'Sent Orders',
-      REJECTED_ORDERS: 'Rejected Orders',
+      REJECTED_ORDERS: 'Rejected/Canceled Orders',
       DELIVERED_ORDERS: 'Delivered Orders',
       DELIVERED_ORDER: 'Deliver Order',
       ALL_ORDERS: 'All Orders',

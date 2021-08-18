@@ -186,9 +186,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div [ngClass]="{'col-md-9': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
                     <div class="row">
-                        <div class="col-6">
+                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
                                     <mat-select class="py-1" placeholder="{{'INPUT.UNIT_OF_MEASUR' | translate }}" formControlName="unitOfMeasurementId">
@@ -200,7 +200,14 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}" *ngIf="checkUnitHasCapacity()">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.CAPACITY' | translate }}{{' '+getUnitOfMesurementName()}}" formControlName="capacity" required/>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
                                     <input class="py-1" type="number" matInput placeholder="{{'INPUT.MIN_ORDER_QUA' | translate }}" formControlName="minimumOrderQuantity" />
@@ -209,7 +216,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div [ngClass]="{'col-md-3': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
                     <div class="mb-4">
                         <mat-form-field class="w-100">
                             <mat-select class="py-1" placeholder="{{'INPUT.PACK_TYPES' | translate }}" formControlName="packagingTypeId">

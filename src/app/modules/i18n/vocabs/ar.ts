@@ -305,6 +305,7 @@ export const locale = {
       SELECT_CAT: "اختر الفئة",
       PHONE: "الهاتف",
       MOBILE: "الموبايل",
+      CAPACITY: "الكمية لكل",
     },
 
     TITLE: {
@@ -339,7 +340,7 @@ export const locale = {
       NEW_ORDERS: 'الطلبات الجديدة',
       ACCEPTED_ORDERS: 'الطلبات المقبولة',
       SENT_ORDERS: 'الطلبات المرسلة',
-      REJECTED_ORDERS: 'الطلبات المرفوضة',
+      REJECTED_ORDERS: 'الطلبات المرفوضة و الملغاة',
       DELIVERED_ORDERS: 'الطلبات المستلمة',
       DELIVERED_ORDER: 'تسليم الطلب',
       ALL_ORDERS: 'جميع الطلبات',

@@ -107,6 +107,9 @@ export class AddItemComponent implements OnInit {
       packagingTypeId: [
         this.product?.packagingTypeId || ''
       ],
+      capacity: [
+        this.product?.capacity || null
+      ],
       categoryId: [
         this.product?.categoryId || ''
       ],
@@ -377,6 +380,14 @@ export class AddItemComponent implements OnInit {
     })
   }
 
+  getUnitOfMesurementName() {
+    return this.unitOfMeasurements?.find(item => item.id === this.itemForm?.controls?.unitOfMeasurementId?.value)?.name;
+  }
+
+  checkUnitHasCapacity() {
+    return this.unitOfMeasurements?.find(item => item.id === this.itemForm?.controls?.unitOfMeasurementId?.value)?.hasCapacity || false;
+  }
+
   submit() {
     // this.loderService.setIsLoading = true;
     var formData: FormData = new FormData();
@@ -392,6 +403,7 @@ export class AddItemComponent implements OnInit {
     formData.append('shelfLifeType',this.itemForm.controls.shelfLifeType.value);
     formData.append('unitOfMeasurementId',this.itemForm.controls.unitOfMeasurementId.value);
     formData.append('packagingTypeId',this.itemForm.controls.packagingTypeId.value);
+    formData.append('capacity',this.itemForm.controls.capacity.value);
     formData.append('isActive',this.itemForm.controls.isActive.value);
     formData.append('categoryId',this.itemForm.controls.categoryId.value);
     formData.append('minimumOrderQuantity',this.itemForm.controls.minimumOrderQuantity.value);

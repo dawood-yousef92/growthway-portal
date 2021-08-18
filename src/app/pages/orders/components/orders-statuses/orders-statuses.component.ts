@@ -305,6 +305,16 @@ export class OrdersStatusesComponent implements OnInit {
       		this.getOrder();
 			this.openCentred(this.orderDetailsModal);
 		}
+		if(event.type === 'Delete') {
+			this.loderService.setIsLoading = true;
+			this.OrdersService.deleteOrder(this.orderId).subscribe((data) => {
+				this.toaster.success(data.result);
+				this.loderService.setIsLoading = false;
+				this.getOrders();
+			}, (error) => {
+				this.loderService.setIsLoading = false;
+			});
+		}
 	}
 
 	openCentred(content) {
@@ -359,7 +369,7 @@ export class OrdersStatusesComponent implements OnInit {
 		this.OrdersService.updateOrder({
 			statusId: '0d014e78-7887-4f53-ab63-94f9fad40193',
 			id: this.orderId,
-			deliveryDate: this.sentOrderForm.controls.deliveryDate.value,
+			deliveryDate: new Date(this.sentOrderForm.controls.deliveryDate.value).toLocaleString('en'),
 			driverId: this.sentOrderForm.controls.driverId.value,
 			expectedDeliveryDate: this.orderDetails?.expectedDeliveryDate,
 			branchId: this.orderDetails?.branchId,
@@ -447,12 +457,23 @@ export class OrdersStatusesComponent implements OnInit {
 			// 	this.customActions.push({name: 'Reset', icon:'flaticon2-circular-arrow text-success'});
 			// }
 		}
+		if(this.permissions.includes('Orders.DeleteOrder') && this.statusId === 'f18a701e-55a7-476a-bcaa-c7c894041a29') {
+			this.customActions.push({name: 'Delete', icon:'flaticon2-trash text-danger'});
+		}
 		if(this.customActions.length > 0) {
 		  	this.displayedColumns.push('actions');
 		}
 	}
 
 	getOrders() {
+		let statuses = [];
+		if(this.statusId === 'f18a701e-55a7-476a-bcaa-c7c894041a29') {
+			statuses = [this.statusId, 'E4E8C4B1-A281-40EC-8092-72FC4B3DF1C2']
+		}
+		else {
+			statuses = [this.statusId]
+		}
+
 		this.loderService.setIsLoading = true;
 		this.OrdersService.getOrders({
 			dateFrom: new Date(Number(this.dateFrom?.split('/')[2]),Number(this.dateFrom?.split('/')[1]) -1,Number(this.dateFrom?.split('/')[0]) + 1),
@@ -460,7 +481,7 @@ export class OrdersStatusesComponent implements OnInit {
 			durationType: this.durationType,
 			branchId: this.branchId,
 			customerId: this.customerId,
-			statusId: this.statusId,
+			statusIds: statuses,
 			rowsPerPage: 5000000,}).subscribe((data) => {
 			data.result.orderItems.items.map((item) => {
 				item['createdTime'] = new Date(item.createdOn).toLocaleTimeString();

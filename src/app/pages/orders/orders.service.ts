@@ -27,4 +27,8 @@ export class OrdersService {
     getCompanyDrivers(dataSettings): Observable<any> {
         return this.http.post<any>('Driver/GetCompanyDrivers', dataSettings);
     }
+
+    deleteOrder(id): Observable<any> {
+        return this.http.delete<any>(`Orders/DeleteOrder?id=${id}`);
+    }
 }
