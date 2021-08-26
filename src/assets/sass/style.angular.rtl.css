@@ -47,3 +47,7 @@
 .mat-form-field-appearance-legacy .mat-form-field-underline {
   background-color: #b8e9a8;
 }
+.dropdown-menu.p-0.m-0.dropdown-menu-right.dropdown-menu-anim-up.dropdown-menu-lg.show {
+  top: 60px!important;
+  transform: none!important;
+}

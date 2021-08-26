@@ -470,8 +470,11 @@ export class OrdersStatusesComponent implements OnInit {
 		if(this.statusId === 'f18a701e-55a7-476a-bcaa-c7c894041a29') {
 			statuses = [this.statusId, 'E4E8C4B1-A281-40EC-8092-72FC4B3DF1C2']
 		}
-		else {
+		else if(this.statusId){
 			statuses = [this.statusId]
+		}
+		else {
+			statuses = []
 		}
 
 		this.loderService.setIsLoading = true;

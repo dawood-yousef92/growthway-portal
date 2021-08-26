@@ -14,13 +14,13 @@ export const locale = {
       APPS: 'Apps',
       DASHBOARD: 'لوحة التحكم',
       USERS_LIST: 'المستخدمين',
-      ROLS_LIST: 'الصلاحيات',
+      ROLS_LIST: 'فئات المسخدمين',
       ADD_USER: 'إضافة مستخدم',
       EDIT_USER: 'تعديل المستخدم',
       ADD_ROLE: 'إضافة صلاحيات',
       EDIT_ROLE: 'تعديل الصلاحية',
       USERS: 'المستخدمين',
-      ROLS: 'الصلاحيات',
+      ROLS: 'فئات المسخدمين',
       SETTINGS: 'الإعدادات',
       CUSTOMERS: 'العملاء',
       CUSTOMERS_LIST: 'قائمة العملاء',
@@ -90,6 +90,7 @@ export const locale = {
         NEW_PASS: 'مطلوب كلمة مرور جديدة',
         CONFIRM_PASS: 'مطلوب تأكيد كلمة المرور الجديدة',
         PASS: 'كلمة المرور  مطلوبة',
+        ITEM_MAX_LENGTH: "الحد الاقصى لعدد الحروف هو 45 حرف"
 
       }
     },
@@ -387,8 +388,7 @@ export const locale = {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',
       EXPECTED_DELIVERY_DATE: 'تاريخ التوصيل المتوقع يجب ان لا يكون بالماضي',
       ALLOWED_DOCUMENTS: 'حجم الملف يجب ان يكون اقل من 2 ميجابايت وان يكون امتداده واحد من الاتي .doc, .docs, .pdf, .txt, .docx, .jpg, .jpeg, .png',
-      IMG_VAL_FIELD: 'حجم الصورة يجب ان يكون اقل من 2 ميجابايت وان يكون امتداده واحد من الاتي .jpg, .jpeg, .png'
-
+      IMG_VAL_FIELD: 'حجم الصورة يجب ان يكون اقل من 2 ميجابايت وان يكون امتداده واحد من الاتي .jpg, .jpeg, .png',
     },
     LOOKUPS: {
       HOUR: 'ساعة',

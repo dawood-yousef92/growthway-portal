@@ -11,6 +11,15 @@ export const DynamicAsideMenuConfig = {
       permission: "noPermission",
     },
     {
+      title: "Groups",
+      root: true,
+      svg: "./assets/media/svg/icons/General/Lock.svg",
+      bullet: "dot",
+      translate: "MENU.ROLS",
+      page: "/rols",
+      permission: "Roles.",
+    },
+    {
       title: "Users",
       root: true,
       svg: "./assets/media/svg/icons/General/User.svg",
@@ -38,15 +47,6 @@ export const DynamicAsideMenuConfig = {
     //     },
     //   ],
     // },
-    {
-      title: "Groups",
-      root: true,
-      svg: "./assets/media/svg/icons/General/Lock.svg",
-      bullet: "dot",
-      translate: "MENU.ROLS",
-      page: "/rols",
-      permission: "Roles.",
-    },
     {
       title: "Items",
       root: true,

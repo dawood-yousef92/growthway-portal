@@ -14,13 +14,13 @@ export const locale = {
       APPS: 'Apps',
       DASHBOARD: 'Dashboard',
       USERS_LIST: 'Users List',
-      ROLS_LIST: 'Groups List',
+      ROLS_LIST: 'Users Groups',
       ADD_USER: 'Add User',
       EDIT_USER: 'Edit User',
       ADD_ROLE: 'Add Group',
       EDIT_ROLE: 'Edit Group',
       USERS: 'Users',
-      ROLS: 'Groups',
+      ROLS: 'Users Groups',
       SETTINGS: 'Settings',
       CUSTOMERS: 'Customers',
       CUSTOMERS_LIST: 'Customers List',
@@ -91,6 +91,7 @@ export const locale = {
         PASS: 'password is required',
         CONFIRM_PASS: 'New password confirmation is required',
         PASSMIN_LENGTH: ' must be at least 5 charachters',
+        ITEM_MAX_LENGTH: "Max length for characters is 45 char",
 
       }
     },
@@ -388,7 +389,7 @@ export const locale = {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',
       EXPECTED_DELIVERY_DATE: 'Expected delivery date must be today or in futre',
       ALLOWED_DOCUMENTS: 'Allowed size for every file is 2M | Allowed formats are .doc, .docs, .pdf, .txt, .docx, .jpg, .jpeg, .png',
-      IMG_VAL_FIELD: 'Allowed size is 2M | Allowed formats are .jpg, .jpeg, .png'
+      IMG_VAL_FIELD: 'Allowed size is 2M | Allowed formats are .jpg, .jpeg, .png',
     },
     LOOKUPS: {
       HOUR: 'Hour',

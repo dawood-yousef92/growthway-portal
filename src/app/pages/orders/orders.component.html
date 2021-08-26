@@ -72,7 +72,7 @@
                 <app-orders-statuses *ngIf="activeTab === 4" [branches]="branches" [statusId]="'0d014e78-7887-4f53-ab63-94f9fad40193'" [customerId]="customerId" [branchId]="branchId" [dateFrom]="dateFrom" [dateTo]="dateTo" [durationType]="durationType"></app-orders-statuses>
             </mat-tab>
             <mat-tab label="{{'TITLE.ALL_ORDERS' | translate}}">
-                <app-orders-statuses *ngIf="activeTab === 5" [branches]="branches" [statusId]="''" [customerId]="customerId" [branchId]="branchId" [dateFrom]="dateFrom" [dateTo]="dateTo" [durationType]="durationType"></app-orders-statuses>
+                <app-orders-statuses *ngIf="activeTab === 5" [branches]="branches" [statusId]="" [customerId]="customerId" [branchId]="branchId" [dateFrom]="dateFrom" [dateTo]="dateTo" [durationType]="durationType"></app-orders-statuses>
             </mat-tab>
         </mat-tab-group>
     </div>
