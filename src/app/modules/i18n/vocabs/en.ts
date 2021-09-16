@@ -34,7 +34,7 @@ export const locale = {
       EDIT_BRANCH: 'Edit Branch',
       BRANCHES_LIST: 'Branches List',
       USER_INFO: ' User information',
-
+      RFQS: 'Requests For Quotation',
     },
     AUTH: {
       GENERAL: {
@@ -91,7 +91,7 @@ export const locale = {
         PASS: 'password is required',
         CONFIRM_PASS: 'New password confirmation is required',
         PASSMIN_LENGTH: ' must be at least 5 charachters',
-        ITEM_MAX_LENGTH: "Max length for characters is 45 char",
+        ITEM_MAX_LENGTH: "Max length for characters is 60 char",
 
       }
     },
@@ -153,10 +153,10 @@ export const locale = {
       NAMEAR: 'Name Ar',
       NAMEEN: 'Name EN',
       CATEGORY: 'Category',
-      UNITPRICE: 'Unit price',
-      OFFERPRICE: 'Offer price',
-      POSTTAXUNITPRICE: 'Unit price',
-      POSTTAXOFFERPRICE: 'Offer price',
+      UNITPRICE: 'Unit price (SAR)',
+      OFFERPRICE: 'Offer price (SAR)',
+      POSTTAXUNITPRICE: 'Unit price (SAR)',
+      POSTTAXOFFERPRICE: 'Offer price (SAR)',
       ORIGINCOUNTRY: 'Origin country',
       ADDRESS: 'Address',
       ADDRESSAR: 'Address Arabic',
@@ -184,6 +184,12 @@ export const locale = {
       TAX: 'Tax',
       TOTAL_PRICE: 'Total Price',
       COMPANYNAME: 'Company Name',
+      IMAGE: 'IMAGE',
+      PRODUCT: 'PRODUCT',
+      PRICE: 'PRICE',
+      QUANTITY: 'QUANTITY',
+      TOTAL: 'TOTAL',
+      UNIT_PRICE_AFTER_TAX: 'Unit Price With Tax',
     },
     INPUT: {
       EMAIL: 'Email',
@@ -197,6 +203,7 @@ export const locale = {
       ENTER_PHOTO: 'Enter Photo',
       PHONE_NUMBER: 'Phone Number',
       ISACTIVE: "Is Active ",
+      HiddenPrice: "Hide Price",
       RANDAM_PASS: 'Random Pass',
       ACTIVE_CODE: 'Send Activation Code To Email Address',
       CHANGE_PHOTO: 'Change Photo',
@@ -309,6 +316,20 @@ export const locale = {
       PHONE: "Phone",
       MOBILE: "Mobile",
       CAPACITY: "Capacity per",
+      PRICE_AFTER_TAX: "Price after tax",
+      OFFER_PRICE_AFTER_TAX: "Offer price after tax",
+      BACK: "Back",
+      BUYER_NOTES: "Buyer Notes",
+      SELLER_NOTES: "Seller Notes",
+      ACCEPT_REQUEST: "Accept Request",
+      REJECT_REQUEST: "Reject Request",
+      WRITE_NOTE_TO_BUYER: "Write note to buyer...",
+      CHOOSE_EXPIRY_DATE_AND_TIME: "Choose expiry date and time for this quotation",
+      REMAINING: "This RFQ will be expired after: ",
+      SELECT: "Select",
+      VIEW_ORDER: "View Order",
+      NEXT: "Next",
+      PREVIOUS: "Previous"
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -384,6 +405,15 @@ export const locale = {
       ADDRESS_LINE_1: 'Address Line 1',
       ADDRESS_LINE_2: 'Address Line 2',
       BRANCH: 'Branch',
+      AWAIT_SELLER_APPROVAL: 'Await Seller Offer',
+      PENDING_BUYER_APPROVAL: 'Pending Client Approval',
+      APPROVAL_BY_SELLER: 'Approved By Seller',
+      APPROVAL_BY_BUYER: 'Approved By Client',
+      REJECTED_BY_BUYER: 'Rejected By Client',
+      REJECTED_BY_SELLER: 'Rejected By Seller',
+      NO_ITEMS_FOUND: 'No items found',
+      ARE_YOU_SURE_REJECT_RFQ: "Are you sure want to reject this request for quotation?",
+      ARE_YOU_SURE_ACCEPT_RFQ: "Are you sure want to accept this request for quotation?",
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',
@@ -392,6 +422,7 @@ export const locale = {
       IMG_VAL_FIELD: 'Allowed size is 2M | Allowed formats are .jpg, .jpeg, .png',
     },
     LOOKUPS: {
+      MINUTES: 'Minutes',
       HOUR: 'Hour',
       DAY: 'Day',
       MONTH: 'Month',
@@ -408,6 +439,7 @@ export const locale = {
       OCTOBER: 'October',
       NOVEMBER: 'November',
       DECEMBER: 'December',
+      AND: "and",
     }
   }
 };

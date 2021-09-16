@@ -65,7 +65,12 @@ const routes: Routes = [
       {
         path: 'orders/:type/:filter',
         loadChildren: () =>
-          import('./orders/orders.module').then((m) => m.OrdersModule),
+        import('./orders/orders.module').then((m) => m.OrdersModule),
+      },
+      {
+        path: 'rfq',
+        loadChildren: () =>
+          import('./rfq/rfq.module').then((m) => m.RfqModule),
       },
       {
         path: '',

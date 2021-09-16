@@ -37,7 +37,10 @@ export class AddItemComponent implements OnInit {
   selectedCatName:string;
   closeResult = '';
   sort:string;
+  groupBy:string;
   filter:string;
+  next:string;
+  previous:string;
 
   itemForm: FormGroup;
   constructor(private generalService:GeneralService,
@@ -61,14 +64,14 @@ export class AddItemComponent implements OnInit {
         this.product?.nameEn || '',
         Validators.compose([
           Validators.required,
-          Validators.maxLength(45)
+          Validators.maxLength(60)
         ]),
       ],
       nameAr: [
         this.product?.nameAr || '',
         Validators.compose([
           Validators.required,
-          Validators.maxLength(45)
+          Validators.maxLength(60)
         ]),
       ],
       descriptionEn: [
@@ -102,7 +105,10 @@ export class AddItemComponent implements OnInit {
         this.product?.shelfLifeType || ''
       ],
       unitOfMeasurementId: [
-        this.product?.unitOfMeasurementId || ''
+        this.product?.unitOfMeasurementId || '',
+        Validators.compose([
+          Validators.required,
+        ]),
       ],
       packagingTypeId: [
         this.product?.packagingTypeId || ''
@@ -115,6 +121,9 @@ export class AddItemComponent implements OnInit {
       ],
       isActive: [
         this.getStatus(this.product?.isActive),
+      ],
+      hiddenPrice: [
+        this.product?.hiddenPrice || false,
       ],
     });
   }
@@ -179,6 +188,7 @@ export class AddItemComponent implements OnInit {
   ngOnInit(): void {
     this.filter = localStorage.getItem('gridFilter');
     this.sort = localStorage.getItem('sort');
+    this.groupBy = localStorage.getItem('groupBy');
     // this.getCategoriesByBusinessType();
     this.getCountries();
     this.initForm();
@@ -199,11 +209,15 @@ export class AddItemComponent implements OnInit {
     this.loderService.setIsLoading = true;
     let filterData = {
       id:this.productId,
-      // orderBy: this.sort,
-      // searchText: this.filter
+      sortBy: this.sort?.replace('|',' '),
+      searchText: this.filter,
+      groupBy: this.groupBy
     }
     this.itemsService.getProduct(filterData).subscribe((data) => {
+      this.next = data.result.next;
+      this.previous = data.result.previous;
       this.product = data.result.productForEdit;
+      this.itemImages = [];
       if(this.product.tags) {
         this.tags = this.product.tags?.split(',');
       }
@@ -252,7 +266,7 @@ export class AddItemComponent implements OnInit {
   }
 
   addCroppedImage(img) {
-    if(img.file.size > 2097152) {
+    if(img.file.size > 16777216) {
       this.errorImg = true;
     }
     else {
@@ -388,6 +402,25 @@ export class AddItemComponent implements OnInit {
     return this.unitOfMeasurements?.find(item => item.id === this.itemForm?.controls?.unitOfMeasurementId?.value)?.hasCapacity || false;
   }
 
+  changeOfferPrice(event) {
+    let targetValue = event.target.value;
+    let newValue = (targetValue / (1 + (this.tax / 100))).toFixed(2);
+    this.itemForm.controls.preTaxOfferPrice.patchValue(Number(newValue));
+  }
+
+  changePrice(event) {
+    let targetValue = event.target.value;
+    let newValue = (targetValue / (1 + (this.tax / 100))).toFixed(2);
+    this.itemForm.controls.preTaxUnitPrice.patchValue(Number(newValue));
+  }
+
+  preventEnterSubmitting(event) {
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  }
+
   submit() {
     // this.loderService.setIsLoading = true;
     var formData: FormData = new FormData();
@@ -405,6 +438,7 @@ export class AddItemComponent implements OnInit {
     formData.append('packagingTypeId',this.itemForm.controls.packagingTypeId.value);
     formData.append('capacity',this.itemForm.controls.capacity.value);
     formData.append('isActive',this.itemForm.controls.isActive.value);
+    formData.append('hiddenPrice',this.itemForm.controls.hiddenPrice.value);
     formData.append('categoryId',this.itemForm.controls.categoryId.value);
     formData.append('minimumOrderQuantity',this.itemForm.controls.minimumOrderQuantity.value);
     formData.append('isCountryBasedTax','true');
@@ -463,7 +497,7 @@ export class AddItemComponent implements OnInit {
       this.itemsService.updateProduct(formData).subscribe((data) => {
         this.toaster.success(data.result);
         this.loderService.setIsLoading = false;
-        this.router.navigate(['/items']);
+        // this.router.navigate(['/items']);
       }, (error) => {
         this.loderService.setIsLoading = false;
       });

@@ -8,6 +8,7 @@ export class ItemsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    localStorage.removeItem('groupBy');
     localStorage.removeItem('gridFilter');
     localStorage.removeItem('pageSize');
     localStorage.removeItem('pageIndex');

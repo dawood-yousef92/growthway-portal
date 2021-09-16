@@ -15,13 +15,14 @@ export class ItemsListComponent implements OnInit {
   customActions:any[] = [];
   selectedProductId:string;
   dataSettings:any = {
-    selectedRolesIds: [],
     searchText: "",
     sortBy: "",
     pageNumber: 0,
-    rowsPerPage: 5000000,
+    rowsPerPage: 20,
     selectedPageSize: 0
   }
+
+  pagingData:any = {length: 100, pageSize: 20, pageIndex: 1};
 
   displayedColumns: string[] = ['imagePath', 'name', 'category', 'postTaxUnitPrice', 'postTaxOfferPrice', 'originCountry',];
   actions:any = [];
@@ -30,6 +31,24 @@ export class ItemsListComponent implements OnInit {
   
   constructor(private itemsService:ItemsService, private toaster: ToastrService, private router: Router,
     private loderService: LoaderService, private modalService: NgbModal) { }
+
+  changePagingEvent(event) {
+    this.dataSettings.pageNumber = event.pageIndex + 1;
+    this.dataSettings.rowsPerPage = event.pageSize;
+    this.getProducts();
+  }
+  
+  filterEvent(event) {
+    this.dataSettings.pageNumber = 0;
+    this.dataSettings.sortBy = "";
+    this.dataSettings.searchText = event.filter;
+    this.getProducts();
+  }
+  
+  sortEvent(event) {
+    this.dataSettings.sortBy = event.active + ' ' + event.direction;
+    this.getProducts();
+  }
 
   checkPermissions() {
     if(this.permissions.includes('Products.UpdateProduct')) {
@@ -71,9 +90,9 @@ export class ItemsListComponent implements OnInit {
     this.itemsService.getProducts(this.dataSettings).subscribe((data) => {
       this.gridData = data.result.products.items.map((item) => {
         item.imagePath = `<img src="${item.imagePath || './assets/images/default-img.png'}" class="img-table-col"/>`;
-        item.postTaxUnitPrice = item.postTaxUnitPrice?.toFixed(2)+'  '+item.currency;
+        item.postTaxUnitPrice = item.postTaxUnitPrice?.toFixed(2);
         if(item.postTaxOfferPrice) {
-          item.postTaxOfferPrice =  item.postTaxOfferPrice?.toFixed(2)+'  '+item.currency;
+          item.postTaxOfferPrice =  item.postTaxOfferPrice?.toFixed(2);
         }
         else {
           item.postTaxOfferPrice = '----';
@@ -81,13 +100,28 @@ export class ItemsListComponent implements OnInit {
         return item;
       })
       this.gridData = data.result.products.items;
+      this.pagingData.length = data.result.products.totalRows;
+      this.pagingData.pageSize = data.result.products.totalRowsPerPage;
+      this.pagingData.pageIndex = data.result.products.currentPage - 1;
       this.loderService.setIsLoading = false;
     },(error) => {
       this.loderService.setIsLoading = false;
     });
   }
 
+  changeGroupEvent(e) {
+    if(e) {
+      this.dataSettings.rowsPerPage = -1;
+      this.getProducts();
+    }
+  }
+
   ngOnInit(): void {
+    localStorage.removeItem('groupBy');
+    localStorage.removeItem('gridFilter');
+    localStorage.removeItem('pageSize');
+    localStorage.removeItem('pageIndex');
+    localStorage.removeItem('sort');
     this.checkPermissions();
     this.getProducts();
   }

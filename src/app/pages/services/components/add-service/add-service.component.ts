@@ -249,7 +249,7 @@ export class AddServiceComponent implements OnInit {
   }
 
   addCroppedImage(img) {
-    if(img.file.size > 2097152) {
+    if(img.file.size > 16777216) {
       this.errorImg = true;
     }
     else {

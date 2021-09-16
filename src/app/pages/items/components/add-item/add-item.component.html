@@ -1,8 +1,12 @@
 <div class="card card-custom example-preview">
     <div class="card-header">
-        <div class="card-title">
-            <h3 *ngIf="!productId" class="card-label">{{ "MENU.ADD_ITEM" | translate }}</h3>
-            <h3 *ngIf="productId" class="card-label">{{ "TITLE.EDIT_ITEM" | translate }}</h3>
+        <div class="card-title w-100">
+            <div class="w-100 d-flex align-items-center">
+                <div class="flex-fill">
+                    <h3 *ngIf="!productId" class="card-label">{{ "MENU.ADD_ITEM" | translate }}</h3>
+                    <h3 *ngIf="productId" class="card-label">{{ "TITLE.EDIT_ITEM" | translate }}</h3>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card-body">
@@ -16,7 +20,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 mb-4">
-                    <button type="button" class="btn btn-primary" (click)="openModal(catModal)">Select Category</button>
+                    <button type="button" class="btn btn-primary" (click)="openModal(catModal)">{{'INPUT.SELECT_CAT' | translate}}</button>
                     <span class="mx-2 label label-xl label-light-primary label-inline" *ngIf="itemForm.controls.categoryId.value">
                         {{selectedCatName}}
                     </span>
@@ -140,37 +144,93 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mb-4">
-                                <mat-form-field class="w-100">
-                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.PRICE' | translate }}" formControlName="preTaxUnitPrice" required />
-                                    <span matSuffix class="ml-3">{{'INPUT.SAR' | translate }}</span>
+                    <div class="mb-4">
+                        <div class="row">
+                            <div class="col-5">
+                                <mat-form-field class="w-100 mb-2">
+                                    <input class="py-1" type="number" (keydown)="preventEnterSubmitting($event)" matInput placeholder="{{'INPUT.PRICE' | translate }} ({{'INPUT.SAR' | translate }})" formControlName="preTaxUnitPrice" required />
                                     <mat-error [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
                                         validation: 'required',
                                         message: 'AUTH.VALIDATION.REQUIRED_FIELD' | translate,
                                         control: itemForm.controls['preTaxUnitPrice']
                                         }"></mat-error>
                                 </mat-form-field>
-                                <p class="mb-0" *ngIf="itemForm.controls.preTaxUnitPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%) ({{(itemForm.controls.preTaxUnitPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
-                                <p class="mb-0" *ngIf="itemForm.controls.preTaxUnitPrice.value">{{'TITLE.PRICE_AFTER_TAX' | translate}}: ({{(itemForm.controls.preTaxUnitPrice.value + (itemForm.controls.preTaxUnitPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
                                 <mat-error *ngIf="checkPrice()" role="alert" class="mat-error ng-tns-c180-2 ng-star-inserted">
                                     <div class="fv-plugins-message-container">
                                         <div class="fv-help-block">{{'AUTH.VALIDATION.PRICE_FIELD' | translate }}</div>
                                     </div>
                                 </mat-error>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-4">
+                            <div class="col-5">
                                 <mat-form-field class="w-100">
-                                    <span matSuffix class="ml-3">{{'INPUT.SAR' | translate }}</span>
-                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.OFF_PRICE' | translate }}" formControlName="preTaxOfferPrice" />
+                                    <input class="py-1" type="number" (keydown)="preventEnterSubmitting($event)" matInput placeholder="{{'INPUT.PRICE_AFTER_TAX' | translate}} ({{'INPUT.SAR' | translate }})" (blur)="changePrice($event)" value="{{(itemForm.controls.preTaxUnitPrice.value + (itemForm.controls.preTaxUnitPrice.value*tax/100)).toFixed(2)}}"/>
                                 </mat-form-field>
-                                <p class="mb-0" *ngIf="itemForm.controls.preTaxOfferPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%) ({{(itemForm.controls.preTaxOfferPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
-                                <p class="mb-0" *ngIf="itemForm.controls.preTaxOfferPrice.value">{{'TITLE.OFFER_PRICE_AFTER_TAX' | translate}}: ({{(itemForm.controls.preTaxOfferPrice.value + (itemForm.controls.preTaxOfferPrice.value*tax/100)).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                            </div>
+                            <div class="col-2 px-1">
+                                <p class="mb-0 c-gray small-text" *ngIf="itemForm.controls.preTaxUnitPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%)<br>({{(itemForm.controls.preTaxUnitPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <div class="row">
+                            <div class="col-5">
+                                <mat-form-field class="w-100 mb-2">
+                                    <input class="py-1" type="number" (keydown)="preventEnterSubmitting($event)" matInput placeholder="{{'INPUT.OFF_PRICE' | translate }} ({{'INPUT.SAR' | translate }})" formControlName="preTaxOfferPrice" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-5">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="number" (keydown)="preventEnterSubmitting($event)" matInput placeholder="{{'INPUT.OFFER_PRICE_AFTER_TAX' | translate}} ({{'INPUT.SAR' | translate }})" (blur)="changeOfferPrice($event)" value="{{(itemForm.controls.preTaxOfferPrice.value + (itemForm.controls.preTaxOfferPrice.value*tax/100)).toFixed(2)}}"/>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-2 px-1">
+                                <p class="mb-0 c-gray small-text" *ngIf="itemForm.controls.preTaxOfferPrice.value">{{'TITLE.TAX_VALUE' | translate}}: ({{tax}}%)<br>({{(itemForm.controls.preTaxOfferPrice.value*tax/100).toFixed(2)}} {{'INPUT.SAR' | translate }})</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div [ngClass]="{'col-md-9': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
+                    <div class="row">
+                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <mat-select class="py-1" placeholder="{{'INPUT.UNIT_OF_MEASUR' | translate }}" formControlName="unitOfMeasurementId" required>
+                                        <mat-option [value]="null">{{'INPUT.UNIT_OF_MEASUR' | translate }}</mat-option>
+                                        <mat-option *ngFor="let item of unitOfMeasurements" [value]="item.id">
+                                            {{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}" *ngIf="checkUnitHasCapacity()">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input autocomplete="off" class="py-1" type="number" matInput placeholder="{{'INPUT.CAPACITY' | translate }}{{' '+getUnitOfMesurementName()}}" formControlName="capacity" required/>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.MIN_ORDER_QUA' | translate }}" formControlName="minimumOrderQuantity" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div [ngClass]="{'col-md-3': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
+                    <div class="mb-4">
+                        <mat-form-field class="w-100">
+                            <mat-select class="py-1" placeholder="{{'INPUT.PACK_TYPES' | translate }}" formControlName="packagingTypeId">
+                                <mat-option [value]="null">{{'INPUT.PACK_TYPES' | translate }}</mat-option>
+                                <mat-option *ngFor="let item of packagingTypes" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -196,48 +256,7 @@
                         </div>
                     </div>
                 </div>
-                <div [ngClass]="{'col-md-9': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
-                    <div class="row">
-                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
-                            <div class="mb-4">
-                                <mat-form-field class="w-100">
-                                    <mat-select class="py-1" placeholder="{{'INPUT.UNIT_OF_MEASUR' | translate }}" formControlName="unitOfMeasurementId">
-                                        <mat-option [value]="null">{{'INPUT.UNIT_OF_MEASUR' | translate }}</mat-option>
-                                        <mat-option *ngFor="let item of unitOfMeasurements" [value]="item.id">
-                                            {{item.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}" *ngIf="checkUnitHasCapacity()">
-                            <div class="mb-4">
-                                <mat-form-field class="w-100">
-                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.CAPACITY' | translate }}{{' '+getUnitOfMesurementName()}}" formControlName="capacity" required/>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
-                            <div class="mb-4">
-                                <mat-form-field class="w-100">
-                                    <input class="py-1" type="number" matInput placeholder="{{'INPUT.MIN_ORDER_QUA' | translate }}" formControlName="minimumOrderQuantity" />
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div [ngClass]="{'col-md-3': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
-                    <div class="mb-4">
-                        <mat-form-field class="w-100">
-                            <mat-select class="py-1" placeholder="{{'INPUT.PACK_TYPES' | translate }}" formControlName="packagingTypeId">
-                                <mat-option [value]="null">{{'INPUT.PACK_TYPES' | translate }}</mat-option>
-                                <mat-option *ngFor="let item of packagingTypes" [value]="item.id">
-                                    {{item.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
+                <div class="col-md-6"></div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <div class="d-flex align-items-start">
@@ -306,11 +325,19 @@
                         <mat-checkbox formControlName="isActive">{{'INPUT.ISACTIVE' | translate }}</mat-checkbox>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="mb-4">
+                        <mat-checkbox formControlName="hiddenPrice">{{'INPUT.HiddenPrice' | translate }}</mat-checkbox>
+                    </div>
+                </div>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary" [disabled]="itemForm.invalid || checkPrice()">
                     {{'INPUT.SAVE' | translate }}
                 </button>
+                <a type="button" class="btn btn-light mx-2" routerLink="/items">
+                    {{'INPUT.BACK' | translate }}
+                </a>
             </div>
         </form>
     </div>

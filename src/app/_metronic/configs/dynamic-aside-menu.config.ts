@@ -93,6 +93,15 @@ export const DynamicAsideMenuConfig = {
       permission: "Orders.",
     },
     {
+      title: "Rfq",
+      root: true,
+      svg: "./assets/media/svg/icons/Communication/Sending.svg",
+      bullet: "dot",
+      translate: "MENU.RFQS",
+      page: "/rfq",
+      permission: "Rfq.",
+    },
+    {
       title: "Settings",
       root: true,
       svg: "./assets/media/svg/icons/General/Settings-2.svg",

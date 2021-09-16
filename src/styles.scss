@@ -326,8 +326,14 @@ mat-table.mat-table {
     margin-right: 0px;
   }
 }
+.small-text {
+  font-size:10px;
+}
 .c-black {
   color:#000;
+}
+.c-gray {
+  color: #666;
 }
 .c-primary {
   color: $primary;
@@ -439,6 +445,12 @@ mat-table.mat-table {
   max-height: calc(100vh - 190px);
   overflow: auto;
   min-height: 400px;
+}
+.mat-expansion-panel-header {
+  height: auto;
+}
+.cyrcle {
+  border-radius: 50%;
 }
 /** upload documents **/
 .drag-area {

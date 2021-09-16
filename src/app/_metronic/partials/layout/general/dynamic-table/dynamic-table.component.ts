@@ -1,7 +1,85 @@
-import { Component, Input, OnInit, Output, SimpleChanges, ViewChild, EventEmitter } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+// import { Component, Input, OnInit, Output, SimpleChanges, ViewChild, EventEmitter } from '@angular/core';
+// import { MatPaginator } from '@angular/material/paginator';
+// import { MatTableDataSource } from '@angular/material/table';
+// import { MatSort } from '@angular/material/sort';
+
+// @Component({
+//   selector: 'app-dynamic-table',
+//   templateUrl: './dynamic-table.component.html',
+//   styleUrls: ['./dynamic-table.component.scss']
+// })
+// export class DynamicTableComponent implements OnInit {
+//   @Input() displayedColumns: string[];
+//   @Input() customActions:any[];
+//   @Input() pagingData:any;
+//   @Input() gridData:any[];
+
+//   @Output() actionsEvent: EventEmitter<any> = new EventEmitter();
+//   @Output() filterEvent: EventEmitter<any> = new EventEmitter();
+//   @Output() changePagingEvent: EventEmitter<any> = new EventEmitter();
+//   @Output() sortEvent: EventEmitter<any> = new EventEmitter();
+
+//   dataSource: MatTableDataSource<any>;
+
+//   @ViewChild('matPaginator7', { static: true }) paginator7: MatPaginator;
+//   @ViewChild('sort7', { static: true }) sort7: MatSort;
+
+//   constructor() {}
+
+//   ngOnInit() {
+//     this.dataSource.paginator = this.paginator7;
+//     this.dataSource.sort = this.sort7;
+//   }
+
+//   ngOnChanges(changes: SimpleChanges) {
+//     this.dataSource = new MatTableDataSource(this.gridData);
+//   }
+
+//   applyFilter7(filterValue: string) {
+//     this.filterEvent.emit({filter:filterValue});
+//   }
+
+//   changePagination(event) {
+//     this.changePagingEvent.emit(event);
+//   }
+
+//   action(type, id) {
+//     this.actionsEvent.emit({type:type, rowId:id});
+//   }
+
+//   isDisabledSort(col) {
+//     if(col === 'createdOn') {
+//       return true;
+//     }
+//     else {
+//       return false;
+//     }
+//   }
+
+//   sort(event) {
+//     this.sortEvent.emit(event);
+//   }
+// }
+
+
+
+
+
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild, } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
+import { MatPaginator } from '@angular/material/paginator';
+
+export class Group {
+  level = 0;
+  parent: Group;
+  expanded = true;
+  totalCounts = 0;
+  get visible(): boolean {
+    return !this.parent || (this.parent.visible && this.parent.expanded);
+  }
+}
 
 @Component({
   selector: 'app-dynamic-table',
@@ -9,46 +87,215 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./dynamic-table.component.scss']
 })
 export class DynamicTableComponent implements OnInit {
+  title = 'Grid Grouping';
+  gridFilter:string = '';
   @Input() displayedColumns: string[];
   @Input() customActions:any[];
-  @Input() pagingData:any;
   @Input() gridData:any[];
-
+  @Input() pagingData:any;
+  
   @Output() actionsEvent: EventEmitter<any> = new EventEmitter();
   @Output() filterEvent: EventEmitter<any> = new EventEmitter();
   @Output() changePagingEvent: EventEmitter<any> = new EventEmitter();
   @Output() sortEvent: EventEmitter<any> = new EventEmitter();
+  @Output() changeGroupEvent: EventEmitter<any> = new EventEmitter();
 
-  dataSource: MatTableDataSource<any>;
 
-  @ViewChild('matPaginator7', { static: true }) paginator7: MatPaginator;
-  @ViewChild('sort7', { static: true }) sort7: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort7: MatSort;
 
-  constructor() {}
+  // pagingData:any = {
+  //   pageSize:20,
+  //   pageIndex:0
+  // }
+
+  public dataSource = new MatTableDataSource<any | Group>([]);
+
+  _alldata: any[];
+  columns: any[];
+  displayedColumns2: string[];
+  groupByColumns: string[] = [];
+
+  constructor(private loderService: LoaderService) {
+    this.columns = [];
+    this.groupByColumns = [];
+  }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator7;
-    this.dataSource.sort = this.sort7;
+    this.displayedColumns.map((item) => {
+      this.columns.push({field: item});
+    })
+    this.displayedColumns2 = this.columns.map(column => column.field);
   }
 
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if(localStorage.getItem('pageSize')) {
+  //     this.pagingData.pageSize = localStorage.getItem('pageSize');
+  //     this.pagingData.pageIndex = localStorage.getItem('pageIndex');
+  //   }
+  //   this._alldata = this.gridData;
+  //   this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
+  //   this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+  //   this.gridFilter = localStorage.getItem('gridFilter');
+  //   this.dataSource.paginator = this.paginator;
+  //   this.dataSource.sort = this.sort7;
+  //   if(this.gridFilter &&  this.dataSource) {
+  //     this.applyFilter(this.gridFilter);
+  //   }
+  // }
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource(this.gridData);
+    this._alldata = this.gridData;
+    this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
+    this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+    this.gridFilter = localStorage.getItem('gridFilter');
   }
 
-  applyFilter7(filterValue: string) {
+  groupBy(event, column) {
+    // event.stopPropagation();
+    // remove all groups
+    this.groupByColumns = [];
+    localStorage.setItem('groupBy', column.field);
+    this.changeGroupEvent.emit(column.field);
+    this.checkGroupByColumn(column.field, true);
+    this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
+    this.dataSource.filter = performance.now().toString();
+  }
+
+  checkGroupByColumn(field, add ) {
+    let found = null;
+    for (const column of this.groupByColumns) {
+      if (column === field) {
+        found = this.groupByColumns.indexOf(column, 0);
+      }
+    }
+    if (found != null && found >= 0) {
+      if (!add) {
+        this.groupByColumns.splice(found, 1);
+      }
+    } else {
+      if ( add ) {
+        this.groupByColumns.push(field);
+      }
+    }
+  }
+
+  unGroupBy(event, column) {
+    // event.stopPropagation();
+    this.checkGroupByColumn(column.field, false);
+    this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
+    this.dataSource.filter = performance.now().toString();
+    localStorage.setItem('groupBy', '');
+  }
+
+  // below is for grid row grouping
+  customFilterPredicate(data: any | Group, filter: string): boolean {
+    return (data instanceof Group) ? data.visible : this.getDataRowVisible(data);
+  }
+
+  getDataRowVisible(data: any): boolean {
+    const groupRows = this.dataSource.data.filter(
+      row => {
+        if (!(row instanceof Group)) {
+          return false;
+        }
+        let match = true;
+        this.groupByColumns.forEach(column => {
+          if (!row[column] || !data[column] || row[column] !== data[column]) {
+            match = false;
+          }
+        });
+        return match;
+      }
+    );
+
+    if (groupRows.length === 0) {
+      return true;
+    }
+    const parent = groupRows[0] as Group;
+    return parent.visible && parent.expanded;
+  }
+
+  groupHeaderClick(row) {
+    row.expanded = !row.expanded;
+    this.dataSource.filter = performance.now().toString();
+  }
+
+  addGroups(data: any[], groupByColumns: string[]): any[] {
+    const rootGroup = new Group();
+    rootGroup.expanded = true;
+    return this.getSublevel(data, 0, groupByColumns, rootGroup);
+  }
+
+  getSublevel(data: any[], level: number, groupByColumns: string[], parent: Group): any[] {
+    if (level >= groupByColumns.length) {
+      return data;
+    }
+    const groups = this.uniqueBy(
+      data.map(
+        row => {
+          const result = new Group();
+          result.level = level + 1;
+          result.parent = parent;
+          for (let i = 0; i <= level; i++) {
+            result[groupByColumns[i]] = row[groupByColumns[i]];
+          }
+          return result;
+        }
+      ),
+      JSON.stringify);
+
+    const currentColumn = groupByColumns[level];
+    let subGroups = [];
+    groups.forEach(group => {
+      const rowsInGroup = data.filter(row => group[currentColumn] === row[currentColumn]);
+      group.totalCounts = rowsInGroup.length;
+      const subGroup = this.getSublevel(rowsInGroup, level + 1, groupByColumns, group);
+      subGroup.unshift(group);
+      subGroups = subGroups.concat(subGroup);
+    });
+    return subGroups;
+  }
+
+  uniqueBy(a, key) {
+    const seen = {};
+    return a.filter((item) => {
+      const k = key(item);
+      return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+    });
+  }
+
+  isGroup(index, item): boolean {
+    return item.level;
+  }
+
+  // applyFilter(filterValue: string) {
+  //   localStorage.setItem('gridFilter', filterValue);
+  //   this.loderService.setIsLoading = true;
+  //   let a = [];
+  //   this.gridData.map((item) => {
+  //     Object.keys(item).map((val) => {
+  //       if(typeof item[val] === "string" && String(item[val].toLowerCase()).includes(filterValue.toLowerCase()) && val !== 'id' && !a.includes(item)) {
+  //         a.push(item);
+  //       }
+  //     })
+  //   })
+  //   this.dataSource = new MatTableDataSource(a);
+  //   this.loderService.setIsLoading = false;
+  //   this.dataSource.paginator = this.paginator;
+  //   this.dataSource.sort = this.sort7;
+  //   this._alldata = a;
+  //   this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
+  //   this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+  // }
+
+  applyFilter(filterValue: string) {
+    localStorage.setItem('gridFilter', filterValue);
     this.filterEvent.emit({filter:filterValue});
   }
 
-  changePagination(event) {
-    this.changePagingEvent.emit(event);
-  }
-
-  action(type, id) {
-    this.actionsEvent.emit({type:type, rowId:id});
-  }
-
   isDisabledSort(col) {
-    if(col === 'createdOn') {
+    if(col === 'createdOn' || col === 'imagePath' || col === 'actions' ) {
       return true;
     }
     else {
@@ -56,7 +303,52 @@ export class DynamicTableComponent implements OnInit {
     }
   }
 
-  sort(event) {
-    this.sortEvent.emit(event);
+  action(type, id) {
+    if(type === 'edit') {
+      this.actionsEvent.emit({type:'edit', rowId:id});
+    }
+    else if (type === 'view') {
+      this.actionsEvent.emit({type:'view', rowId:id});
+    }
+    else if (type === 'delete') {
+      this.actionsEvent.emit({type:'delete', rowId:id});
+    }
+    else {
+      this.actionsEvent.emit({type:type, rowId:id});
+    }
+  }
+
+  stop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  // changePagination(e) {
+  //   localStorage.setItem('pageSize',e.pageSize)
+  //   localStorage.setItem('pageIndex',e.pageIndex)
+  // }
+  changePagination(e) {
+    localStorage.setItem('pageSize',e.pageSize)
+    localStorage.setItem('pageIndex',e.pageIndex)
+    this.changePagingEvent.emit(e);
+  }
+
+  // sort(e) {
+  //   let sort = e.active +'|'+e.direction;
+  //   localStorage.setItem('sort', sort)
+  // }
+  sort(e) {
+    let sort = e.active + '|' + e.direction;
+    localStorage.setItem('sort', sort)
+    this.sortEvent.emit(e);
+  }
+
+  getPageSize() {
+    if(this.pagingData.pageSize !== -1) {
+      return this.pagingData.pageSize;
+    }
+    else {
+      return this.pagingData.length;
+    }
   }
 }

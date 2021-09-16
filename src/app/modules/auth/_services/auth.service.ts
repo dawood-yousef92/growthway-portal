@@ -86,15 +86,10 @@ export class AuthService {
     );
   }
 
-  resetPassword(email:string,password:string,confirmPassword:string,code:string): Observable<any>{
+  resetPassword(data): Observable<any>{
     return this.httpClient.post(
       `Account/ResetPassword`,
-      {
-        email,
-        password,
-        confirmPassword,
-        code,
-      }
+      data
     );
   }
 

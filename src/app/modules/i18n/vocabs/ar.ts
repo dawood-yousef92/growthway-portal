@@ -34,6 +34,7 @@ export const locale = {
       EDIT_BRANCH: 'تعديل الفرع',
       BRANCHES_LIST: 'الفروع',
       USER_INFO: 'معلومات المستخدم',
+      RFQS: 'طلبات عروض الاسعار',
     },
     AUTH: {
       GENERAL: {
@@ -90,7 +91,7 @@ export const locale = {
         NEW_PASS: 'مطلوب كلمة مرور جديدة',
         CONFIRM_PASS: 'مطلوب تأكيد كلمة المرور الجديدة',
         PASS: 'كلمة المرور  مطلوبة',
-        ITEM_MAX_LENGTH: "الحد الاقصى لعدد الحروف هو 45 حرف"
+        ITEM_MAX_LENGTH: "الحد الاقصى لعدد الحروف هو 60 حرف"
 
       }
     },
@@ -152,10 +153,10 @@ export const locale = {
       NAMEAR: 'الاسم بالعربي',
       NAMEEN: 'الاسم بالإنجليزية',
       CATEGORY: 'الفئة',
-      UNITPRICE: 'سعر الوحده',
-      OFFERPRICE: 'سعر العرض',
-      POSTTAXUNITPRICE: 'سعر الوحده',
-      POSTTAXOFFERPRICE: 'سعر العرض',
+      UNITPRICE: 'سعر الوحدة (ر.س)',
+      OFFERPRICE: 'سعر العرض (ر.س)',
+      POSTTAXUNITPRICE: 'سعر الوحدة (ر.س)',
+      POSTTAXOFFERPRICE: 'سعر العرض (ر.س)',
       ORIGINCOUNTRY: 'بلد المنشأ',
       ADDRESS: 'العنوان',
       ADDRESSAR: 'العنوان بالعربي',
@@ -183,6 +184,12 @@ export const locale = {
       TAX: 'نسبة الضريبة',
       TOTAL_PRICE: 'مجموع السعر',
       COMPANYNAME: 'اسم الشركة',
+      IMAGE: 'الصورة',
+      PRODUCT: 'اسم المنتج',
+      PRICE: 'السعر',
+      QUANTITY: 'الكمية',
+      TOTAL: 'الاجمالي',
+      UNIT_PRICE_AFTER_TAX: 'سعر المنتج شامل الضريبة',
     },
     INPUT: {
       EMAIL: 'البريد الالكتروني',
@@ -190,12 +197,13 @@ export const locale = {
       PASSWORD: 'كلمة المرور',
       CONFIRM_PASSWORD: 'تأكيد كلمة المرور',
       USER_NAME: 'اسم المستخدم',
-      DESCRIPTION: 'تفصيل',
-      DESCRIPTIONAR: ' تفصيل بالعربي',
+      DESCRIPTION: 'الوصف',
+      DESCRIPTIONAR: ' الوصف بالعربي',
       SAVE: 'حفظ',
       ENTER_PHOTO: 'أدخل الصورة',
       PHONE_NUMBER: 'رقم الهاتف',
       ISACTIVE: "فعال",
+      HiddenPrice: "اخفاء السعر",
       RANDAM_PASS: 'كلمة مرور عشوائية',
       ACTIVE_CODE: 'إرسال كود على بريد إلكتروني للتفعيل',
       CHANGE_PHOTO: 'تغيير الصور',
@@ -303,10 +311,24 @@ export const locale = {
       FIRST_NAME: 'الاسم الاول',
       LAST_NAME: 'اسم العائلة',
       BUYER_COMPANY_NAME: 'اسم شركة العميل',
-      SELECT_CAT: "اختر الفئة",
+      SELECT_CAT: "اختر التصنيف",
       PHONE: "الهاتف",
       MOBILE: "الموبايل",
-      CAPACITY: "الكمية لكل",
+      CAPACITY: "عدد الوحدات لكل",
+      PRICE_AFTER_TAX: "السعر شامل الضريبة",
+      OFFER_PRICE_AFTER_TAX: "سعر العرض شامل الضريبة",
+      BACK: "عودة",
+      BUYER_NOTES: "ملاحظات المشتري",
+      SELLER_NOTES: "ملاحظات البائع",
+      ACCEPT_REQUEST: "ارسال عروض الاسعار",
+      REJECT_REQUEST: "رفض الطلب",
+      WRITE_NOTE_TO_BUYER: "اكتب ملاحظاتك للمشتري ...",
+      CHOOSE_EXPIRY_DATE_AND_TIME: "اختر تاريخ ووقت انتهاء صلاحية هذا العرض",
+      REMAINING: "سينتهي عرض السعر هذا بعد: ",
+      SELECT: "اختر",
+      VIEW_ORDER: "مشاهدة الطلب",
+      NEXT: "التالي",
+      PREVIOUS: "السابق"
     },
 
     TITLE: {
@@ -383,6 +405,15 @@ export const locale = {
       ADDRESS_LINE_1: 'تفاصيل العنوان 1',
       ADDRESS_LINE_2: 'تفاصيل العنوان 2',
       BRANCH: 'الفرع',
+      AWAIT_SELLER_APPROVAL: 'الطلبات المستقبلة',
+      PENDING_BUYER_APPROVAL: 'انتظار موافقة العميل',
+      APPROVAL_BY_SELLER: 'موافق عليه من المورد',
+      APPROVAL_BY_BUYER: 'وافق عليه العميل',
+      REJECTED_BY_BUYER: 'مرفوض من العميل',
+      REJECTED_BY_SELLER: 'مرفوض من المورد',
+      NO_ITEMS_FOUND: 'لم يتم العثور على عناصر',
+      ARE_YOU_SURE_REJECT_RFQ: "هل انت متأكد من انك تريد رفض طلب عرض السعر هذا ؟",
+      ARE_YOU_SURE_ACCEPT_RFQ: "هل انت متأكد من انك تريد قبول طلب عرض السعر هذا ؟",
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'يجب السماح للمتصفح ان يأخذ موقعك الحالي',
@@ -391,6 +422,7 @@ export const locale = {
       IMG_VAL_FIELD: 'حجم الصورة يجب ان يكون اقل من 2 ميجابايت وان يكون امتداده واحد من الاتي .jpg, .jpeg, .png',
     },
     LOOKUPS: {
+      MINUTES: 'دقيقة',
       HOUR: 'ساعة',
       DAY: 'يوم',
       MONTH: 'شهر',
@@ -407,6 +439,7 @@ export const locale = {
       OCTOBER: 'أكتوبر',
       NOVEMBER: 'نوفمبر',
       DECEMBER: 'ديسمبر',
+      AND: "و",
     }
   }
 };

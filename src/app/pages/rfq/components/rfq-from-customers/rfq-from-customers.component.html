@@ -1,0 +1,145 @@
+<div *ngIf="!rfqItems?.length && endReq">
+    <div class="container">
+        <h4 class="text-center py-5">{{'TITLE.NO_ITEMS_FOUND' | translate}}</h4>
+    </div>
+</div>
+
+<div class="container cart block py-4" *ngIf="rfqItems?.length">
+    <mat-accordion>
+        <ng-container *ngFor="let item of rfqItems; let i = index">
+            <mat-expansion-panel class="mb-2 py-2">
+                <mat-expansion-panel-header>
+                    <div class="d-flex align-items-center">
+                        <div class="cyrcle border overflow-hidden w-50px h-50px d-flex align-items-center">
+                            <img class="w-100 h-100" src="{{ item?.logo }}" alt="{{ item?.customerName }}">
+                        </div>
+                        <div class="px-3 flex-fill">
+                            <p class="mb-0 small-text font-weight-bolder">{{ item?.companyName }} <span class="small-text">({{ item?.rfqDetailsItems.length }})</span></p>
+                            <p class="mb-0 small-text font-weight-bolder">{{ item?.customerName }}</p>
+                            <p class="mb-0 small-text font-weight-bolder">{{ item?.customerPhone }}</p>
+                        </div>
+                    </div>
+                </mat-expansion-panel-header>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="pt-3">
+                                <table class="table w-100 table mb-0">
+                                    <thead class="cart-table__head">
+                                        <tr class="cart-table__row">
+                                            <th>{{'TABLE.IMAGE' | translate}}</th>
+                                            <th>{{'TABLE.PRODUCT' | translate}}</th>
+                                            <th>{{'TABLE.PRICE' | translate}} <span class="small-text">({{item?.currencyName}})</span></th>
+                                            <th>{{'TABLE.UNIT_PRICE_AFTER_TAX' | translate}} ({{item?.currencyName || '----'}})</th>
+                                            <th>{{'TABLE.QUANTITY' | translate}}</th>
+                                            <th>{{'TABLE.TOTAL' | translate}} <span class="small-text">({{item?.currencyName}})</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="cart-table__body">
+                                        <tr *ngFor="let item2 of item?.rfqDetailsItems" class="cart-table__row">
+                                            <td class="cart-table__column cart-table__column--image">
+                                                <div *ngIf="item2?.productImage" class="product-image">
+                                                    <span class="product-image__body">
+                                                        <img class="w-50px h-40px" [src]="item2?.productImage" alt="{{ item2?.productName }}">
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="cart-table__column cart-table__column--product">
+                                                <span class="cart-table__product-name">{{ item2?.productName }}</span>
+                                            </td>
+                                            <td class="cart-table__column cart-table__column--price text-center" data-title="Price">
+                                                <input *ngIf="statusId === '246882C8-3172-41CA-81E5-68E91AFE484E'" min="0" (change)="changeUnitPrice($event, item2, item)" class="text-center w-70px" value="{{item2?.preTaxPrice}}" type="number">
+                                                <span *ngIf="statusId !== '246882C8-3172-41CA-81E5-68E91AFE484E'">{{ item2?.preTaxPrice }}</span>
+                                            </td>
+                                            <td class="cart-table__column cart-table__column--price text-center" data-title="Price">{{ getPriceAfterTax(item2) }}</td>
+                                            <td class="cart-table__column cart-table__column--quantity text-center" data-title="Quantity">
+                                                {{item2?.quantity}}
+                                            </td>
+                                            <td class="cart-table__column cart-table__column--total text-center" data-title="Total">{{ getLinetotal(item2) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right font-weight-boldest no-border" colspan="5">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</td>
+                                            <td class="text-center">{{(getTotalDueAmmount(item) + ' ' + item?.currencyName) || '----'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <p *ngIf="item?.noteToSeller">{{'INPUT.BUYER_NOTES' | translate}}: {{item?.noteToSeller}}</p>
+                                    <p *ngIf="item?.noteToBuyer">{{'INPUT.SELLER_NOTES' | translate}}: {{item?.noteToBuyer}}</p>
+                                </div>
+                                <div class="row" *ngIf="statusId === '246882C8-3172-41CA-81E5-68E91AFE484E'">
+                                    <mat-form-field class="col-md-6">
+                                        <input dir="ltr" readonly matInput [ngxMatDatetimePicker]="picker" placeholder="{{'INPUT.CHOOSE_EXPIRY_DATE_AND_TIME' | translate}}"
+                                          [min]="minDate" [disabled]="'false'"  id="expiry{{i}}" required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <ngx-mat-datetime-picker #picker 
+                                          [enableMeridian]="'true'" >
+                                          <ng-template>
+                                            <span>{{'INPUT.SELECT' | translate}}</span>
+                                          </ng-template>
+                                        </ngx-mat-datetime-picker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="text-center" *ngIf="statusId === '246882C8-3172-41CA-81E5-68E91AFE484E'">
+                                    <textarea class="form-control mb-3" id="note-to-buyer{{i}}" rows="4" placeholder="{{'INPUT.WRITE_NOTE_TO_BUYER' | translate}}"></textarea>
+                                </div>
+                                <div class="text-center" *ngIf="statusId === '246882C8-3172-41CA-81E5-68E91AFE484E'">
+                                    <button [disabled]="checkDisabled(i)" type="button" class="btn btn-primary mx-1" (click)="acceptRfq(item,i)">
+                                        {{'INPUT.ACCEPT_REQUEST' | translate}}
+                                    </button>
+                                    <button type="button" class="btn btn-danger mx-1" (click)="deleteRfq(item.id)">
+                                        {{'INPUT.REJECT_REQUEST' | translate}}
+                                    </button>
+                                </div>
+                                <div class="text-center" *ngIf="statusId === '9A62E8AD-E482-4029-9641-6A169C6DE598'">
+                                    <a routerLink="/orders/all/{{item?.orderNumber}}" class="btn btn-primary mx-1">
+                                        {{'INPUT.VIEW_ORDER' | translate}}
+                                    </a>
+                                </div>
+                                <p class="h4 c-red fort-weight-bold" id="expiry-remaining{{i}}" *ngIf="statusId === '57CD94B0-BD05-4A99-82E3-BCCA10E1D638'">
+                                    {{timeDifference(item?.rfqExpiryDate)}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </ng-container>
+    </mat-accordion>
+</div>
+
+<ng-template #deleteModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{'INPUT.REJECT_REQUEST' | translate}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            {{'TITLE.ARE_YOU_SURE_REJECT_RFQ' | translate}}
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{'INPUT.CLOSE' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="rejectRequest()">{{'INPUT.REJECT_REQUEST' | translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #acceptModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{'INPUT.ACCEPT_REQUEST' | translate}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+            {{'TITLE.ARE_YOU_SURE_ACCEPT_RFQ' | translate}}
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{'INPUT.CLOSE' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="acceptRequest()">{{'INPUT.ACCEPT_REQUEST' | translate}}</button>
+    </div>
+</ng-template>

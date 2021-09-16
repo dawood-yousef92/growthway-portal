@@ -5,7 +5,7 @@ import { AuthService } from '../_services/auth.service';
 import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmPasswordValidator } from '../registration/confirm-password.validator';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { LocalStorage as ls } from "src/app/utils/localstorage";
 
@@ -28,6 +28,8 @@ export class ForgotPasswordComponent implements OnInit {
   isLoading$: Observable<boolean>;
   step:Number = 1;
   resetCode:string;
+  userId:string;
+  successMessage:string;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
@@ -36,12 +38,21 @@ export class ForgotPasswordComponent implements OnInit {
     private authService: AuthService,
     private toaster: ToastrService,
     private router: Router,
+    private route: ActivatedRoute,
     private loderService: LoaderService
   ) {
-    // this.isLoading$ = this.authService.isLoading$;
     if (ls.getValue("token")) {
       this.router.navigate(['/']);
     }
+
+    this.route.queryParams.subscribe((data) => {
+      if(data.code && data.userId) {
+        this.initResetForm();
+        this.resetCode = data.code;
+        this.userId = data.userId;
+        this.step = 2;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -101,14 +112,8 @@ export class ForgotPasswordComponent implements OnInit {
     this.loderService.setIsLoading = true;
     this.authService.forgetPassword(this.f.email.value).subscribe((data) => {
         this.loderService.setIsLoading = false;
-        if(data.result.code) {
-          this.initResetForm();
-          this.step = 2;
-          this.resetCode = data.result.code;
-        }
-        else {
-          this.toaster.error('Invalid Email');
-        }
+        this.successMessage = data.result.successMessage;
+        this.step = 3;
       },
       (error) => {
         this.loderService.setIsLoading = false;
@@ -118,8 +123,14 @@ export class ForgotPasswordComponent implements OnInit {
 
   reset() {
     this.loderService.setIsLoading = true;
+    let data = {
+      "userId": this.userId,
+      "password": this.r.password.value,
+      "confirmPassword": this.r.cPassword.value,
+      "code": this.resetCode
+    }
     const resetPasswordSubscr = this.authService
-    .resetPassword(this.f.email.value,this.r.password.value,this.r.cPassword.value,this.resetCode)
+    .resetPassword(data)
     .pipe(first())
     .subscribe((data) => {
       this.loderService.setIsLoading = false;

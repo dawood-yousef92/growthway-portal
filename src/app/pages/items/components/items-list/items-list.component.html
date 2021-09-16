@@ -9,7 +9,9 @@
         </div>
     </div>
     <div class="card-body">
-        <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+        <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"
+    (actionsEvent)="actionsEvent($event)" (changeGroupEvent)="changeGroupEvent($event)" (changePagingEvent)="changePagingEvent($event)" (filterEvent)="filterEvent($event)" (sortEvent)="sortEvent($event)"></app-dynamic-table>
+        <!-- <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table> -->
     </div>
 </div>
 
