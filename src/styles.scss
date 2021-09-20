@@ -452,6 +452,10 @@ mat-table.mat-table {
 .cyrcle {
   border-radius: 50%;
 }
+.phone-number,
+.cdk-column-phoneNumber {
+  direction: ltr;
+}
 /** upload documents **/
 .drag-area {
   height: 170px;

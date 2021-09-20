@@ -6,6 +6,10 @@
                     <h3 *ngIf="!productId" class="card-label">{{ "MENU.ADD_ITEM" | translate }}</h3>
                     <h3 *ngIf="productId" class="card-label">{{ "TITLE.EDIT_ITEM" | translate }}</h3>
                 </div>
+                <div *ngIf="productId">
+                    <a *ngIf="previous" routerLink="/items/edit-item/{{previous}}" class="btn btn-primary mx-1">{{'INPUT.PREVIOUS' | translate}}</a>
+                    <a *ngIf="next" routerLink="/items/edit-item/{{next}}" class="btn btn-primary mx-1">{{'INPUT.NEXT' | translate}}</a>
+                </div>
             </div>
         </div>
     </div>

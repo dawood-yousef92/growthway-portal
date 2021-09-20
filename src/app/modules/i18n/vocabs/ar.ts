@@ -34,7 +34,7 @@ export const locale = {
       EDIT_BRANCH: 'تعديل الفرع',
       BRANCHES_LIST: 'الفروع',
       USER_INFO: 'معلومات المستخدم',
-      RFQS: 'طلبات عروض الاسعار',
+      RFQS: 'عروض الاسعار',
     },
     AUTH: {
       GENERAL: {
@@ -364,7 +364,7 @@ export const locale = {
       ACCEPTED_ORDERS: 'الطلبات المقبولة',
       SENT_ORDERS: 'الطلبات المرسلة',
       REJECTED_ORDERS: 'الطلبات المرفوضة و الملغاة',
-      DELIVERED_ORDERS: 'الطلبات المستلمة',
+      DELIVERED_ORDERS: 'العروض المستلمة',
       DELIVERED_ORDER: 'تسليم الطلب',
       ALL_ORDERS: 'جميع الطلبات',
       ACCEPT_ORDER: 'قبول الطلب',
@@ -405,7 +405,7 @@ export const locale = {
       ADDRESS_LINE_1: 'تفاصيل العنوان 1',
       ADDRESS_LINE_2: 'تفاصيل العنوان 2',
       BRANCH: 'الفرع',
-      AWAIT_SELLER_APPROVAL: 'الطلبات المستقبلة',
+      AWAIT_SELLER_APPROVAL: 'العروض المستقبلة',
       PENDING_BUYER_APPROVAL: 'انتظار موافقة العميل',
       APPROVAL_BY_SELLER: 'موافق عليه من المورد',
       APPROVAL_BY_BUYER: 'وافق عليه العميل',
