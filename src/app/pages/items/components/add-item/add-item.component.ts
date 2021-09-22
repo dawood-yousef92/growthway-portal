@@ -25,6 +25,7 @@ export class AddItemComponent implements OnInit {
   errorImg:boolean = false;
   tags:any[] = [];
   unitOfMeasurements:any[];
+  volumeMeasurements:any[];
   packagingTypes:any[];
   shelfLifeTypes:any[];
   productId:string;
@@ -110,11 +111,17 @@ export class AddItemComponent implements OnInit {
           Validators.required,
         ]),
       ],
+      volumeMeasurementId: [
+        this.product?.volumeMeasurementId || '',
+      ],
       packagingTypeId: [
         this.product?.packagingTypeId || ''
       ],
       capacity: [
         this.product?.capacity || null
+      ],
+      volumeCapacity: [
+        this.product?.volumeCapacity || null,
       ],
       categoryId: [
         this.product?.categoryId || ''
@@ -305,6 +312,14 @@ export class AddItemComponent implements OnInit {
     }
   }
 
+  checkIfEnterTag(e) {
+    if(e.keyCode == 13) {
+      e.preventDefault();
+      this.addTag();
+      return;
+    }
+  }
+
   addTag() {
     let tagInput = (document.getElementById('tagInput') as HTMLInputElement);
     if(tagInput.value) {
@@ -320,6 +335,7 @@ export class AddItemComponent implements OnInit {
   getUnitOfMeasurements() {
     this.generalService.getUnitOfMeasurements().subscribe((data) => {
       this.unitOfMeasurements = data.result.unitOfMeasurements;
+      this.volumeMeasurements = data.result.volumeMeasurements;
     });
   }
 
@@ -436,13 +452,27 @@ export class AddItemComponent implements OnInit {
     formData.append('shelfLifeType',this.itemForm.controls.shelfLifeType.value);
     formData.append('unitOfMeasurementId',this.itemForm.controls.unitOfMeasurementId.value);
     formData.append('packagingTypeId',this.itemForm.controls.packagingTypeId.value);
-    formData.append('capacity',this.itemForm.controls.capacity.value);
     formData.append('isActive',this.itemForm.controls.isActive.value);
-    formData.append('hiddenPrice',this.itemForm.controls.hiddenPrice.value);
     formData.append('categoryId',this.itemForm.controls.categoryId.value);
     formData.append('minimumOrderQuantity',this.itemForm.controls.minimumOrderQuantity.value);
     formData.append('isCountryBasedTax','true');
     formData.append('tags',this.tags?.join(','));
+    if(!this.checkUnitHasCapacity()) {      
+      formData.append('volumeMeasurementId',null);
+      formData.append('capacity',null);
+      formData.append('volumeCapacity',null);
+    }
+    else {
+      formData.append('volumeMeasurementId',this.itemForm.controls.volumeMeasurementId.value);
+      formData.append('capacity',this.itemForm.controls.capacity.value);
+      formData.append('volumeCapacity',this.itemForm.controls.volumeCapacity.value);
+    }
+    if(!this.itemForm.controls.preTaxOfferPrice.value) {
+      formData.append('hiddenPrice',this.itemForm.controls.hiddenPrice.value);
+    }
+    else {
+      formData.append('hiddenPrice','false');
+    }
     for(let i =0; i < this.documents.length; i++){
       formData.append("productDocuments", this.documents[i] as File, this.documents[i]['name']);
     }

@@ -15,6 +15,14 @@ export class RfqService {
         return this.http.post<any>('Rfq/GetRfqs', data);
     }  
 
+    getRfq(data): Observable<any> {
+        return this.http.post<any>('Rfq/GetRfq', data);
+    }
+
+    seen(data): Observable<any> {
+        return this.http.post<any>('Rfq/Seen', data);
+    }  
+
     updateRfqOrder(data): Observable<any> {
         return this.http.post<any>('Rfq/UpdateRfqOrder', data);
     }

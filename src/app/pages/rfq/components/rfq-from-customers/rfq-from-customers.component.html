@@ -7,9 +7,9 @@
 <div class="container cart block py-4" *ngIf="rfqItems?.length">
     <mat-accordion>
         <ng-container *ngFor="let item of rfqItems; let i = index">
-            <mat-expansion-panel class="mb-2 py-2">
-                <mat-expansion-panel-header>
-                    <div class="d-flex align-items-center">
+            <mat-expansion-panel class="mb-2">
+                <mat-expansion-panel-header (click)="seen(item)" class="py-2" [ngClass]="{ 'not-seen': !item?.seen }">
+                    <div class="d-flex align-items-center w-100">
                         <div class="cyrcle border overflow-hidden w-50px h-50px d-flex align-items-center">
                             <img class="w-100 h-100" src="{{ item?.logo }}" alt="{{ item?.customerName }}">
                         </div>
@@ -18,6 +18,7 @@
                             <p class="mb-0 small-text font-weight-bolder">{{ item?.customerName }}</p>
                             <p class="mb-0 small-text font-weight-bolder phone-number">{{ item?.customerPhone }}</p>
                         </div>
+                        <button class="btn btn-success mx-5" (click)="getDataToPrint($event, item?.id)">{{'INPUT.PRINT' | translate}}</button>
                     </div>
                 </mat-expansion-panel-header>
                 <div class="container">
@@ -143,3 +144,101 @@
         <button type="button" class="btn btn-primary" (click)="acceptRequest()">{{'INPUT.ACCEPT_REQUEST' | translate}}</button>
     </div>
 </ng-template>
+
+<div class="d-none">
+    <div id="contentToConvert">
+        <div [ngTemplateOutlet]="orderDetailsView"></div>
+    </div>
+    <ng-template #orderDetailsView>
+        <div class="logo-container">        
+            <div id="company_logo" class="d-flex align-items-center mx-3">
+                <img alt="Logo" class="company-logo h-auto w-50px mx-3" src="{{orderDetails?.logo}}">
+            </div>
+            <h6 class="text-center mb-0">{{orderDetails?.companyName}}</h6>
+            <p class="text-right">{{'TITLE.FILE_TAX_NUMBER' | translate}}: {{orderDetails?.taxFileNumber || '-----'}}</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3" *ngIf="orderDetails?.orderNumber">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TITLE.RFQ_NUMBER' | translate}}</span>: {{orderDetails?.orderNumber || '----'}}</p>
+            </div>
+            <div class="col-md-6 mb-3" *ngIf="orderDetails?.buyerCompanyName">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.BUYER_COMPANY_NAME' | translate}}:</span><img *ngIf="orderDetails?.buyerCompanyLogo" src="{{orderDetails?.buyerCompanyLogo}}" class="buyer-logo" alt="">{{orderDetails?.buyerCompanyName || '----'}}</p>
+            </div>
+            <div class="col-md-6 mb-3" *ngIf="orderDetails?.name">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_NAME' | translate}}:</span> {{orderDetails?.name || '----'}}</p>
+            </div>
+            <div class="col-md-6 mb-3" *ngIf="orderDetails?.email">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_EMAIL' | translate}}:</span> {{orderDetails?.email || '----'}}</p>
+            </div>
+            <div class="col-md-6 mb-3" *ngIf="orderDetails?.phone">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.CUSTOMER_PHONE_NUMBER' | translate}}:</span> <span class="phone-number">{{orderDetails?.phone || '----'}}</span></p>
+            </div>
+            <div class="col-md-6 mb-3" *ngIf="orderDetails?.createdOn">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TABLE.CREATEDON' | translate}}:</span> {{getDateFormat(orderDetails?.createdOn)}} {{getDateTimeFormat(orderDetails?.createdOn)}}</p>
+            </div>
+            <div class="col-md-6 mb-3" *ngIf="orderDetails?.expectedDeliveryDate">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.ESTIMATED_DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.expectedDeliveryDate)}}</p>
+            </div>
+            <div class="col-md-6 mb-3" *ngIf="orderDetails?.deliveryDate">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'INPUT.DELIVERY_DATE' | translate}}:</span> {{getDateFormat(orderDetails?.deliveryDate)}}</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <p class="mb-0" *ngIf="orderDetails?.noteToSeller"><span class="font-weight-boldest mr-3">{{'INPUT.BUYER_NOTES' | translate}}:</span> {{orderDetails?.noteToSeller || '----'}}</p>
+                <p class="mb-0" *ngIf="orderDetails?.noteToBuyer"><span class="font-weight-boldest mr-3">{{'INPUT.SELLER_NOTES' | translate}}:</span> {{orderDetails?.noteToBuyer || '----'}}</p>
+            </div>
+            <div class="col-md-6 mb-3" *ngIf="orderDetails?.branchName">
+                <p class="mb-0"><span class="font-weight-boldest mr-3">{{'TITLE.BRANCH' | translate}}:</span> {{orderDetails?.branchName || '----'}}</p>
+            </div>
+            <div class="col-md-12 mb-3" *ngIf="orderDetails?.shippingAddress?.cityName">
+                <p class="font-weight-boldest mb-1">{{'INPUT.CUSTOMER_SHIPPING_ADDRESS' | translate}}:</p>
+                <div class="border mb-3 px-4 pt-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-2"><span class="font-weight-boldest mb-3">{{'INPUT.NAME' | translate}}:</span> {{orderDetails?.shippingAddress?.firstName}} {{orderDetails?.shippingAddress?.lastName}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-2"><span class="font-weight-boldest mb-3">{{'INPUT.PHONE_NUMBER' | translate}}:</span> {{orderDetails?.shippingAddress?.phoneNumber || '----'}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-2"><span class="font-weight-boldest mb-3">{{'INPUT.ADDRESS_LINE_1' | translate}}:</span> {{orderDetails?.shippingAddress?.addressLine1 || '----'}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-2"><span class="font-weight-boldest mb-3">{{'INPUT.ADDRESS_LINE_2' | translate}}:</span> {{orderDetails?.shippingAddress?.addressLine2 || '----'}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-0"><span class="font-weight-boldest mb-3">{{'INPUT.CITY' | translate}}:</span> {{orderDetails?.shippingAddress?.cityName || '----'}}</p>
+                        </div>
+                    </div>
+                    <br>
+                </div>        </div>
+            <div class="col-12 mb-0">
+                <p class="font-weight-boldest mt-3 mb-0">{{'INPUT.ITEMS_LIST' | translate}}</p>
+                <table class="table table-bordered print-friendly">
+                    <tbody>
+                        <tr>
+                            <td class="text-left font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}</td>
+                            <td class="text-center font-weight-boldest">{{'INPUT.QUANTITY' | translate}}</td>
+                            <td class="text-center font-weight-boldest">{{'INPUT.UNIT_PRICE' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
+                            <td class="text-center font-weight-boldest">{{'TABLE.TAX' | translate}}</td>
+                            <td class="text-center font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
+                        </tr>
+                        <tr  *ngFor="let item of orderDetails?.orderDetailItems">
+                            <td class="text-left">{{item?.productName || '----'}}, {{item?.productDescription}}</td>
+                            <td class="text-center">{{item?.quantity}}</td>
+                            <td class="text-center">{{(item?.preTaxPrice - item?.unitPriceDiscount).toFixed(2) || '----'}}</td>
+                            <td class="text-center">{{(((item?.preTaxPrice - item?.unitPriceDiscount) * (item?.tax/100)) * item?.quantity)?.toFixed(2)}} ({{item.tax}}%)</td>
+                            <td class="text-center">{{item?.postTaxPriceLineTotalAfterDiscount || '----'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right font-weight-boldest no-border">{{'INPUT.TOTAL_QUANTITIES' | translate}}</td>
+                            <td class="text-center">{{getTotalQuantity(orderDetails?.orderDetailItems)}}</td>
+                            <td class="text-right font-weight-boldest no-border" colspan="2">{{'INPUT.TOTAL_DUE_AMOUNT' | translate}}</td>
+                            <td class="text-center">{{(orderDetails?.totalDueAmount.toFixed(2) + ' ' + orderDetails?.currencyName) || '----'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>{{'TITLE.TAX_VALUE' | translate}} {{orderDetails?.totalLineTaxAmount}} {{orderDetails?.currencyName}}</p>
+            </div>
+        </div>
+    </ng-template>
+</div>

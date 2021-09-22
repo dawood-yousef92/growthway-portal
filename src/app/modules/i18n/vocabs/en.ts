@@ -92,7 +92,6 @@ export const locale = {
         CONFIRM_PASS: 'New password confirmation is required',
         PASSMIN_LENGTH: ' must be at least 5 charachters',
         ITEM_MAX_LENGTH: "Max length for characters is 60 char",
-
       }
     },
     ECOMMERCE: {
@@ -220,6 +219,7 @@ export const locale = {
       SH_LIFE_TYPES: 'Shelf Life Types ',
       SH_LIFE_DUR: 'Shelf Life Duration',
       UNIT_OF_MEASUR: 'Unit Of Measurements',
+      VOLUME_UNIT_OF_MEASUR: 'Volume Unit Of Measurements',
       MIN_ORDER_QUA: 'Minimum Order Quantity',
       PACK_TYPES: 'Packaging Types',
       TAGS: 'Tags',
@@ -316,6 +316,7 @@ export const locale = {
       PHONE: "Phone",
       MOBILE: "Mobile",
       CAPACITY: "Capacity per",
+      VOLUME_CAPACITY: "Volume Capacity",
       PRICE_AFTER_TAX: "Price after tax",
       OFFER_PRICE_AFTER_TAX: "Offer price after tax",
       BACK: "Back",
@@ -329,7 +330,7 @@ export const locale = {
       SELECT: "Select",
       VIEW_ORDER: "View Order",
       NEXT: "Next",
-      PREVIOUS: "Previous"
+      PREVIOUS: "Previous",
     },
     TITLE: {
       CROP_ITEM_IMG: 'Crop Item Image',
@@ -408,18 +409,20 @@ export const locale = {
       AWAIT_SELLER_APPROVAL: 'Await Seller Offer',
       PENDING_BUYER_APPROVAL: 'Pending Client Approval',
       APPROVAL_BY_SELLER: 'Approved By Seller',
-      APPROVAL_BY_BUYER: 'Approved By Client',
+      APPROVAL_BY_BUYER: 'Ordered By Client',
       REJECTED_BY_BUYER: 'Rejected By Client',
       REJECTED_BY_SELLER: 'Rejected By Seller',
       NO_ITEMS_FOUND: 'No items found',
       ARE_YOU_SURE_REJECT_RFQ: "Are you sure want to reject this request for quotation?",
       ARE_YOU_SURE_ACCEPT_RFQ: "Are you sure want to accept this request for quotation?",
+      RFQ_NUMBER: "RFQ Number",
     },
     VALIDATION: {
       ALLOW_LOCATION_PERMESSION: 'You must allow browser to get your current location',
       EXPECTED_DELIVERY_DATE: 'Expected delivery date must be today or in futre',
       ALLOWED_DOCUMENTS: 'Allowed size for every file is 2M | Allowed formats are .doc, .docs, .pdf, .txt, .docx, .jpg, .jpeg, .png',
       IMG_VAL_FIELD: 'Allowed size is 2M | Allowed formats are .jpg, .jpeg, .png',
+      HIDDEN_PRICE: 'Note: You can\'t hide price for this product because you fill offer price',
     },
     LOOKUPS: {
       MINUTES: 'Minutes',

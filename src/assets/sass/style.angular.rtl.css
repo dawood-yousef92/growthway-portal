@@ -54,3 +54,13 @@
 .mat-expanded .mat-expansion-indicator {
   transform: rotate(-45deg)!important;
 }
+.not-seen::before {
+  right: 10px;
+  left: auto;
+}
+.mat-expansion-panel-header {
+  height: 58px;
+}
+.btn.disabled, .btn:disabled {
+  cursor: not-allowed;
+}

@@ -31,8 +31,9 @@ export class RfqFromCustomersComponent implements OnInit {
   selectedIndex: number;
   selectedLine: any;
   endReq:boolean = false;
+  orderDetails:any = null;
 
-  constructor(private loderService: LoaderService,
+  constructor(private loaderService: LoaderService,
 		private modalService: NgbModal,
 		private toaster: ToastrService,
     private rfqService:RfqService,
@@ -62,10 +63,10 @@ export class RfqFromCustomersComponent implements OnInit {
     this.rfqService.getRfqs(data).subscribe((data) => {
       this.rfqItems = data.result.rfqItems.items;
       // setTimeout(() => {this.timeDifference();}, 1000);
-      this.loderService.setIsLoading = false;
+      this.loaderService.setIsLoading = false;
       this.endReq = true;
     }, () => {
-      this.loderService.setIsLoading = false;
+      this.loaderService.setIsLoading = false;
       this.endReq = true;
     });
   }
@@ -144,31 +145,31 @@ export class RfqFromCustomersComponent implements OnInit {
       noteToBuyer: noteToBuyer
     }
 
-    this.loderService.setIsLoading = true;
+    this.loaderService.setIsLoading = true;
     this.rfqService.updateRfqOrder(data).subscribe((data) => {
-      this.loderService.setIsLoading = false;
+      this.loaderService.setIsLoading = false;
       this.toaster.success(data.result);
       this.getRfqs();
       this.modalService.dismissAll();
     }, (error) => {
-      this.loderService.setIsLoading = false;
+      this.loaderService.setIsLoading = false;
       this.modalService.dismissAll();
     });
   }
 
   rejectRequest() {
-    this.loderService.setIsLoading = true;
+    this.loaderService.setIsLoading = true;
     let data = {
       id: this.selectedItem,
       statusId: '180924D3-9F8C-4AE3-8DF7-1F7A9FDBA070'
     }
     this.rfqService.updateRfq(data).subscribe((data) => {
-      this.loderService.setIsLoading = false;
+      this.loaderService.setIsLoading = false;
       this.toaster.success(data.result);
       this.getRfqs();
       this.modalService.dismissAll();
     }, (error) => {
-      this.loderService.setIsLoading = false;
+      this.loaderService.setIsLoading = false;
       this.modalService.dismissAll();
     });
   }
@@ -192,4 +193,190 @@ export class RfqFromCustomersComponent implements OnInit {
 		this.getRfqs();
 	}
 
+  getDataToPrint(e, id) {
+    e.stopPropagation();
+    this.loaderService.setIsLoading = true;
+    this.orderDetails = null;
+    this.rfqService.getRfq({id:id}).subscribe((data) => {
+      this.orderDetails = data.result.orderItemForEdit;
+      this.loaderService.setIsLoading = false;
+      setTimeout(() => {
+        this.print();
+      }, 500);
+    }, (error) => {
+      this.loaderService.setIsLoading = false;
+    });
+  }
+
+  print(): void {
+    if(!this.orderDetails) {
+      return;
+    }
+		let printContents, popupWin;
+		let rtl = '';
+		if(document.getElementById('rtl-file')) {
+			rtl = 'body {direction: rtl;}.logo-container h6 {text-align: left;} .text-left{text-align: right;}.text-right{text-align: left;}';
+		}
+		else {
+			rtl = '.logo-container h6 {text-align: right;} .text-left{text-align: left;}.text-right{text-align: right;}';
+		}
+		printContents = document.getElementById('contentToConvert').innerHTML;
+		popupWin = window.open('', '_blank', 'top=0,left=0,height=900px,width=900px');
+		popupWin.document.open();
+		popupWin.document.write(`
+		  <html>
+			<head>
+			  <title></title>
+			  <style>
+			  /*** print **/
+				@media print {
+					${rtl}
+					table.print-friendly tr td, table.print-friendly tr th, table.print-friendly tr, table.print-friendly {
+						page-break-inside: avoid;
+					}
+					.row {
+						display: flex;
+						flex-wrap: wrap;
+					}
+					.col-md-6 {
+						flex: 0 0 50%;
+						padding: 0 10px;
+						margin-bottom: 1px;
+						box-sizing: border-box;
+					}
+					.col-md-3 {
+						flex: 0 0 25%;
+						padding: 0 10px;
+						margin-bottom: 3px;
+						box-sizing: border-box;
+					}
+					.col-md-11 {
+						flex: 0 0 100%;
+						padding: 0 10px;
+						margin-bottom: 3px;
+						box-sizing: border-box;
+					}
+					.col-md-6 p, .col-12 p, .col-md-3 p, .col-md-11 p {
+						margin-bottom: 0px;
+					}
+					.col-12 {
+						flex: 0 0 100%;
+						margin-bottom: 0px;
+					}
+					.font-weight-boldest {
+						font-weight: 700;
+					}
+					.company-logo {
+						height: 60px;
+						display: block;
+						margin-bottom: 5px;
+					}
+					.logo-container {
+						display: flex;
+						align-items: center;
+					}
+					.logo-container h6 {
+						font-size: 25px;
+						font-weight: 700;
+						margin: 0 10px;
+						flex: 1 1 auto !important;
+					}
+					.logo-container p {
+						margin: 0 10px;
+						flex: 1 1 auto !important;
+					}
+					.table {
+						width: 100%;
+						margin-bottom: 1rem;
+						color: #3F4254;
+						background-color: transparent;
+					}
+					th, td, tr {
+						border: 1px solid #444;
+						padding: 3px;
+						text-align: center;
+					}
+					.d-none {
+						display: none;
+					}
+					.no-border {
+						border: 0;
+					}
+					input.w-70px {
+						display: none;
+					}
+					input.w-70px + span.d-none {
+						display: block;
+					}
+					.buyer-logo {
+						height: 35px;
+						margin: 0 10px;
+						vertical-align: middle;
+					}
+					.border {
+						border: 1px solid #444;
+					}
+          .company_logo {
+            display: flex;
+            align-items: center;
+          }
+				}
+        .phone-number {
+          direction: ltr;
+          display: inline-block;
+        }
+				/*** end print **/
+			  </style>
+			</head>
+			<body onload="window.print();window.close()">
+			<h5 style="margin-bottom:0!important; text-align:center; line-height: 5px;">${this.translateService.instant('TITLE.RFQ_NUMBER')} ${this.orderDetails?.orderNumber}<h5>
+			${printContents}
+			</body>
+		  </html>`
+		);
+		popupWin.document.close();
+	}
+
+  getTax() {
+		return this.orderDetails?.orderDetailItems.map((item) => {
+			return (((item?.preTaxPrice - item?.unitPriceDiscount) * (item?.tax/100)) * item.quantity)?.toFixed(2);
+		}).reduce((a, b) => Number(a) + Number(b), 0)?.toFixed(2);
+	}
+
+  getTotalQuantity(items) {
+		return items?.map((item) => {
+			return item.quantity
+		}).reduce((a, b) => a + b, 0);
+	}
+
+  getDateFormat(date) {
+		if(!date)
+		   return '----';
+
+		var d = new Date(date),
+			month = '' + (d.getMonth() + 1),
+			day = '' + (d.getDate()),
+			year = d.getFullYear();
+			
+		if (month.length < 2) 
+			month = '0' + month;
+		if (day.length < 2) 
+			day = '0' + day;
+	
+		return [ day, month, year,].join('/');
+	}
+
+  getDateTimeFormat(date) {
+		if(!date)
+		   return '----';
+		return new Date(date).toLocaleTimeString();
+	}
+
+  seen(item) {
+    if(item.seen) {
+      return;
+    }
+    item.seen = true;
+    this.rfqService.seen({id:item.id}).subscribe((data) => {});
+  }
 }

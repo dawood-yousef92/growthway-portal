@@ -530,3 +530,19 @@ mat-table.mat-table {
 .box-shadow {
   box-shadow: 0px 1px 3px #00000055;
 }
+.not-seen::before {
+  content: '';
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background: red;
+  top: 10px;
+  left: 10px;
+  border-radius: 50%;
+}
+.not-seen {
+  background: rgb(225, 253, 225);
+}
+.btn.disabled, .btn:disabled {
+  cursor: not-allowed;
+}

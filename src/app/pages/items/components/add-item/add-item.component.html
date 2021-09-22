@@ -195,9 +195,9 @@
                         </div>
                     </div>
                 </div>
-                <div [ngClass]="{'col-md-9': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
+                <div class="col-md-6">
                     <div class="row">
-                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
+                        <div [ngClass]="{'col-md-6': checkUnitHasCapacity(), 'col-md-12': !checkUnitHasCapacity()}">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
                                     <mat-select class="py-1" placeholder="{{'INPUT.UNIT_OF_MEASUR' | translate }}" formControlName="unitOfMeasurementId" required>
@@ -209,32 +209,59 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}" *ngIf="checkUnitHasCapacity()">
+                        <div class="col-md-6" *ngIf="checkUnitHasCapacity()">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
-                                    <input autocomplete="off" class="py-1" type="number" matInput placeholder="{{'INPUT.CAPACITY' | translate }}{{' '+getUnitOfMesurementName()}}" formControlName="capacity" required/>
+                                    <input autocomplete="off" class="py-1" type="number" matInput placeholder="{{'INPUT.CAPACITY' | translate }}{{' '+getUnitOfMesurementName()}}" formControlName="capacity"/>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div [ngClass]="{'col-md-4': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
+                    </div>
+                </div>
+                <div class="col-md-6" *ngIf="checkUnitHasCapacity()">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <input autocomplete="off" class="py-1" type="number" matInput placeholder="{{'INPUT.VOLUME_CAPACITY' | translate }}" formControlName="volumeCapacity"/>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <mat-select class="py-1" placeholder="{{'INPUT.VOLUME_UNIT_OF_MEASUR' | translate }}" formControlName="volumeMeasurementId">
+                                        <mat-option [value]="null">{{'INPUT.VOLUME_UNIT_OF_MEASUR' | translate }}</mat-option>
+                                        <mat-option *ngFor="let item of volumeMeasurements" [value]="item.id">
+                                            {{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6">
                             <div class="mb-4">
                                 <mat-form-field class="w-100">
                                     <input class="py-1" type="number" matInput placeholder="{{'INPUT.MIN_ORDER_QUA' | translate }}" formControlName="minimumOrderQuantity" />
                                 </mat-form-field>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div [ngClass]="{'col-md-3': checkUnitHasCapacity(), 'col-md-6': !checkUnitHasCapacity()}">
-                    <div class="mb-4">
-                        <mat-form-field class="w-100">
-                            <mat-select class="py-1" placeholder="{{'INPUT.PACK_TYPES' | translate }}" formControlName="packagingTypeId">
-                                <mat-option [value]="null">{{'INPUT.PACK_TYPES' | translate }}</mat-option>
-                                <mat-option *ngFor="let item of packagingTypes" [value]="item.id">
-                                    {{item.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <mat-form-field class="w-100">
+                                    <mat-select class="py-1" placeholder="{{'INPUT.PACK_TYPES' | translate }}" formControlName="packagingTypeId">
+                                        <mat-option [value]="null">{{'INPUT.PACK_TYPES' | translate }}</mat-option>
+                                        <mat-option *ngFor="let item of packagingTypes" [value]="item.id">
+                                            {{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -260,12 +287,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6"></div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <div class="d-flex align-items-start">
                             <mat-form-field class="w-100">
-                                <input id="tagInput" class="py-1" type="text" matInput placeholder="{{'INPUT.TAGS' | translate }}" />
+                                <input id="tagInput" class="py-1" type="text" (keydown)="checkIfEnterTag($event)" matInput placeholder="{{'INPUT.TAGS' | translate }}" />
                             </mat-form-field>
                             <button type="button" class="btn btn-primary px-3 py-2" (click)="addTag()">
                                 <h2 class="mb-0">+</h2>
@@ -329,9 +355,14 @@
                         <mat-checkbox formControlName="isActive">{{'INPUT.ISACTIVE' | translate }}</mat-checkbox>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" *ngIf="!itemForm.controls.preTaxOfferPrice.value">
                     <div class="mb-4">
                         <mat-checkbox formControlName="hiddenPrice">{{'INPUT.HiddenPrice' | translate }}</mat-checkbox>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="itemForm.controls.preTaxOfferPrice.value">
+                    <div class="mb-4">
+                        <p class="label label-xl label-light-warning label-inline">{{'VALIDATION.HIDDEN_PRICE' | translate }}</p>
                     </div>
                 </div>
             </div>
