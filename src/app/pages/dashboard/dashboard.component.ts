@@ -59,6 +59,7 @@ export class DashboardComponent implements OnInit {
   dateTo:string = null;
   FilterForm: FormGroup;
   chartData:any;
+  currencyName:string;
 
 
   constructor(private router: Router, private fb: FormBuilder,private layout: LayoutService,private loderService: LoaderService,private dashboardService:DashboardService) {
@@ -228,6 +229,7 @@ export class DashboardComponent implements OnInit {
     this.loderService.setIsLoading = true;
     this.dashboardService.getTopItems({"targetMonth": this.targetTopItemsMonth,}).subscribe((data) => {
       this.topItems = data.result.items;
+      this.currencyName = data.result.currency;
       this.loderService.setIsLoading = false;
     }, (error) => {
       this.loderService.setIsLoading = false;

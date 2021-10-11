@@ -6,7 +6,7 @@ import { GeneralService } from 'src/app/pages/general.service';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ServicesService } from '../../services.service';
+import { ItemsService } from 'src/app/pages/items/items.service';
 
 @Component({
   selector: 'app-add-service',
@@ -25,6 +25,7 @@ export class AddServiceComponent implements OnInit {
   errorImg:boolean = false;
   tags:any[] = [];
   unitOfMeasurements:any[];
+  volumeMeasurements:any[];
   packagingTypes:any[];
   shelfLifeTypes:any[];
   productId:string;
@@ -37,11 +38,14 @@ export class AddServiceComponent implements OnInit {
   selectedCatName:string;
   closeResult = '';
   sort:string;
+  groupBy:string;
   filter:string;
+  next:string;
+  previous:string;
 
   itemForm: FormGroup;
   constructor(private generalService:GeneralService,
-              private servicesService:ServicesService,
+              private itemsService:ItemsService,
               private route: ActivatedRoute,
               private fb: FormBuilder,private toaster: ToastrService,
               private router: Router,
@@ -61,14 +65,14 @@ export class AddServiceComponent implements OnInit {
         this.product?.nameEn || '',
         Validators.compose([
           Validators.required,
-          Validators.pattern("[a-zA-Z0-9-_& ]+"),
+          Validators.maxLength(60)
         ]),
       ],
       nameAr: [
         this.product?.nameAr || '',
         Validators.compose([
           Validators.required,
-          Validators.pattern("[a-zA-Zأ-ي0-9-_ء ]+"),
+          Validators.maxLength(60)
         ]),
       ],
       descriptionEn: [
@@ -78,7 +82,7 @@ export class AddServiceComponent implements OnInit {
         this.product?.descriptionAr || ''
       ],
       preTaxUnitPrice: [
-        this.product?.preTaxUnitPrice || null,
+        this.product?.preTaxUnitPrice || 0,
         Validators.compose([
           Validators.required,
         ]),
@@ -95,23 +99,38 @@ export class AddServiceComponent implements OnInit {
       defaultImageIndex: [
         this.product?.defaultImageIndex || 0
       ],
-      shelfLifeDuration: [
-        this.product?.shelfLifeDuration || null
-      ],
-      shelfLifeType: [
-        this.product?.shelfLifeType || ''
-      ],
-      unitOfMeasurementId: [
-        this.product?.unitOfMeasurementId || ''
-      ],
-      packagingTypeId: [
-        this.product?.packagingTypeId || ''
-      ],
+      // shelfLifeDuration: [
+      //   this.product?.shelfLifeDuration || null
+      // ],
+      // shelfLifeType: [
+      //   this.product?.shelfLifeType || ''
+      // ],
+      // unitOfMeasurementId: [
+      //   this.product?.unitOfMeasurementId || '',
+      //   Validators.compose([
+      //     Validators.required,
+      //   ]),
+      // ],
+      // volumeMeasurementId: [
+      //   this.product?.volumeMeasurementId || '',
+      // ],
+      // packagingTypeId: [
+      //   this.product?.packagingTypeId || ''
+      // ],
+      // capacity: [
+      //   this.product?.capacity || null
+      // ],
+      // volumeCapacity: [
+      //   this.product?.volumeCapacity || null,
+      // ],
       categoryId: [
         this.product?.categoryId || ''
       ],
       isActive: [
         this.getStatus(this.product?.isActive),
+      ],
+      hiddenPrice: [
+        this.product?.hiddenPrice || true,
       ],
     });
   }
@@ -176,6 +195,7 @@ export class AddServiceComponent implements OnInit {
   ngOnInit(): void {
     this.filter = localStorage.getItem('gridFilter');
     this.sort = localStorage.getItem('sort');
+    this.groupBy = localStorage.getItem('groupBy');
     // this.getCategoriesByBusinessType();
     this.getCountries();
     this.initForm();
@@ -196,11 +216,16 @@ export class AddServiceComponent implements OnInit {
     this.loderService.setIsLoading = true;
     let filterData = {
       id:this.productId,
-      // orderBy: this.sort,
-      // searchText: this.filter
+      sortBy: this.sort?.replace('|',' '),
+      searchText: this.filter,
+      groupBy: this.groupBy,
+      type: 2
     }
-    this.servicesService.getProduct(filterData).subscribe((data) => {
+    this.itemsService.getProduct(filterData).subscribe((data) => {
+      this.next = data.result.next;
+      this.previous = data.result.previous;
       this.product = data.result.productForEdit;
+      this.itemImages = [];
       if(this.product.tags) {
         this.tags = this.product.tags?.split(',');
       }
@@ -288,6 +313,14 @@ export class AddServiceComponent implements OnInit {
     }
   }
 
+  checkIfEnterTag(e) {
+    if(e.keyCode == 13) {
+      e.preventDefault();
+      this.addTag();
+      return;
+    }
+  }
+
   addTag() {
     let tagInput = (document.getElementById('tagInput') as HTMLInputElement);
     if(tagInput.value) {
@@ -303,6 +336,7 @@ export class AddServiceComponent implements OnInit {
   getUnitOfMeasurements() {
     this.generalService.getUnitOfMeasurements().subscribe((data) => {
       this.unitOfMeasurements = data.result.unitOfMeasurements;
+      this.volumeMeasurements = data.result.volumeMeasurements;
     });
   }
 
@@ -319,7 +353,7 @@ export class AddServiceComponent implements OnInit {
   }
 
   getTaxByTenant() {
-    this.servicesService.getTaxByTenant().subscribe((data) => {
+    this.itemsService.getTaxByTenant().subscribe((data) => {
       this.tax = data.result.tax;
     });
   }
@@ -333,7 +367,10 @@ export class AddServiceComponent implements OnInit {
     // }
     // else {
       this.loderService.setIsLoading = true;
-      this.servicesService.getCompanyCategories().subscribe((data) => {
+      let dataFilter = {
+        type: 2
+      }
+      this.itemsService.getCompanyCategories(dataFilter).subscribe((data) => {
         this.categories = data.result.categoryItem;
         // let companyCats = data.result.categoryItem;
         // for(let i = 0; i < this.allCats.length; i++) {
@@ -371,15 +408,43 @@ export class AddServiceComponent implements OnInit {
   }
 
   getCategoriesByBusinessType() {
-    this.servicesService.getCategoriesByBusinessType(3,null).subscribe((data) => {
+    this.itemsService.getCategoriesByBusinessType(3,null).subscribe((data) => {
       this.allCats = data.result.productsCategoryItem.concat(data.result.servicesCategoryItem);
       this.getCompanyCategories();
     })
   }
 
+  getUnitOfMesurementName() {
+    return this.unitOfMeasurements?.find(item => item.id === this.itemForm?.controls?.unitOfMeasurementId?.value)?.name;
+  }
+
+  checkUnitHasCapacity() {
+    return this.unitOfMeasurements?.find(item => item.id === this.itemForm?.controls?.unitOfMeasurementId?.value)?.hasCapacity || false;
+  }
+
+  changeOfferPrice(event) {
+    let targetValue = event.target.value;
+    let newValue = (targetValue / (1 + (this.tax / 100))).toFixed(2);
+    this.itemForm.controls.preTaxOfferPrice.patchValue(Number(newValue));
+  }
+
+  changePrice(event) {
+    let targetValue = event.target.value;
+    let newValue = (targetValue / (1 + (this.tax / 100))).toFixed(2);
+    this.itemForm.controls.preTaxUnitPrice.patchValue(Number(newValue));
+  }
+
+  preventEnterSubmitting(event) {
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  }
+
   submit() {
     // this.loderService.setIsLoading = true;
     var formData: FormData = new FormData();
+    formData.append('type','2');
     formData.append('code',this.itemForm.controls.code.value);
     formData.append('nameEn',this.itemForm.controls.nameEn.value);
     formData.append('nameAr',this.itemForm.controls.nameAr.value);
@@ -388,15 +453,31 @@ export class AddServiceComponent implements OnInit {
     formData.append('preTaxUnitPrice',this.itemForm.controls.preTaxUnitPrice.value);
     formData.append('preTaxOfferPrice',this.itemForm.controls.preTaxOfferPrice.value);
     formData.append('originCountryId',this.itemForm.controls.originCountryId.value);
-    formData.append('shelfLifeDuration',this.itemForm.controls.shelfLifeDuration.value);
-    formData.append('shelfLifeType',this.itemForm.controls.shelfLifeType.value);
-    formData.append('unitOfMeasurementId',this.itemForm.controls.unitOfMeasurementId.value);
-    formData.append('packagingTypeId',this.itemForm.controls.packagingTypeId.value);
+    // formData.append('shelfLifeDuration',this.itemForm.controls.shelfLifeDuration.value);
+    // formData.append('shelfLifeType',this.itemForm.controls.shelfLifeType.value);
+    // formData.append('unitOfMeasurementId',this.itemForm.controls.unitOfMeasurementId.value);
+    // formData.append('packagingTypeId',this.itemForm.controls.packagingTypeId.value);
     formData.append('isActive',this.itemForm.controls.isActive.value);
     formData.append('categoryId',this.itemForm.controls.categoryId.value);
     formData.append('minimumOrderQuantity',this.itemForm.controls.minimumOrderQuantity.value);
     formData.append('isCountryBasedTax','true');
     formData.append('tags',this.tags?.join(','));
+    // if(!this.checkUnitHasCapacity()) {      
+    //   formData.append('volumeMeasurementId',null);
+    //   formData.append('capacity',null);
+    //   formData.append('volumeCapacity',null);
+    // }
+    // else {
+    //   formData.append('volumeMeasurementId',this.itemForm.controls.volumeMeasurementId.value);
+    //   formData.append('capacity',this.itemForm.controls.capacity.value);
+    //   formData.append('volumeCapacity',this.itemForm.controls.volumeCapacity.value);
+    // }
+    if(!this.itemForm.controls.preTaxOfferPrice.value) {
+      formData.append('hiddenPrice',this.itemForm.controls.hiddenPrice.value);
+    }
+    else {
+      formData.append('hiddenPrice','false');
+    }
     for(let i =0; i < this.documents.length; i++){
       formData.append("productDocuments", this.documents[i] as File, this.documents[i]['name']);
     }
@@ -405,7 +486,7 @@ export class AddServiceComponent implements OnInit {
       for(let i = 0; i < this.itemImages.length; i++) {
         formData.append("productImages", this.itemImages[i].file as File, this.itemImages[i].file['name']);
       }
-      this.servicesService.createProduct(formData).subscribe((data) => {
+      this.itemsService.createProduct(formData).subscribe((data) => {
         this.toaster.success(data.result.successMessage);
         this.loderService.setIsLoading = false;
         // this.router.navigate(['/items']);
@@ -448,10 +529,10 @@ export class AddServiceComponent implements OnInit {
       for(let i = 0; i < this.product.documents.length; i++) {
         formData.append("productDecumentsIds", this.product.documents[i].id);
       }
-      this.servicesService.updateProduct(formData).subscribe((data) => {
+      this.itemsService.updateProduct(formData).subscribe((data) => {
         this.toaster.success(data.result);
         this.loderService.setIsLoading = false;
-        this.router.navigate(['/items']);
+        // this.router.navigate(['/items']);
       }, (error) => {
         this.loderService.setIsLoading = false;
       });

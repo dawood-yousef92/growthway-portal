@@ -193,7 +193,7 @@
                         <td *ngIf="eventStatus === 'EDIT'" class="text-center font-weight-boldest">{{'TABLE.DISCOUNT' | translate}}</td>
                         <td *ngIf="eventStatus === 'EDIT'" class="text-center font-weight-boldest">{{'INPUT.UNIT_PRICE_AFTER_DISCOUNT' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
                         <td *ngIf="eventStatus === 'EDIT'" class="text-center font-weight-boldest">{{'TABLE.TOTAL_PRICE' | translate}}</td>
-                        <td class="text-center font-weight-boldest">{{'TABLE.TAX' | translate}}</td>
+                        <td class="text-center font-weight-boldest">{{'TABLE.TAX' | translate}} ({{orderDetails?.orderDetailItems[0]?.tax}})%</td>
                         <td class="text-center font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
                     </tr>
                     <tr  *ngFor="let item of orderDetails?.orderDetailItems">
@@ -205,7 +205,7 @@
                         <td *ngIf="eventStatus === 'EDIT'" class="text-center"><input min="0" (change)="changeUnitPrice($event, item?.productId)" class="text-center w-70px" value="{{item?.unitPriceDiscount}}" type="number"><span class="d-none">{{item?.unitPriceDiscount}}</span></td>
                         <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{(item?.preTaxPrice - item?.unitPriceDiscount).toFixed(2)}}</td>  
                         <td *ngIf="eventStatus === 'EDIT'" class="text-center">{{((item?.preTaxPrice - item?.unitPriceDiscount) * item?.quantity).toFixed(2)}}</td>
-                        <td class="text-center">{{(((item?.preTaxPrice - item?.unitPriceDiscount) * (item?.tax/100)) * item?.quantity)?.toFixed(2)}} ({{item.tax}}%)</td>
+                        <td class="text-center">{{(((item?.preTaxPrice - item?.unitPriceDiscount) * (item?.tax/100)) * item?.quantity)?.toFixed(2)}}</td>
                         <td class="text-center">{{item?.postTaxPriceLineTotalAfterDiscount || '----'}}</td>
                     </tr>
                     <tr>
@@ -217,7 +217,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p *ngIf="eventStatus !== 'EDIT'">{{'TITLE.TAX_VALUE' | translate}} {{orderDetails?.totalLineTaxAmount}} {{orderDetails?.currencyName}}</p>
+            <p *ngIf="eventStatus !== 'EDIT'">{{'TITLE.TAX_VALUE' | translate}} {{orderDetails?.totalLineTaxAmount.toFixed(2)}} {{orderDetails?.currencyName}}</p>
             <p *ngIf="eventStatus === 'EDIT'">{{'TITLE.TAX_VALUE' | translate}}: {{getTax()}} ({{orderDetails?.currencyName}})</p>
         </div>
     </div>

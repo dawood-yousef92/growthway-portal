@@ -27,7 +27,9 @@ export const locale = {
       CLASSIFICATIONS: 'التصنيفات',
       ITEMS: 'بطاقة الصنف',
       ITEMS_LIST: 'قائمة بطاقات الأصناف',
+      SERVICES_LIST: 'قائمة الخدمات',
       ADD_ITEM: 'اضافة بطاقة صنف',
+      ADD_SERVICE: 'اضافة خدمة',
       ORDERS: 'الطلبات',
       BRANCHES: 'الفروع',
       ADD_BRANCH: 'اضافة فرع',
@@ -35,6 +37,7 @@ export const locale = {
       BRANCHES_LIST: 'الفروع',
       USER_INFO: 'معلومات المستخدم',
       RFQS: 'عروض الاسعار',
+      SERVICES: 'الخدمات',
     },
     AUTH: {
       GENERAL: {
@@ -189,6 +192,7 @@ export const locale = {
       QUANTITY: 'الكمية',
       TOTAL: 'الاجمالي',
       UNIT_PRICE_AFTER_TAX: 'سعر المنتج شامل الضريبة',
+      TOTALORDERS: 'عدد الطلبات'
     },
     INPUT: {
       EMAIL: 'البريد الالكتروني',
@@ -373,6 +377,7 @@ export const locale = {
       SEND_ORDER: 'ارسال الطلب',
       EDIT_ORDER: 'تعديل الطلب',
       EDIT_ITEM: 'تعديل بطاقة الصنف',
+      EDIT_SERVICE: 'تعديل الخدمة',
       DASHBOARD_TIP: 'ملاحظة: تستند جميع إحصائيات الطلبات إلى إجمالي عدد الطلبات والفترة المحددة و لا تتأثر الطلبات الجديدة بالفترة المحددة',
       DASHBOARD_CUSTOMERS_TIP: 'ملاحظة: يتم اظهار أهم العملاء بناءً على الطلبات التي تم تسليمها فقط ويمكنك التصفية حسب شهر التسليم',
       DASHBOARD_ITEMS_TIP: 'ملاحظة: يتم اظهار أهم الاصناف بناءً على الطلبات التي تم تسليمها فقط ويمكنك التصفية حسب شهر التسليم',
@@ -384,7 +389,7 @@ export const locale = {
       RESET_ORDER: 'اعادة الطلب للطلبات الجديدة',
       NOTES: 'ملاحظات',
       PREVIOUS_DOCUMENTS: 'الوثائق السابقة',
-      UPLOAD_DOCUMENTS: 'مواصفات المنتج',
+      UPLOAD_DOCUMENTS: 'المرفقات',
       DROP_FILE_HERE: 'قم بسحب الملف هنا',
       CUSTOMER_NAME: 'اسم العميل',
       CUSTOMER_PHONE: 'رقم هاتف العميل',
@@ -422,7 +427,7 @@ export const locale = {
       EXPECTED_DELIVERY_DATE: 'تاريخ التوصيل المتوقع يجب ان لا يكون بالماضي',
       ALLOWED_DOCUMENTS: 'حجم الملف يجب ان يكون اقل من 2 ميجابايت وان يكون امتداده واحد من الاتي .doc, .docs, .pdf, .txt, .docx, .jpg, .jpeg, .png',
       IMG_VAL_FIELD: 'حجم الصورة يجب ان يكون اقل من 2 ميجابايت وان يكون امتداده واحد من الاتي .jpg, .jpeg, .png',
-      HIDDEN_PRICE: 'ملاحظة: لا يمكنك اخفاء السعر لهذا المنتج لانك قمت بادخال سعر العرض',
+      HIDDEN_PRICE: 'ملاحظة: لا يمكنك اخفاء السعر لانك قمت بادخال سعر العرض',
     },
     LOOKUPS: {
       MINUTES: 'دقيقة',

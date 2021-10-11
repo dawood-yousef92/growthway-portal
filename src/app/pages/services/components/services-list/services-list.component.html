@@ -1,15 +1,16 @@
 <div class="card card-custom example-preview">
     <div class="card-header">
         <div class="card-title">
-            <h3 class="card-label">{{ "MENU.ITEMS_LIST" | translate }}</h3>
+            <h3 class="card-label">{{ "MENU.SERVICES_LIST" | translate }}</h3>
         </div>
         <div *ngIf="permissions.includes('Products.CreateProduct')" class="d-flex align-items-center">
-            <a routerLink="add-item" class="btn btn-primary">{{ "MENU.ADD_ITEM" | translate }} <i
+            <a routerLink="add-service" class="btn btn-primary">{{ "MENU.ADD_SERVICE" | translate }} <i
                     class="flaticon2-plus icon-sm ml-2"></i></a>
         </div>
     </div>
     <div class="card-body">
-        <app-offline-table [customActions]="customActions" [displayedColumns]="displayedColumns" [gridData]="gridData" (actionsEvent)="actionsEvent($event)"></app-offline-table>
+        <app-dynamic-table [customActions]="customActions" [displayedColumns]="displayedColumns" [pagingData]="pagingData" [gridData]="gridData"
+        (actionsEvent)="actionsEvent($event)" (changeGroupEvent)="changeGroupEvent($event)" (changePagingEvent)="changePagingEvent($event)" (filterEvent)="filterEvent($event)" (sortEvent)="sortEvent($event)"></app-dynamic-table>
     </div>
 </div>
 

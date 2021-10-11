@@ -27,7 +27,9 @@ export const locale = {
       CLASSIFICATIONS: 'Classifications',
       ITEMS: 'Items',
       ITEMS_LIST: 'Items List',
+      SERVICES_LIST: 'Services List',
       ADD_ITEM: 'Add Item',
+      ADD_SERVICE: 'Add Service',
       ORDERS: 'Orders',
       BRANCHES: 'Branches',
       ADD_BRANCH: 'Add Branch',
@@ -35,6 +37,7 @@ export const locale = {
       BRANCHES_LIST: 'Branches List',
       USER_INFO: ' User information',
       RFQS: 'Requests For Quotation',
+      SERVICES: 'Services',
     },
     AUTH: {
       GENERAL: {
@@ -189,6 +192,7 @@ export const locale = {
       QUANTITY: 'QUANTITY',
       TOTAL: 'TOTAL',
       UNIT_PRICE_AFTER_TAX: 'Unit Price With Tax',
+      TOTALORDERS: 'Total Orders'
     },
     INPUT: {
       EMAIL: 'Email',
@@ -373,6 +377,7 @@ export const locale = {
       SEND_ORDER: 'Send Order',
       EDIT_ORDER: 'Edit Order',
       EDIT_ITEM: 'Edit Item',
+      EDIT_SERVICE: 'Edit Service',
       DASHBOARD_TIP: 'Note: All orders statistics is based on total orders count and the selected period, New orders not affected with the selected period',
       DASHBOARD_CUSTOMERS_TIP: 'Note: Top customers retrieved based on delivered orders only and you can filter by delivery month',
       DASHBOARD_ITEMS_TIP: 'Note: Top items retrieved based on delivered orders only and you can filter by delivery month',
@@ -384,7 +389,7 @@ export const locale = {
       RESET_ORDER: 'Reset Order',
       NOTES: 'Notes',
       PREVIOUS_DOCUMENTS: 'Previous Documents',
-      UPLOAD_DOCUMENTS: 'Item Catalog',
+      UPLOAD_DOCUMENTS: 'Attachments',
       DROP_FILE_HERE: 'Drag and drop files here',
       CUSTOMER_NAME: 'Customer Name',
       CUSTOMER_PHONE: 'Customer Phone Number',
@@ -422,7 +427,7 @@ export const locale = {
       EXPECTED_DELIVERY_DATE: 'Expected delivery date must be today or in futre',
       ALLOWED_DOCUMENTS: 'Allowed size for every file is 2M | Allowed formats are .doc, .docs, .pdf, .txt, .docx, .jpg, .jpeg, .png',
       IMG_VAL_FIELD: 'Allowed size is 2M | Allowed formats are .jpg, .jpeg, .png',
-      HIDDEN_PRICE: 'Note: You can\'t hide price for this product because you fill offer price',
+      HIDDEN_PRICE: 'Note: You can\'t hide price because you fill offer price',
     },
     LOOKUPS: {
       MINUTES: 'Minutes',

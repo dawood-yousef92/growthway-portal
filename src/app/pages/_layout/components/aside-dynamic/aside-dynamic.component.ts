@@ -93,6 +93,17 @@ export class AsideDynamicComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  checkBusinessType(title) {
+    let btype =localStorage.getItem('businessType');
+    if(title === 'Items' && btype !== '1' && btype !== '3') {
+      return false;
+    }
+    if(title === 'Services' && btype !== '2' && btype !== '3') {
+      return false;
+    }
+    return true;
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(sb => sb.unsubscribe());
   }

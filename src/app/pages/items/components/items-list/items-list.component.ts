@@ -19,7 +19,8 @@ export class ItemsListComponent implements OnInit {
     sortBy: "",
     pageNumber: 0,
     rowsPerPage: 20,
-    selectedPageSize: 0
+    selectedPageSize: 0,
+    type: 1
   }
 
   pagingData:any = {length: 100, pageSize: 20, pageIndex: 1};

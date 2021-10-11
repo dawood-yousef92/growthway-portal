@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ItemsService } from 'src/app/pages/items/items.service';
 import { LoaderService } from 'src/app/_metronic/core/services/loader.service';
-import { ServicesService } from '../../services.service';
 
 @Component({
   selector: 'app-services-list',
@@ -15,21 +15,41 @@ export class ServicesListComponent implements OnInit {
   customActions:any[] = [];
   selectedProductId:string;
   dataSettings:any = {
-    selectedRolesIds: [],
     searchText: "",
     sortBy: "",
     pageNumber: 0,
-    rowsPerPage: 5000000,
-    selectedPageSize: 0
+    rowsPerPage: 20,
+    selectedPageSize: 0,
+    type: 2
   }
+
+  pagingData:any = {length: 100, pageSize: 20, pageIndex: 1};
 
   displayedColumns: string[] = ['imagePath', 'name', 'category', 'postTaxUnitPrice', 'postTaxOfferPrice', 'originCountry',];
   actions:any = [];
   gridData:any[] = [];
   @ViewChild('deleteModal', { static: false }) deleteModal: ElementRef;
   
-  constructor(private servicesService:ServicesService, private toaster: ToastrService, private router: Router,
+  constructor(private itemsService:ItemsService, private toaster: ToastrService, private router: Router,
     private loderService: LoaderService, private modalService: NgbModal) { }
+
+  changePagingEvent(event) {
+    this.dataSettings.pageNumber = event.pageIndex + 1;
+    this.dataSettings.rowsPerPage = event.pageSize;
+    this.getProducts();
+  }
+  
+  filterEvent(event) {
+    this.dataSettings.pageNumber = 0;
+    this.dataSettings.sortBy = "";
+    this.dataSettings.searchText = event.filter;
+    this.getProducts();
+  }
+  
+  sortEvent(event) {
+    this.dataSettings.sortBy = event.active + ' ' + event.direction;
+    this.getProducts();
+  }
 
   checkPermissions() {
     if(this.permissions.includes('Products.UpdateProduct')) {
@@ -46,7 +66,7 @@ export class ServicesListComponent implements OnInit {
   actionsEvent(event) {
     this.selectedProductId = event.rowId;
     if(event.type === 'edit') {
-      this.router.navigate([`/items/edit-item/${this.selectedProductId}`]);
+      this.router.navigate([`/services/edit-service/${this.selectedProductId}`]);
     }
     else if(event.type === 'delete') {
       this.openCentred(this.deleteModal);
@@ -59,7 +79,7 @@ export class ServicesListComponent implements OnInit {
 
   confirmDelete() {
     this.modalService.dismissAll();
-    this.servicesService.deleteProduct(this.selectedProductId).subscribe((data) => {
+    this.itemsService.deleteProduct(this.selectedProductId).subscribe((data) => {
       this.toaster.success(data.result);
       this.getProducts();
       this.modalService.dismissAll();
@@ -68,12 +88,12 @@ export class ServicesListComponent implements OnInit {
 
   getProducts() {
     this.loderService.setIsLoading = true;
-    this.servicesService.getProducts(this.dataSettings).subscribe((data) => {
+    this.itemsService.getProducts(this.dataSettings).subscribe((data) => {
       this.gridData = data.result.products.items.map((item) => {
         item.imagePath = `<img src="${item.imagePath || './assets/images/default-img.png'}" class="img-table-col"/>`;
-        item.postTaxUnitPrice = item.postTaxUnitPrice?.toFixed(2)+'  '+item.currency;
+        item.postTaxUnitPrice = item.postTaxUnitPrice?.toFixed(2);
         if(item.postTaxOfferPrice) {
-          item.postTaxOfferPrice =  item.postTaxOfferPrice?.toFixed(2)+'  '+item.currency;
+          item.postTaxOfferPrice =  item.postTaxOfferPrice?.toFixed(2);
         }
         else {
           item.postTaxOfferPrice = '----';
@@ -81,13 +101,28 @@ export class ServicesListComponent implements OnInit {
         return item;
       })
       this.gridData = data.result.products.items;
+      this.pagingData.length = data.result.products.totalRows;
+      this.pagingData.pageSize = data.result.products.totalRowsPerPage;
+      this.pagingData.pageIndex = data.result.products.currentPage - 1;
       this.loderService.setIsLoading = false;
     },(error) => {
       this.loderService.setIsLoading = false;
     });
   }
 
+  changeGroupEvent(e) {
+    if(e) {
+      this.dataSettings.rowsPerPage = -1;
+      this.getProducts();
+    }
+  }
+
   ngOnInit(): void {
+    localStorage.removeItem('groupBy');
+    localStorage.removeItem('gridFilter');
+    localStorage.removeItem('pageSize');
+    localStorage.removeItem('pageIndex');
+    localStorage.removeItem('sort');
     this.checkPermissions();
     this.getProducts();
   }

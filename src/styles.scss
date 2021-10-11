@@ -453,7 +453,7 @@ mat-table.mat-table {
   border-radius: 50%;
 }
 .phone-number,
-.cdk-column-phoneNumber {
+.mat-cell.cdk-column-phoneNumber {
   direction: ltr;
 }
 /** upload documents **/
@@ -545,4 +545,11 @@ mat-table.mat-table {
 }
 .btn.disabled, .btn:disabled {
   cursor: not-allowed;
+}
+.mat-cell, .mat-footer-cell {
+  font-size: 12px;
+}
+.mat-header-cell {
+  font-size: 13px;
+  font-weight: 700;
 }

@@ -218,7 +218,8 @@ export class AddItemComponent implements OnInit {
       id:this.productId,
       sortBy: this.sort?.replace('|',' '),
       searchText: this.filter,
-      groupBy: this.groupBy
+      groupBy: this.groupBy,
+      type: 1
     }
     this.itemsService.getProduct(filterData).subscribe((data) => {
       this.next = data.result.next;
@@ -366,7 +367,10 @@ export class AddItemComponent implements OnInit {
     // }
     // else {
       this.loderService.setIsLoading = true;
-      this.itemsService.getCompanyCategories().subscribe((data) => {
+      let dataFilter = {
+        type: 1
+      }
+      this.itemsService.getCompanyCategories(dataFilter).subscribe((data) => {
         this.categories = data.result.categoryItem;
         // let companyCats = data.result.categoryItem;
         // for(let i = 0; i < this.allCats.length; i++) {
@@ -440,6 +444,7 @@ export class AddItemComponent implements OnInit {
   submit() {
     // this.loderService.setIsLoading = true;
     var formData: FormData = new FormData();
+    formData.append('type','1');
     formData.append('code',this.itemForm.controls.code.value);
     formData.append('nameEn',this.itemForm.controls.nameEn.value);
     formData.append('nameAr',this.itemForm.controls.nameAr.value);

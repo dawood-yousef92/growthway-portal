@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loderService.setIsLoading = true;
     this.authService.getCompanyLogoAndName().subscribe((data) => {
       this.companyData = data.result;
+      localStorage.setItem('businessType', data?.result?.businessType);
       this.loderService.setIsLoading = false;
     }, (error) => {
       this.loderService.setIsLoading = false;

@@ -74,6 +74,7 @@
       class="menu-item"
       aria-haspopup="true"
       routerLinkActive="menu-item-active"
+      *ngIf="checkBusinessType(item.title)"
     >
       <a class="menu-link" [routerLink]="item.page" routerLinkActive="active">
         <span

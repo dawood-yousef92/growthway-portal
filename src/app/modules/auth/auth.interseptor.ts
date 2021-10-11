@@ -34,8 +34,8 @@ export class AuthInterceptor implements HttpInterceptor {
           setHeaders: {
             "Accept-Language": localStorage.getItem('language') || 'en',
             Authorization: 'Bearer ' + token.replace(/\"/g, ""),
-            "X-Tenant": tanent,
-            // "X-Tenant": 'aqt',
+            // "X-Tenant": tanent,
+            "X-Tenant": 'aqt',
           },
         });
       }
@@ -43,8 +43,8 @@ export class AuthInterceptor implements HttpInterceptor {
         request = request.clone({
           setHeaders: {
             "Accept-Language": localStorage.getItem('language') || 'en',
-            "X-Tenant": tanent,
-            // "X-Tenant": 'aqt',
+            // "X-Tenant": tanent,
+            "X-Tenant": 'aqt',
           },
         });
       }

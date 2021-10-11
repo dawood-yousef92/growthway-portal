@@ -219,14 +219,14 @@
                             <td class="text-left font-weight-boldest">{{'INPUT.ITEM_NAME' | translate}}</td>
                             <td class="text-center font-weight-boldest">{{'INPUT.QUANTITY' | translate}}</td>
                             <td class="text-center font-weight-boldest">{{'INPUT.UNIT_PRICE' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
-                            <td class="text-center font-weight-boldest">{{'TABLE.TAX' | translate}}</td>
+                            <td class="text-center font-weight-boldest">{{'TABLE.TAX' | translate}} ({{orderDetails?.orderDetailItems[0]?.tax}})%</td>
                             <td class="text-center font-weight-boldest">{{'INPUT.LINE_TOTAL' | translate}} ({{orderDetails?.currencyName || '----'}})</td>
                         </tr>
                         <tr  *ngFor="let item of orderDetails?.orderDetailItems">
                             <td class="text-left">{{item?.productName || '----'}}, {{item?.productDescription}}</td>
                             <td class="text-center">{{item?.quantity}}</td>
                             <td class="text-center">{{(item?.preTaxPrice - item?.unitPriceDiscount).toFixed(2) || '----'}}</td>
-                            <td class="text-center">{{(((item?.preTaxPrice - item?.unitPriceDiscount) * (item?.tax/100)) * item?.quantity)?.toFixed(2)}} ({{item.tax}}%)</td>
+                            <td class="text-center">{{(((item?.preTaxPrice - item?.unitPriceDiscount) * (item?.tax/100)) * item?.quantity)?.toFixed(2)}}</td>
                             <td class="text-center">{{item?.postTaxPriceLineTotalAfterDiscount || '----'}}</td>
                         </tr>
                         <tr>

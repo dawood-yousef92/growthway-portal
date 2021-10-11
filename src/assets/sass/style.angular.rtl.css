@@ -64,3 +64,9 @@
 .btn.disabled, .btn:disabled {
   cursor: not-allowed;
 }
+.mat-cell, .mat-footer-cell {
+  font-size: 12px;
+}
+.mat-header-cell {
+  font-size: 13px;
+}

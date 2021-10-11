@@ -30,11 +30,11 @@ export class CustomersListComponent implements OnInit {
     searchText: "",
     sortBy: "",
     pageNumber: 0,
-    rowsPerPage: null,
+    rowsPerPage: -1,
     selectedPageSize: 0
   }
 
-  displayedColumns: string[] = ['logo', 'name', 'createdOn', 'email', 'isVerified', 'phoneNumber'];
+  displayedColumns: string[] = ['logo', 'name', 'createdOn', 'email', 'isVerified', 'totalOrders', 'phoneNumber'];
   actions:any = [];
   pagingData:any = {length: 100, pageSize: 10, pageIndex: 1};
   gridData:any[] = [];
@@ -95,14 +95,14 @@ export class CustomersListComponent implements OnInit {
 	}
 
   changeFilterType(e) {
-    let durationType = {};
+    let durationType = { rowsPerPage: -1, 'durationType': null};
     if(e.value) {
       this.FilterForm.get('dateFrom').setValue(null);
       this.FilterForm.get('dateTo').setValue(null);
       this.dateFrom = null;
       this.dateTo = null;
       this.durationType = e.value;
-      durationType = {'durationType': e.value};
+      durationType = { rowsPerPage: -1,'durationType': e.value};
     }
     this.getCustomers(durationType);
   }
@@ -117,6 +117,7 @@ export class CustomersListComponent implements OnInit {
         {
           dateFrom: new Date(Number(start?.split('/')[2]),Number(start?.split('/')[1]) -1,Number(start?.split('/')[0]) + 1),
           dateTo: new Date(Number(end?.split('/')[2]),Number(end?.split('/')[1]) -1,Number(end?.split('/')[0]) + 1),
+          rowsPerPage: -1
         }
       );
     }
@@ -129,7 +130,7 @@ export class CustomersListComponent implements OnInit {
     this.dateTo = null;
     this.dateFrom = null;
     this.durationType = null;
-    this.getCustomers({});
+    this.getCustomers({rowsPerPage: -1});
   }
 
   actionsEvent(event) {
@@ -147,6 +148,7 @@ export class CustomersListComponent implements OnInit {
     this.loderService.setIsLoading = true;
     this.customersService.getCustomers(filterData).subscribe((data) => {
       this.gridData = data.result.item.items.map((item) => {
+        item.totalOrders = Number(item?.totalOrders);
         item.logo = `<img src="${item.logo || './assets/images/default-img.png'}" class="img-table-col border"/>`;
         if(item.isVerified) {
           item.isVerified =  '<span class="label label-lg label-light-success label-inline">' + this.translate.instant('TITLE.VERIFIED') + '</span>';
@@ -195,7 +197,7 @@ export class CustomersListComponent implements OnInit {
           this.durationType = Number(filter);
           this.getCustomers({
             "durationType": this.durationType,
-            totalRowsPerPage: 5000000
+            rowsPerPage: -1,
           });
       }
       else if(filter?.includes('to')) {
@@ -208,18 +210,14 @@ export class CustomersListComponent implements OnInit {
             "dateFrom": new Date(Number(arr[0]?.split('/')[2]),Number(arr[0]?.split('/')[1]) -1,Number(arr[0]?.split('/')[0]) + 1),
             "dateTo": new Date(Number(arr[1]?.split('/')[2]),Number(arr[1]?.split('/')[1]) -1,Number(arr[1]?.split('/')[0]) + 1),
             "sortBy": "",
-            "pageNumber": 0,
-            "rowsPerPage": 0,
-            "selectedPageSize": 0
+            "rowsPerPage": -1,
           });
       }
       else {
         this.getCustomers({ 
           "searchText": "",
           "sortBy": "",
-          "pageNumber": 0,
-          "rowsPerPage": 0,
-          "selectedPageSize": 0
+          "rowsPerPage": -1,
         });
       }
       this.initFilterForm();

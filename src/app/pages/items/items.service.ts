@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 export class ItemsService {
     constructor(private http: HttpClient){}
 
-    getCompanyCategories(): Observable<any> {
-        return this.http.get<any>('Products/GetCompanyCategories');
+    getCompanyCategories(data): Observable<any> {
+        return this.http.post<any>('Products/GetCompanyCategories', data);
     }
 
     getProducts(dataSettings): Observable<any> {

@@ -25,6 +25,7 @@ export class TopbarComponent implements OnInit {
     this.loderService.setIsLoading = true;
     this.auth.getCompanyLogoAndName().subscribe((data) => {
       this.companyData = data.result;
+      localStorage.setItem('businessType', data?.result?.businessType);
       this.loderService.setIsLoading = false;
     }, (error) => {
       this.loderService.setIsLoading = false;

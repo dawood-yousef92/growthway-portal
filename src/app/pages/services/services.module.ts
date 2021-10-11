@@ -51,7 +51,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
                 }
             },
             {
-                path: 'edit-Service/:id',
+                path: 'edit-service/:id',
                 component: AddServiceComponent,
                 canActivate: [RoleGuard], 
                 data: { 
